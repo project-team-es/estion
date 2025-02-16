@@ -14,12 +14,13 @@ class DashboardController extends Controller implements HasMiddleware
     public function home(Request $request): View {
         $user = Auth::user();
         
+        // ログインユーザーに紐づくエントリーシートとブックマークを取得
+        $bookmarks = $user->bookmark()->get();
         // ログインユーザーに紐づく業界のみ取得
         $industries = $user->industries()->get();
-        
-        // ログインユーザーに紐づくエントリーシートとブックマークを取得
-        $entrysheets = $user->entrysheet()->orderBy('deadline')->get();
-        $bookmarks = $user->bookmark()->get();
+        $entrysheets = $user->entrysheet()
+            ->orderByRaw('ISNULL(deadline), deadline ASC')
+            ->get();
     
         // ユーザーに紐づく企業のみを取得する
         $industriesWithCompanies = $industries->mapWithKeys(function ($industry) use ($user) {
@@ -41,10 +42,10 @@ class DashboardController extends Controller implements HasMiddleware
         })->toArray();
     
         return view('dashboard.home', [
+            'bookmarks' => $bookmarks,
             'industriesWithCompanies' => json_encode($industriesWithCompanies), // 直接配列で渡す
             'industries' => $industries,
             'entrysheets' => $entrysheets,
-            'bookmarks' => $bookmarks
         ]);
     }
     
