@@ -54,7 +54,7 @@ class CompanyController extends Controller implements HasMiddleware
     public function store(StoreCompanyRequest $request)
     {
         // 企業を作成
-        Company::create([
+        $company = Company::create([
             'name' => $request->name,
             'homepage' => $request->homepage,
             'mypage' => $request->mypage,
@@ -65,7 +65,7 @@ class CompanyController extends Controller implements HasMiddleware
             'industry_id' => $request->industry_id,
         ]);
 
-        return redirect()->route('company')->with('success', '企業が登録されました！');
+        return redirect()->route('company.show', $company->id)->with('success', '企業が登録されました！');
     }
 
     /**

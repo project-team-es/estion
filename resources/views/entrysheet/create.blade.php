@@ -26,6 +26,22 @@
                     <form method="POST" action="{{ route('entrysheet.store') }}">
                         @csrf
 
+                        <!-- 企業選択 -->
+                        <div class="mb-4">
+                            <label for="company_id" class="block text-gray-700 font-bold mb-2">企業</label>
+                            <select name="company_id" id="company_id" class=" border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500" required>
+                                <option value="">企業を選択してください</option>
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                @endforeach
+                            </select>
+
+                            <!-- 企業作成ボタン -->
+                            <a href="{{ route('company.create') }}" class="ml-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-[12px]">
+                                新しく企業を登録
+                            </a>
+                        </div>
+                        
                         <!-- タイトル選択 -->
                         <div class="mb-4">
                             <label for="title" class="block text-gray-700 font-bold mb-2">タイトル</label>
@@ -57,17 +73,6 @@
                                 <input type="date" name="deadline" id="deadline" 
                                     class="pl-4 pr-4 py-2 w-full rounded-[12px] focus:ring-blue-500 focus:border-blue-500 appearance-none">
                             </div>
-                        </div>
-
-                        <!-- 企業選択 -->
-                        <div class="mb-4">
-                            <label for="company_id" class="block text-gray-700 font-bold mb-2">企業</label>
-                            <select name="company_id" id="company_id" class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500" required>
-                                <option value="">企業を選択してください</option>
-                                @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                @endforeach
-                            </select>
                         </div>
 
                         <!-- 登録ボタン -->
