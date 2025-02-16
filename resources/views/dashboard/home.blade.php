@@ -22,13 +22,13 @@
                 @endif
             </div>
 
-            <!-- 企業一覧モーダル（クリックで表示 & ホバーで切り替え） -->
+            <!-- 企業一覧モーダル -->
             <div id="industry-modal-container" class="fixed top-[13%] left-[20%] p-2 flex items-start hidden opacity-0 transition-opacity duration-300 ease-in-out z-50">
-                <div class="w-[50vw] max-w-[90vw] bg-white border-gray-100 rounded-[12px] p-6 relative">
+                <div class="w-[55vw] max-w-[90vw] bg-white border-gray-100 rounded-[12px] p-6 relative">
                     <p id="industry-modal-title" class="text-center font-semibold text-gray-800 text-lg mb-4"></p>
 
                     <button class="text-center absolute top-4 right-4 bg-gray-800 text-white px-3 py-1 rounded-[12px] text-sm hover:bg-gray-600"
-                        onclick="closeIndustryModal()">
+                            onclick="closeIndustryModal()">
                         閉じる
                     </button>
 
@@ -54,7 +54,8 @@
                         </ul>
                     </div>
 
-                    <div id="industry-modal-content"></div>
+                    <!-- スクロール可能なコンテンツエリア -->
+                    <div id="industry-modal-content" class="overflow-y-auto max-h-[60vh]"></div>
                 </div>
             </div>
 
