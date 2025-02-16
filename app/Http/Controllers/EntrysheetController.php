@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateEntrysheetRequest;
 
 use App\Models\Entrysheet;
 use App\Models\Company;
+use App\Models\Industry;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -38,6 +39,9 @@ class EntrysheetController extends Controller implements HasMiddleware
     public function create()
     {
         $companies = Company::where('user_id', Auth::id())->get();
+        $industries = Industry::with(['companies' => function ($query) {
+            $query->where('user_id', Auth::id());
+        }])->get();
 
         $presetTitles = [
             'インターン',
@@ -51,7 +55,7 @@ class EntrysheetController extends Controller implements HasMiddleware
             'その他の就活イベント'
         ];
     
-        return view('entrysheet.create', compact('companies','presetTitles'));
+        return view('entrysheet.create', compact('industries', 'companies','presetTitles'));
     }
 
     /**
