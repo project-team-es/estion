@@ -3,19 +3,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden sm:rounded-[12px] relative">
                 <div class="p-6 text-gray-900">
-                    <h2 class="text-2xl font-bold mb-4">エントリーシート管理</h2>
 
-                    <!-- エントリーシート作成ボタン -->
-                    <a href="{{ route('entrysheet.create') }}" 
-                       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[12px]">
-                        エントリーシートを作成
-                    </a>
+                    <!-- ボタンを横並びにするコンテナ -->
+                    <div class="flex justify-between items-center mb-4">
+                        <!-- エントリーシート作成ボタン（左端） -->
+                        <a href="{{ route('entrysheet.create') }}" 
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[12px]">
+                            エントリーシートを作成
+                        </a>
 
-                    <!-- フィルターボタン -->
-                    <button id="filterButton" 
-                            class="absolute top-6 right-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[12px]">
-                        フィルターをかける
-                    </button>
+                        <!-- フィルターボタン（右端） -->
+                        <button id="filterButton" 
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[12px]">
+                            フィルターをかける
+                        </button>
+                    </div>
 
                     <!-- モーダル -->
                     <div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
