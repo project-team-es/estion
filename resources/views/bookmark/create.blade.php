@@ -55,7 +55,7 @@
                                     <a href="{{ $bookmark->url }}" target="_blank" class="text-blue-500 hover:underline">
                                         {{ $bookmark->name }}
                                     </a>
-                                    <form method="POST" action="{{ route('bookmark.delete', $bookmark->id) }}" onsubmit="return confirm('このブックマークを削除しますか？');">
+                                    <form method="POST" action="{{ route('bookmark.destroy', $bookmark->id) }}" onsubmit="return confirm('このブックマークを削除しますか？');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:text-red-700">
