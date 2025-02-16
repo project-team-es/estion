@@ -136,42 +136,43 @@ class EntrysheetController extends Controller implements HasMiddleware
         $mpdf->WriteHTML($pdfView);
         return response($mpdf->Output("EntrySheet_{$entrysheet->id}.pdf", 'I'))->header('Content-Type', 'application/pdf');
     }
+
     public function search(Request $request)
     {
-    $query = EntrySheet::query();
+        $query = EntrySheet::where('user_id', Auth::id());
 
-    // 企業名で検索
-    if ($request->filled('search')) {
-        $query->whereHas('company', function ($query) use ($request) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        });
-    }
-
-    // ステータスでフィルタリング
-    if ($request->filled('status')) {
-        $query->where('status', $request->status);
-    }
-
-    // 並び替え
-    if ($request->filled('order_by')) {
-        switch ($request->order_by) {
-            case 'created_at_asc':
-                $query->orderBy('created_at', 'asc');
-                break;
-            case 'created_at_desc':
-                $query->orderBy('created_at', 'desc');
-                break;
-            case 'deadline_asc':
-                $query->orderBy('deadline', 'asc');
-                break;
-            case 'deadline_desc':
-                $query->orderBy('deadline', 'desc');
-                break;
+        // 企業名で検索
+        if ($request->filled('search')) {
+            $query->whereHas('company', function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            });
         }
-    }
 
-    $entrysheets = $query->paginate(10); // ページネーションを追加
+        // ステータスでフィルタリング
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
 
-    return view('entrysheet.home', compact('entrysheets'));
+        // 並び替え
+        if ($request->filled('order_by')) {
+            switch ($request->order_by) {
+                case 'created_at_asc':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'created_at_desc':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'deadline_asc':
+                    $query->orderBy('deadline', 'asc');
+                    break;
+                case 'deadline_desc':
+                    $query->orderBy('deadline', 'desc');
+                    break;
+            }
+        }
+
+        $entrysheets = $query->paginate(10); // ページネーションを追加
+
+        return view('entrysheet.home', compact('entrysheets'));
     }
 }
