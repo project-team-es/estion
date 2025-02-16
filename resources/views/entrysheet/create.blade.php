@@ -31,9 +31,15 @@
                             <label for="company_id" class="block text-gray-700 font-bold mb-2">企業</label>
                             <select name="company_id" id="company_id" class=" border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500" required>
                                 <option value="">企業を選択してください</option>
-                                @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                @endforeach
+                                    @foreach ($industries as $industry)
+                                        @if ($industry->companies->isNotEmpty()) <!-- 業界に企業がある場合のみ表示 -->
+                                            <optgroup label="{{ $industry->name }}">
+                                                @foreach ($industry->companies as $company)
+                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        @endif
+                                    @endforeach
                             </select>
 
                             <!-- 企業作成ボタン -->
