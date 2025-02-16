@@ -4,8 +4,14 @@
             <div class="bg-white overflow-hidden sm:rounded-[12px]">
                 <div class="p-6 text-gray-900">
 
-                    <!-- フィルターボタン -->
-                    <div class="flex justify-end mb-4">
+                    <!-- ボタンを横並びにするコンテナ -->
+                    <div class="flex justify-between items-center mb-4">
+                        <!-- 企業登録ボタン（左端） -->
+                        <a href="{{ route('company.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[12px]">
+                            企業を登録
+                        </a>
+
+                        <!-- フィルターボタン（右端） -->
                         <button id="filter-toggle" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[12px]">
                             フィルターをかける
                         </button>
@@ -48,11 +54,6 @@
                             </button>
                         </div>
                     </div>
-
-                    <!-- 企業登録ボタン -->
-                    <a href="{{ route('company.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[12px]">
-                        企業を登録
-                    </a>
 
                     <!-- ログインユーザーが登録した企業一覧 -->
                     <h2 class="text-xl font-bold mt-6">登録した企業</h2>
