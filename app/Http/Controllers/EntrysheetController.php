@@ -40,6 +40,7 @@ class EntrysheetController extends Controller implements HasMiddleware
         $companies = Company::where('user_id', Auth::id())->get();
 
         $presetTitles = [
+            'インターン',
             '夏インターン',
             '秋・冬インターン',
             '長期インターン',
