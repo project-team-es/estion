@@ -98,8 +98,8 @@
                     @else
                         <ul class="mt-4 space-y-2">
                             @foreach ($entrysheet->contents as $content)
-                                <li class="p-4 border rounded-[12px] flex items-start justify-between transition-transform duration-200 hover:scale-105 cursor-pointer"
-                                    onclick="location.href='{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}'">
+                                <li class="p-4 border rounded-[12px] flex items-start justify-between transition-transform duration-200 hover:scale-105 cursor-pointer relative"
+                                    oncontextmenu="showContextMenu(event, '{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}', '{{ route('content.destroy', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}')">
                                     <div class="w-full">
                                         <p class="font-bold">質問: {{ $content->question }}</p>
                                         <p class="mt-1">回答: <span id="answer-{{ $content->id }}">{{ $content->answer }}</span></p>
@@ -111,28 +111,18 @@
                                 </button>
                             @endforeach
                         </ul>
+
+                        <!-- コンテキストメニュー -->
+                        <div id="contextMenu" class="hidden absolute bg-white border shadow-md rounded-[12px] p-2 z-50">
+                            <button id="editButton" class="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-300 rounded-[12px]">
+                                編集
+                            </button>
+                            <button id="deleteButton" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-100 rounded-[12px]">
+                                削除
+                            </button>
+                        </div>
+
                     @endif
-
-                    <!-- コピー機能のスクリプト -->
-                    <script>
-                        function copyAnswer(answerId, buttonElement) {
-                            let answerElement = document.getElementById(answerId);
-                            // `textarea` は `value` を使用、それ以外は `innerText`
-                            let textToCopy = answerElement.tagName === "TEXTAREA" ? answerElement.value : answerElement.innerText;
-                            navigator.clipboard.writeText(textToCopy).then(function() {
-                                buttonElement.innerText = "コピーされました";
-                                buttonElement.disabled = true;
-
-                                // 3秒後にボタンの状態を戻す
-                                setTimeout(function() {
-                                    buttonElement.innerText = "コピー";
-                                    buttonElement.disabled = false;
-                                }, 3000);
-                            }).catch(function(err) {
-                                alert("コピーに失敗しました: " + err);
-                            });
-                        }
-                    </script>
 
                     <!-- 戻るボタン -->
                     <a href="{{ route('entrysheet') }}" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-[12px]">
@@ -143,3 +133,82 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+function copyAnswer(answerId, buttonElement) {
+    let answerElement = document.getElementById(answerId);
+    // `textarea` は `value` を使用、それ以外は `innerText`
+    let textToCopy = answerElement.tagName === "TEXTAREA" ? answerElement.value : answerElement.innerText;
+    navigator.clipboard.writeText(textToCopy).then(function() {
+        buttonElement.innerText = "コピーされました";
+        buttonElement.disabled = true;
+
+        // 3秒後にボタンの状態を戻す
+        setTimeout(function() {
+            buttonElement.innerText = "コピー";
+            buttonElement.disabled = false;
+        }, 3000);
+    }).catch(function(err) {
+        alert("コピーに失敗しました: " + err);
+    });
+}
+
+// 右クリックの処理
+document.addEventListener("click", function () {
+    document.getElementById("contextMenu").classList.add("hidden");
+});
+
+function showContextMenu(event, editUrl, deleteUrl) {
+    event.preventDefault(); // 右クリックのデフォルトメニューを無効化
+
+    let contextMenu = document.getElementById("contextMenu");
+    let editButton = document.getElementById("editButton");
+    let deleteButton = document.getElementById("deleteButton");
+
+    // 編集ボタンのアクションを設定
+    editButton.onclick = function () {
+        location.href = editUrl;
+    };
+
+    // 削除ボタンのアクションを設定
+    deleteButton.onclick = function () {
+        if (confirm("本当に削除しますか？")) {
+            fetch(deleteUrl, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ _method: "DELETE" })
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // 成功したらページリロード
+                } else {
+                    alert("削除に失敗しました");
+                }
+            });
+        }
+    };
+
+    // 画面外に出ないようにメニュー位置調整
+    let menuWidth = contextMenu.offsetWidth;
+    let menuHeight = contextMenu.offsetHeight;
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
+
+    let posX = event.pageX;
+    let posY = event.pageY;
+
+    if (posX + menuWidth > windowWidth) {
+        posX -= menuWidth;
+    }
+    if (posY + menuHeight > windowHeight) {
+        posY -= menuHeight;
+    }
+
+    contextMenu.style.left = `${posX}px`;
+    contextMenu.style.top = `${posY}px`;
+    contextMenu.classList.remove("hidden");
+}
+</script>
