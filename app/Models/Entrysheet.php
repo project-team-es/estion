@@ -16,8 +16,9 @@ class Entrysheet extends Model
         'title',
         'status',
         'deadline',
+        'google_event_id',
         'user_id',
-        'company_id'
+        'company_id',
     ];
 
     /**

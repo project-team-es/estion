@@ -13,6 +13,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'home'])->name('dashboard');
 
+    // Google カレンダーの予定を取得するルート
+    Route::get('/calendar/events', [CalendarController::class, 'getUserEvents'])->name('calendar.events');
+
     // Bookmark
     Route::get('/bookmark/create', [BookmarkController::class, 'create'])->name('bookmark.create');
     Route::post('/bookmark', [BookmarkController::class, 'store'])->name('bookmark.store');
@@ -41,7 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/entrysheet/{entrysheet}', [EntrysheetController::class, 'show'])->name('entrysheet.show');
     Route::get('/entrysheet/{entrysheet}/edit', [EntrysheetController::class, 'edit'])->name('entrysheet.edit');
     Route::put('/entrysheet/{entrysheet}', [EntrysheetController::class, 'update'])->name('entrysheet.update');
-    Route::delete('/entrysheet/{entrysheet}', [EntrysheetController::class, 'destroy'])->name('entrysheet.destory');
+    Route::delete('/entrysheet/{entrysheet}', [EntrysheetController::class, 'destroy'])->name('entrysheet.destroy');
     Route::get('/entrysheet/{id}/pdf', [EntrySheetController::class, 'generatePDF'])->name('entrysheet.pdf');
     Route::get('/entrysheets/search', [EntrySheetController::class, 'search'])->name('entrysheet.search');
 

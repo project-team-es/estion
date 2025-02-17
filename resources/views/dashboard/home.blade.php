@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex relative">
             <!-- 業界一覧（左側に固定、締切間近と対称） -->
-            <div class="w-1/6 p-4 border-r fixed top-16 left-6 md:left-10 lg:left-16
+            <div class="w-1/6 p-4 fixed top-16 left-6 md:left-10 lg:left-16
                         md:h-screen md:flex md:flex-col md:justify-between z-10">
                 <p class="text-center font-semibold text-gray-900 mb-4">業界</p>
 
@@ -11,7 +11,7 @@
                 @else
                     <div class="space-y-2 flex-1 overflow-y-auto">
                         @foreach ($industries as $industry)
-                            <div class="relative bg-white p-2 border rounded-[12px] cursor-pointer hover:bg-gray-100 text-sm"
+                            <div class="relative bg-white p-2 rounded-[12px] cursor-pointer hover:bg-gray-100 text-sm"
                                 style="min-height: 60px; display: flex; align-items: center; justify-content: center;"
                                 onclick="toggleIndustryModal({{ $industry->id }})"
                                 onmouseover="switchIndustryModal({{ $industry->id }})">
@@ -58,9 +58,9 @@
                     <div id="industry-modal-content" class="overflow-y-auto max-h-[60vh]"></div>
                 </div>
             </div>
-
+            
             <!-- 締切間近（右側に固定、業界一覧と対称） -->
-            <div class="w-1/6 p-4 border-l fixed top-16 right-6 md:right-10 lg:right-16
+            <div class="w-1/6 p-4 fixed top-16 right-6 md:right-10 lg:right-16
             md:h-screen md:flex md:flex-col md:justify-between">
                 <p class="text-center font-bold mb-4">締切間近</p>
 
