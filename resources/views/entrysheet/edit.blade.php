@@ -28,7 +28,7 @@
                             <select name="title" id="title" class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500" required>
                                 <option value="">タイトルを選択</option>
                                 @foreach ($presetTitles as $title)
-                                    <option value="{{ $title }}">{{ $title }}</option>
+                                    <option value="{{ $title }}" {{ $entrysheet->title == $title ? 'selected' : '' }}>{{ $title }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -45,14 +45,16 @@
                         </div>
 
                         <!-- 締切日 -->
-                        <div class="mb-5">
+                        <div class="mb-4">
                             <label for="deadline" class="block text-gray-700 font-bold mb-2">締切日</label>
-                            <input type="date" name="deadline" id="deadline" 
-                                value="{{ old('deadline', $entrysheet->deadline ? substr($entrysheet->deadline, 0, 10) : '') }}"
-                                class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
+                            <div id="deadline-wrapper" class="relative flex items-center border border-gray-300 rounded-[12px] focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 cursor-pointer">
+                                <input type="date" name="deadline" id="deadline" 
+                                    value="{{ old('deadline', $entrysheet->deadline ? substr($entrysheet->deadline, 0, 10) : '') }}"
+                                    class="pl-4 pr-4 py-2 w-full rounded-[12px] focus:ring-blue-500 focus:border-blue-500 appearance-none">
+                            </div>
                         </div>
 
-                        <!-- 所属企業 -->
+                        <!-- 企業 -->
                         <div class="mb-5">
                             <label for="company_id" class="block text-gray-700 font-bold mb-2">企業</label>
                             <select name="company_id" id="company_id" class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
@@ -92,3 +94,9 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    document.getElementById('deadline-wrapper').addEventListener('click', function() {
+        document.getElementById('deadline').showPicker();
+    });
+</script>

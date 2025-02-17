@@ -100,6 +100,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     {
         $companies = Company::where('user_id', Auth::id())->get();
         $presetTitles = [
+            'インターン',
             '夏インターン',
             '秋・冬インターン',
             '長期インターン',
@@ -229,7 +230,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     
         $service = new Google_Service_Calendar($client);
         $event = new Google_Service_Calendar_Event([
-            'summary' => $entrysheet->company->name . ' :ES締切',
+            'summary' => $entrysheet->company->name . ':ES締切',
             'start' => ['date' => $entrysheet->deadline],
             'end' => ['date' => $entrysheet->deadline],
         ]);
@@ -274,7 +275,7 @@ class EntrysheetController extends Controller implements HasMiddleware
             $event = $service->events->get($calendarId, $entrysheet->google_event_id);
     
             // **イベント内容を更新**
-            $event->setSummary($entrysheet->company->name . 'ES締切');
+            $event->setSummary($entrysheet->company->name . ':ES締切');
             $event->setStart(new Google_Service_Calendar_EventDateTime(['date' => $entrysheet->deadline]));
             $event->setEnd(new Google_Service_Calendar_EventDateTime(['date' => $entrysheet->deadline]));
     
