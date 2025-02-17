@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\View as ViewClass;
 use Mpdf\Mpdf;
 use Barryvdh\DomPDF\Facade\Pdf;
 
+use Google_Client;
+use Google_Service_Calendar;
+use Google_Service_Calendar_Event;
+use Google_Service_Calendar_EventDateTime;
+
 class EntrysheetController extends Controller implements HasMiddleware
 {
     public function home(Request $request): View{
@@ -70,7 +75,13 @@ class EntrysheetController extends Controller implements HasMiddleware
             'company_id' => $request->company_id,
             'user_id' => Auth::id(),
         ]);
-        return redirect()->route('entrysheet.show', ['entrysheet' => $entrysheet->id])->with('success', 'エントリーシートが登録されました！');
+
+        // Google カレンダーへ登録
+        if ($request->deadline) {
+            $this->addToGoogleCalendar($entrysheet);
+        }
+        return redirect()->route('entrysheet.show', ['entrysheet' => $entrysheet->id])
+            ->with('success', 'エントリーシートが登録されました！');
     }
 
     /**
@@ -89,6 +100,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     {
         $companies = Company::where('user_id', Auth::id())->get();
         $presetTitles = [
+            'インターン',
             '夏インターン',
             '秋・冬インターン',
             '長期インターン',
@@ -113,7 +125,12 @@ class EntrysheetController extends Controller implements HasMiddleware
             'company_id' => $request->company_id,
         ]);
 
-        return redirect()->route('entrysheet.show', $entrysheet->id)->with('success', 'エントリーシートを更新しました！');
+        if ($request->deadline) {
+            $this->updateGoogleCalendarEvent($entrysheet);
+        }
+
+        return redirect()->route('entrysheet.show', $entrysheet->id)
+            ->with('success', 'エントリーシートを更新しました！');
     }
 
     /**
@@ -121,6 +138,7 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function destroy(Entrysheet $entrysheet)
     {
+        $this->deleteGoogleCalendarEvent($entrysheet);
         $entrysheet->delete();
 
         return redirect()->route('entrysheet')->with('success', 'エントリーシートを削除しました。');
@@ -141,6 +159,9 @@ class EntrysheetController extends Controller implements HasMiddleware
         return response($mpdf->Output("EntrySheet_{$entrysheet->id}.pdf", 'I'))->header('Content-Type', 'application/pdf');
     }
 
+    /**
+     * serch entrysheet
+     */
     public function search(Request $request)
     {
         $query = EntrySheet::where('user_id', Auth::id());
@@ -179,4 +200,156 @@ class EntrysheetController extends Controller implements HasMiddleware
 
         return view('entrysheet.home', compact('entrysheets'));
     }
+
+    /**
+     * add googlecalendar
+     */
+
+    private function addToGoogleCalendar(Entrysheet $entrysheet)
+    {
+        $user = Auth::user();
+        if (!$user->google_access_token) {
+            \Log::error('Google カレンダー登録エラー: ユーザーが未認証');
+            return;
+        }
+    
+        $client = new Google_Client();
+        $client->setClientId(env('GOOGLE_CLIENT_ID'));
+        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+        $client->setAccessToken($user->google_access_token);
+
+        // アクセストークンを更新
+        if ($client->isAccessTokenExpired()) {
+            $newToken = $this->refreshGoogleAccessToken($user);
+            if (!$newToken) {
+                \Log::error('Google カレンダー登録エラー: アクセストークンの更新に失敗');
+                return;
+            }
+            $client->setAccessToken($newToken);
+        }
+    
+        $service = new Google_Service_Calendar($client);
+        $event = new Google_Service_Calendar_Event([
+            'summary' => $entrysheet->company->name . ':ES締切',
+            'start' => ['date' => $entrysheet->deadline],
+            'end' => ['date' => $entrysheet->deadline],
+        ]);
+    
+        $calendarId = 'primary';
+        $event = $service->events->insert($calendarId, $event);
+    
+        // Google カレンダーのイベント ID を保存
+        $entrysheet->update(['google_event_id' => $event->getId()]);
+        \Log::info('Google カレンダー登録成功: ' . $event->getId());
+    }
+    /**
+     * update googlecalendar
+     */
+
+    private function updateGoogleCalendarEvent(Entrysheet $entrysheet)
+    {
+        $user = Auth::user();
+        if (!$user->google_access_token || !$entrysheet->google_event_id) {
+            \Log::error('Googleカレンダー更新エラー: イベントIDまたは認証情報が不足');
+            return;
+        }
+    
+        $client = new Google_Client();
+        $client->setAccessToken($user->google_access_token);
+    
+        // **アクセストークンが期限切れならリフレッシュ**
+        if ($client->isAccessTokenExpired()) {
+            $newToken = $this->refreshGoogleAccessToken($user);
+            if (!$newToken) {
+                \Log::error('Google カレンダー更新エラー: アクセストークンの更新に失敗');
+                return;
+            }
+            $client->setAccessToken($newToken);
+        }
+    
+        $service = new Google_Service_Calendar($client);
+        $calendarId = 'primary';
+    
+        try {
+            // **既存のイベントを取得**
+            $event = $service->events->get($calendarId, $entrysheet->google_event_id);
+    
+            // **イベント内容を更新**
+            $event->setSummary($entrysheet->company->name . ':ES締切');
+            $event->setStart(new Google_Service_Calendar_EventDateTime(['date' => $entrysheet->deadline]));
+            $event->setEnd(new Google_Service_Calendar_EventDateTime(['date' => $entrysheet->deadline]));
+    
+            // **Googleカレンダーを更新**
+            $updatedEvent = $service->events->update($calendarId, $event->getId(), $event);
+    
+            \Log::info('Googleカレンダー更新成功: ' . $updatedEvent->getId());
+        } catch (\Exception $e) {
+            \Log::error('Googleカレンダー更新エラー: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * delete googlecalendar
+     */
+    private function deleteGoogleCalendarEvent(Entrysheet $entrysheet)
+    {
+        $user = Auth::user();
+        if (!$user->google_access_token || !$entrysheet->google_event_id) {
+            \Log::error('Googleカレンダー削除エラー: イベントIDまたは認証情報が不足');
+            return;
+        }
+    
+        $client = new Google_Client();
+        $client->setAccessToken($user->google_access_token);
+    
+        if ($client->isAccessTokenExpired()) {
+            $newToken = $this->refreshGoogleAccessToken($user);
+            if (!$newToken) {
+                \Log::error('Google カレンダー削除エラー: アクセストークンの更新に失敗');
+                return;
+            }
+            $client->setAccessToken($newToken);
+        }
+    
+        $service = new Google_Service_Calendar($client);
+        $calendarId = 'primary';
+    
+        try {
+            $service->events->delete($calendarId, $entrysheet->google_event_id);
+            \Log::info('Googleカレンダーのイベント削除成功: ' . $entrysheet->google_event_id);
+        } catch (\Exception $e) {
+            \Log::error('Googleカレンダーのイベント削除エラー: ' . $e->getMessage());
+        }
+    }
+
+    private function refreshGoogleAccessToken($user)
+    {
+        try {
+            $client = new Google_Client();
+            $client->setClientId(env('GOOGLE_CLIENT_ID'));
+            $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+
+            if ($user->google_refresh_token) {
+                // **新しいアクセストークンを取得**
+                $client->refreshToken($user->google_refresh_token);
+                $newAccessToken = $client->getAccessToken();
+
+                // **アクセストークンを更新**
+                $user->update([
+                    'google_access_token' => $newAccessToken['access_token'],
+                ]);
+
+                \Log::info('Google カレンダー: アクセストークンを更新成功。');
+                return $newAccessToken['access_token'];
+            } else {
+                \Log::error('Google カレンダー: リフレッシュトークンがありません。');
+                return null;
+            }
+        } catch (\Exception $e) {
+            \Log::error('Google カレンダー: アクセストークンの更新に失敗 - ' . $e->getMessage());
+            return null;
+        }
+    }
+
+
 }
