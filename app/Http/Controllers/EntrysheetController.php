@@ -25,7 +25,7 @@ use Google_Service_Calendar_EventDateTime;
 
 class EntrysheetController extends Controller implements HasMiddleware
 {
-    public function home(Request $request): View{
+    public function index(Request $request): View{
         $entrysheets = Entrysheet::where('user_id', Auth::id())->with('company')->get();
         return view('entrysheet.home', compact('entrysheets'));
     }

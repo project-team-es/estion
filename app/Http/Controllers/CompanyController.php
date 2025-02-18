@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller implements HasMiddleware
 {
-    public function home(Request $request): View
+    public function index(Request $request): View
     {
         $companies = Company::where('user_id', Auth::id())->get();
         $industries = Industry::all();
@@ -30,13 +30,6 @@ class CompanyController extends Controller implements HasMiddleware
             'auth',
             'verified'
         ];
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
     }
 
     /**
