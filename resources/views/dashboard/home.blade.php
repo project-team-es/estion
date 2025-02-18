@@ -24,7 +24,7 @@
 
             <!-- 企業一覧モーダル -->
             <div id="industry-modal-container" class="fixed top-[13%] left-[20%] p-2 flex items-start hidden opacity-0 transition-opacity duration-300 ease-in-out z-50">
-                <div class="w-[55vw] max-w-[90vw] bg-white border-gray-100 rounded-[12px] p-6 relative">
+                <div class="w-[57vw] max-w-[90vw] bg-white border-gray-100 rounded-[12px] p-6 relative">
                     <p id="industry-modal-title" class="text-center font-semibold text-gray-800 text-lg mb-4"></p>
 
                     <button class="text-center absolute top-4 right-4 bg-gray-800 text-white px-3 py-1 rounded-[12px] text-sm hover:bg-gray-600"
@@ -58,26 +58,23 @@
                     <div id="industry-modal-content" class="overflow-y-auto max-h-[60vh]"></div>
                 </div>
             </div>
-
+            
             <!-- Contents一覧 -->
             <div class="w-4/6 mx-auto p-4 flex flex-col items-center">
                 <div class="w-full">
                     @if ($contents->isEmpty())
                         <p class="text-gray-600 text-center">まだコンテンツがありません。</p>
                     @else
-                        <!-- 外側のコンテナにも角丸を適用 -->
-                        <div class="bg-gray-100 p-4 rounded-[12px]">
+                        <div class="bg-gray-100 p-4 rounded-[12px] relative">
                             <ul class="space-y-3">
                                 @foreach ($contents as $content)
-                                    <li class="bg-white p-4 rounded-[12px] shadow-sm border">
-                                        <p class="text-lg font-semibold text-gray-800 truncate">{{ $content->question }}</p>
+                                    <li class="bg-white p-4 rounded-[12px] shadow-sm border relative cursor-pointer transition hover:shadow-md"
+                                        onclick="location.href='{{ route('entrysheet.show', ['entrysheet' => $content->entrysheet->id]) }}'"
+                                        oncontextmenu="showContextMenu(event, '{{ route('content.edit', ['entrysheet' => $content->entrysheet->id, 'content' => $content->id]) }}', '{{ route('content.destroy', ['entrysheet' => $content->entrysheet->id, 'content' => $content->id]) }}')">
+                                        <p class="text-base font-semibold text-gray-800 truncate">{{ $content->question }}</p>
                                         <p class="text-sm text-gray-500">
-                                            {{ $content->answer}}
+                                            {{ $content->answer }}
                                         </p>
-                                        <a href="{{ route('content.edit', ['entrysheet' => $content->entrysheet_id, 'content' => $content->id]) }}"
-                                        class="text-blue-600 hover:underline text-sm">
-                                            編集
-                                        </a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -85,6 +82,7 @@
                     @endif
                 </div>
             </div>
+
             
             <!-- 締切間近（右側に固定、業界一覧と対称） -->
             <div class="w-1/6 p-4 fixed top-16 right-6 md:right-10 lg:right-16
@@ -138,6 +136,21 @@
         }
     }
 
+    function copyToClipboard(element) {
+        let textToCopy = element.innerText.trim(); // テキストを取得し、余分なスペースを削除
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            element.innerText = "コピーしました"; // コピー完了後のメッセージ変更
+            element.classList.add("bg-green-100", "text-green-600"); // 視覚的に変化を与える
+
+            setTimeout(() => {
+                element.innerText = textToCopy; // 3秒後に元のテキストに戻す
+                element.classList.remove("bg-green-100", "text-green-600");
+            }, 1000);
+        }).catch(err => {
+            alert("コピーに失敗しました: " + err);
+        });
+    }
+
     // hover時の表示表示内容
     function updateIndustryModal(industryId) {
         const industryName = document.querySelector(`[onclick="toggleIndustryModal(${industryId})"] p`).innerText;
@@ -169,7 +182,7 @@
                                     ? `<a href="${company.mypage}" target="_blank" class="text-blue-500 hover:text-blue-900">Mypage</a>` 
                                     : `<span class="text-gray-900">------</span>`}
                             </div>
-                            <div class="px-3 py-1 text-sm text-center text-gray-900 rounded-full border transition-transform duration-200 hover:scale-105 text-nowrap"
+                            <div class="px-3 py-1 text-sm text-center text-gray-900 rounded-full border transition-transform duration-200 hover:scale-105 text-nowrap cursor-pointer"
                                 onclick="copyToClipboard(this)">
                                 ${company.loginid || '------------'}
                             </div>
@@ -178,24 +191,5 @@
                 </ul>
             `;
         }
-    }
-
-    function closeIndustryModal() {
-        const modal = document.getElementById('industry-modal-container');
-        modal.classList.add('hidden', 'opacity-0');
-        currentIndustryId = null;
-    }
-
-    function copyToClipboard(element) {
-        const text = element.innerText.trim();
-        if (text === '------') return;
-
-        navigator.clipboard.writeText(text).then(() => {
-            const originalText = element.innerText;
-            element.innerText = "copy！";
-            setTimeout(() => {
-                element.innerText = originalText;
-            }, 1000);
-        }).catch(err => console.error('コピーに失敗しました:', err));
     }
 </script>
