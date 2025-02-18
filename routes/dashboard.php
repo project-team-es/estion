@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified'])->group(function () {
     
     // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'home'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Google カレンダーの予定を取得するルート
     Route::get('/calendar/events', [CalendarController::class, 'getUserEvents'])->name('calendar.events');
@@ -22,13 +22,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/bookmark/{bookmark}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
 
     // Industry
-    Route::get('/industry', [IndustryController::class, 'home'])->name('industry');
-    Route::get('/industry/create', [IndustryController::class, 'create'])->name('industry.create');
-    Route::post('/industry', [IndustryController::class, 'store'])->name('industry.store');
-    Route::get('/industry/{industry}', [IndustryController::class, 'show'])->name('industry.show');
+    // Route::get('/industry', [IndustryController::class, 'home'])->name('industry');
+    // Route::get('/industry/create', [IndustryController::class, 'create'])->name('industry.create');
+    // Route::post('/industry', [IndustryController::class, 'store'])->name('industry.store');
+    // Route::get('/industry/{industry}', [IndustryController::class, 'show'])->name('industry.show');
 
     // Company
-    Route::get('/company', [CompanyController::class, 'home'])->name('company');
+    Route::get('/company', [CompanyController::class, 'index'])->name('company');
     Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
     Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
     Route::get('/company/{company}', [CompanyController::class, 'show'])->name('company.show');
@@ -38,7 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/companies/search', [CompanyController::class, 'search'])->name('company.search');
 
     // EntrySheet
-    Route::get('/entrysheet', [EntrysheetController::class, 'home'])->name('entrysheet');
+    Route::get('/entrysheet', [EntrysheetController::class, 'index'])->name('entrysheet');
     Route::get('/entrysheet/create', [EntrysheetController::class, 'create'])->name('entrysheet.create');
     Route::post('/entrysheet', [EntrysheetController::class, 'store'])->name('entrysheet.store');
     Route::get('/entrysheet/{entrysheet}', [EntrysheetController::class, 'show'])->name('entrysheet.show');

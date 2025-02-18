@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class DashboardController extends Controller implements HasMiddleware
 {
-    public function home(Request $request): View {
+    public function index(Request $request): View {
         $user = Auth::user();
         
         // ログインユーザーに紐づくエントリーシートとブックマークを取得
