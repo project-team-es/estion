@@ -136,6 +136,19 @@
         }
     }
 
+    function closeIndustryModal() {
+        const modal = document.getElementById('industry-modal-container');
+        modal.classList.add('opacity-0');
+        
+        // 300ms後に `hidden` を追加して完全に非表示
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+
+        // 現在の業界IDをリセット
+        currentIndustryId = null;
+    }
+
     function copyToClipboard(element) {
         let textToCopy = element.innerText.trim(); // テキストを取得し、余分なスペースを削除
         navigator.clipboard.writeText(textToCopy).then(() => {
