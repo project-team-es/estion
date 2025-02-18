@@ -83,7 +83,8 @@
 
                         <!-- 登録ボタン -->
                         <div class="text-right">
-                            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <button type="submit" id="submit-button"
+                                class="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
                                 登録
                             </button>
                         </div>
@@ -98,5 +99,11 @@
 <script>
     document.getElementById('deadline-wrapper').addEventListener('click', function() {
         document.getElementById('deadline').showPicker();
+    });
+
+    document.querySelector("form").addEventListener("submit", function() {
+        let button = document.getElementById("submit-button");
+        button.disabled = true; // ボタンを無効化
+        button.textContent = "登録中..."; // ボタンのテキストを変更
     });
 </script>
