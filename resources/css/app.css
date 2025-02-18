@@ -33,10 +33,11 @@ body{
 #industry-modal-content::-webkit-scrollbar-track {
     background: #f1f1f1; /* スクロールバーの背景 */
 }
-
+/*
 ::-webkit-scrollbar {
     display: none;
 }
+*/
 
 .card{
     width: 130px;

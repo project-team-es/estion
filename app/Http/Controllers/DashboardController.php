@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
 use App\Models\Entrysheet;
+use App\Models\Content;
 use App\Models\Bookmark;
 
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,12 @@ class DashboardController extends Controller implements HasMiddleware
         ->where('deadline', '>=', now()) // 現在の日時より未来のもののみ取得
         ->orderByRaw('ISNULL(deadline), deadline ASC')
         ->get();
-            
+        
+        // 現在ログイン中のユーザーのコンテンツを取得
+        $contents = Content::whereHas('entrysheet', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->orderBy('created_at', 'desc')->get();
+
         // ユーザーに紐づく企業のみを取得する
         $industriesWithCompanies = $industries->mapWithKeys(function ($industry) use ($user) {
             return [
@@ -49,6 +55,7 @@ class DashboardController extends Controller implements HasMiddleware
             'industriesWithCompanies' => json_encode($industriesWithCompanies), // 直接配列で渡す
             'industries' => $industries,
             'entrysheets' => $entrysheets,
+            'contents' => $contents,
         ]);
     }
     

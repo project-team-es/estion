@@ -58,6 +58,33 @@
                     <div id="industry-modal-content" class="overflow-y-auto max-h-[60vh]"></div>
                 </div>
             </div>
+
+            <!-- Contents一覧 -->
+            <div class="w-4/6 mx-auto p-4 flex flex-col items-center">
+                <div class="w-full">
+                    @if ($contents->isEmpty())
+                        <p class="text-gray-600 text-center">まだコンテンツがありません。</p>
+                    @else
+                        <!-- 外側のコンテナにも角丸を適用 -->
+                        <div class="bg-gray-100 p-4 rounded-[12px]">
+                            <ul class="space-y-3">
+                                @foreach ($contents as $content)
+                                    <li class="bg-white p-4 rounded-[12px] shadow-sm border">
+                                        <p class="text-lg font-semibold text-gray-800 truncate">{{ $content->question }}</p>
+                                        <p class="text-sm text-gray-500">
+                                            {{ $content->answer}}
+                                        </p>
+                                        <a href="{{ route('content.edit', ['entrysheet' => $content->entrysheet_id, 'content' => $content->id]) }}"
+                                        class="text-blue-600 hover:underline text-sm">
+                                            編集
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
+            </div>
             
             <!-- 締切間近（右側に固定、業界一覧と対称） -->
             <div class="w-1/6 p-4 fixed top-16 right-6 md:right-10 lg:right-16
