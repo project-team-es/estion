@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('company_files', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id'); // これが必要
+            $table->string('filename');
+            $table->string('path');
             $table->timestamps();
+        
+            // 外部キー制約
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
+        
     }
 
     /**
