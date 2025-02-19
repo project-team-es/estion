@@ -66,7 +66,6 @@
                             削除
                         </button>
                     </form>
-                    
                 </div>
             </div>
 
@@ -80,7 +79,6 @@
                     </a>
                 </h3>
                 
-
                 @if ($company->entrysheets->isEmpty())
                     <p class="text-gray-600 mt-4">この企業のエントリーシートは登録されていません。</p>
                 @else
@@ -100,6 +98,85 @@
                     </div>
                 @endif
             </div>
+
+            <div class="mt-12">
+                <h3 class="text-xl font-bold items-center">
+                    その他のファイル
+                    <form action="{{ route('company.files.store', $company->id) }}" method="post" enctype="multipart/form-data" class="inline-block ml-4">
+                        @csrf
+                        <input type="file" name="file" class="hidden" id="fileInput" onchange="this.form.submit()">
+                        <label for="fileInput" class="px-3 py-1 text-sm text-white bg-blue-500 font-semibold rounded-full border transition-transform duration-200 hover:scale-105 hover:bg-blue-600 cursor-pointer">
+                            アップロード
+                        </label>
+                    </form>
+                </h3>
+                
+                @if ($company->files->isEmpty())
+                    <p class="text-gray-600 mt-4">この企業に関連するその他のファイルは登録されていません。</p>
+                @else
+                    <!-- その他のファイル (PDF, Word, Excelなど) -->
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach ($company->files->filter(function($file) {
+                            // 画像以外のファイルをフィルタ
+                            return !in_array(strtolower(pathinfo($file->filename, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif']);
+                        }) as $file)
+                            <div class="p-4 bg-white border rounded-[12px] hover:bg-gray-100 transition-shadow duration-300 shadow-sm hover:shadow-md">
+                                <h4 class="text-lg font-semibold truncate">{{ $file->filename }}</h4>
+
+                                <!-- ダウンロードリンク -->
+                                <a href="{{ route('company.files.download', $file->id) }}" 
+                                class="block text-blue-500 hover:underline text-sm mt-2">
+                                    ダウンロード
+                                </a>
+
+                                <!-- 削除 -->
+                                <form action="{{ route('company.files.destroy', $file->id) }}" method="post" 
+                                    onsubmit="return confirm('本当に削除しますか？');" class="mt-2">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:underline text-sm">
+                                        削除
+                                    </button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- 画像ファイル (JPG, JPEG, PNG, GIF) -->
+                    <h3 class="text-xl font-bold mt-8">画像ファイル</h3>
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach ($company->files->filter(function($file) {
+                            // 画像ファイルをフィルタ
+                            return in_array(strtolower(pathinfo($file->filename, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'gif']);
+                        }) as $file)
+                            <div class="p-4 bg-white border rounded-[12px] hover:bg-gray-100 transition-shadow duration-300 shadow-sm hover:shadow-md">
+                                <!-- 画像表示-->
+                                <a href="{{ asset('storage/' . $file->path) }}" target="_blank">
+                                    <img src="{{ asset('storage/' . $file->path) }}" alt="{{ $file->filename }}" 
+                                        class="w-full h-48 object-cover rounded-lg mb-2 cursor-pointer">
+                                </a>
+
+                                <!-- ダウンロードリンク -->
+                                <a href="{{ route('company.files.download', $file->id) }}" 
+                                class="block text-blue-500 hover:underline text-sm mt-2">
+                                    ダウンロード
+                                </a>
+
+                                <!-- 削除 -->
+                                <form action="{{ route('company.files.destroy', $file->id) }}" method="post" 
+                                    onsubmit="return confirm('本当に削除しますか？');" class="mt-2">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:underline text-sm">
+                                        削除
+                                    </button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+
         </div>
     </div>
 

@@ -41,4 +41,13 @@ class Company extends Model
     public function entrysheets(): HasMany {
         return $this->hasMany(EntrySheet::class);
     }
+
+     /**
+     * カンパニーファイルとのリレーション
+     */
+    public function files()
+    {
+        return $this->hasMany(CompanyFile::class);
+    }
+
 }

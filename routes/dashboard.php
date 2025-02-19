@@ -7,6 +7,7 @@ use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EntrysheetController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\CompanyFileController;
 use Illuminate\Support\Facades\Route;
 
 // ログイン必須のルートをグループ化
@@ -59,6 +60,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/entrysheet/{entrysheet}/content/{content}/edit', [ContentController::class, 'edit'])->name('content.edit');
     Route::put('/entrysheet/{entrysheet}/content/{content}', [ContentController::class, 'update'])->name('content.update');
     Route::delete('/entrysheet/{entrysheet}/content/{content}', [ContentController::class, 'destroy'])->name('content.destroy');
+
+
+    // CompanyFile
+    Route::post('/company/{company}/files', [App\Http\Controllers\CompanyFileController::class, 'store'])->name('company.files.store');
+    Route::delete('/company/files/{file}', [App\Http\Controllers\CompanyFileController::class, 'destroy'])->name('company.files.destroy');
+    Route::get('/company/files/download/{file}', [App\Http\Controllers\CompanyFileController::class, 'download'])->name('company.files.download');
+    Route::get('/company/files/view/{file}', [App\Http\Controllers\CompanyFileController::class, 'view'])->name('company.files.view');
 
     // GeminiAPI
     Route::get('/entrysheet/{entrysheet}/interview/{content}', [GeminiController::class, 'index'])->name('interview.index');
