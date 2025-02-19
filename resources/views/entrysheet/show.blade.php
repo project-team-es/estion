@@ -99,7 +99,11 @@
                         <ul class="mt-4 space-y-2">
                             @foreach ($entrysheet->contents as $content)
                                 <li class="p-4 border rounded-[12px] flex items-start justify-between transition-transform duration-200 hover:scale-105 cursor-pointer relative"
-                                    oncontextmenu="showContextMenu(event, '{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}', '{{ route('content.destroy', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}')">
+                                    oncontextmenu="showContextMenu(event, 
+                                                '{{ route('interview.index', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}',
+                                                '{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}', 
+                                                '{{ route('content.destroy', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}',
+                                                )">
                                     <div class="w-full">
                                         <p class="font-bold">質問: {{ $content->question }}</p>
                                         <p class="mt-1">回答: <span id="answer-{{ $content->id }}">{{ $content->answer }}</span></p>
@@ -114,6 +118,9 @@
 
                         <!-- コンテキストメニュー -->
                         <div id="contextMenu" class="hidden absolute bg-white border shadow-md rounded-[12px] p-2 z-50">
+                            <button id="interviewButton" class="block w-full text-left px-4 py-2 text-green-600 hover:bg-green-100 rounded-[12px]">
+                                面接
+                            </button>
                             <button id="editButton" class="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-300 rounded-[12px]">
                                 編集
                             </button>
@@ -121,7 +128,6 @@
                                 削除
                             </button>
                         </div>
-
                     @endif
 
                     <!-- 戻るボタン -->
@@ -158,12 +164,18 @@ document.addEventListener("click", function () {
     document.getElementById("contextMenu").classList.add("hidden");
 });
 
-function showContextMenu(event, editUrl, deleteUrl) {
+function showContextMenu(event, interviewUrl, editUrl, deleteUrl) {
     event.preventDefault(); // 右クリックのデフォルトメニューを無効化
 
     let contextMenu = document.getElementById("contextMenu");
+    let interviewButton = document.getElementById("interviewButton");
     let editButton = document.getElementById("editButton");
     let deleteButton = document.getElementById("deleteButton");
+    
+    // 面接ボタンのアクション設定
+    interviewButton.onclick = function () {
+        location.href = interviewUrl;
+    };
 
     // 編集ボタンのアクションを設定
     editButton.onclick = function () {
