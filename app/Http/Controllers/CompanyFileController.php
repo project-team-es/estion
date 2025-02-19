@@ -42,8 +42,9 @@ class CompanyFileController extends Controller
     //ダウンロード機能
     public function download(CompanyFile $file)
     {
-        if (Storage::exists($file->path)) {
-            return Storage::download($file->path, $file->filename);
+        // 修正版: public ディスクを指定
+        if (Storage::disk('public')->exists($file->path)) {
+            return Storage::disk('public')->download($file->path, $file->filename);
         }
         return redirect()->back()->with('error', 'ファイルが見つかりません');
     }
