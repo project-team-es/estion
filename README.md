@@ -32,6 +32,8 @@
 - **Google Calendar API を利用した提出締切日管理**
 - **シンプルなUI・UXの設計（Tailwind CSS）**
 
+&nbsp;
+
 ## 使用技術
 **フロントエンド**
 <p style="display: inline">
