@@ -13,8 +13,13 @@
                             @endphp
                             <ul class="list-none text-gray-800 space-y-4">
                                 @foreach($questions as $index => $question)
-                                    <li class="question-item hidden cursor-pointer p-4 bg-white rounded-[12px] shadow hover:bg-blue-50 transition duration-300">
-                                        <p class="text-lg">{!! $question !!}</p>
+                                    <li class="question-item hidden p-4 bg-white rounded-[12px] shadow hover:bg-blue-50 transition duration-300">
+                                        <div class="flex justify-between items-center">
+                                            <p class="text-lg">{!! $question !!}</p>
+                                            <button class="next-question hidden px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300">
+                                                次の質問へ →
+                                            </button>
+                                        </div>
                                     </li>
                                 @endforeach
                                 <!-- 質問終了メッセージ -->
@@ -29,6 +34,15 @@
                         </div>
                     </div>
                     @endisset
+
+                    <!-- エントリーシートに戻るボタン -->
+                    <div class="mt-6 text-left">
+                        <a href="{{ route('entrysheet.show', $entrysheet->id) }}" 
+                        class="px-6 py-3 bg-gray-500 text-white font-semibold rounded-[12px] hover:bg-gray-600 transition duration-300 inline-block ml-6 sm:ml-6">
+                            終了
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -37,6 +51,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const questions = document.querySelectorAll('.question-item');
+            const nextButtons = document.querySelectorAll('.next-question');
             const endMessage = document.getElementById('endMessage');
             const restartButton = document.getElementById('restartButton');
 
@@ -46,38 +61,59 @@
             if (questions.length > 0) {
                 questions[0].classList.remove('hidden');
                 questions[0].classList.add('fade-in');
+                nextButtons[0].classList.remove('hidden');
             }
 
-            // 各質問にクリックイベントを追加
+            // 質問を進める処理
+            function goToNextQuestion() {
+                if (currentIndex < questions.length - 1) {
+                    // 現在の質問をフェードアウトして非表示
+                    questions[currentIndex].classList.add('fade-out');
+                    nextButtons[currentIndex].classList.add('hidden'); // 現在のボタンを非表示
+
+                    setTimeout(() => {
+                        questions[currentIndex].classList.add('hidden');
+                        questions[currentIndex].classList.remove('fade-out');
+
+                        // 次の質問をフェードインして表示
+                        currentIndex++;
+                        questions[currentIndex].classList.remove('hidden');
+                        questions[currentIndex].classList.add('fade-in');
+                        nextButtons[currentIndex].classList.remove('hidden'); // 次のボタンを表示
+                    }, 500);
+                } else {
+                    // すべての質問を表示し、「質問は終了です」を表示
+                    questions.forEach(q => {
+                        q.classList.remove('hidden');
+                        q.classList.add('fade-in');
+                    });
+
+                    // すべての「次の質問へ」ボタンを非表示にする
+                    nextButtons.forEach(button => button.classList.add('hidden'));
+
+                    endMessage.classList.remove('hidden');
+                    endMessage.classList.add('fade-in');
+                }
+            }
+
+            // クリックで次の質問に進む
             questions.forEach((item, index) => {
-                item.addEventListener('click', function () {
-                    // フェードアウトアニメーション
-                    item.classList.add('fade-out');
+                item.addEventListener('click', goToNextQuestion);
+            });
 
-                    // アニメーション後に要素を非表示にする
-                    setTimeout(() => {
-                        item.classList.add('hidden');
-                        item.classList.remove('fade-out');
-                    }, 500);
-
-                    // 次の質問を遅延表示 or すべての質問を表示
-                    setTimeout(() => {
-                        if (index + 1 < questions.length) {
-                            questions[index + 1].classList.remove('hidden');
-                            questions[index + 1].classList.add('fade-in');
-                        } else {
-                            // すべての質問を表示
-                            questions.forEach(q => {
-                                q.classList.remove('hidden');
-                                q.classList.add('fade-in');
-                            });
-
-                            // 最後の質問の後に "質問は終了です" を表示
-                            endMessage.classList.remove('hidden');
-                            endMessage.classList.add('fade-in');
-                        }
-                    }, 500);
+            // 「次の質問へ」ボタンで次の質問に進む
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.stopPropagation(); // クリックイベントが親の `li` に伝播しないようにする
+                    goToNextQuestion();
                 });
+            });
+
+            // Enterキーで次の質問に進む
+            document.addEventListener('keydown', function (event) {
+                if (event.key === "Enter") {
+                    goToNextQuestion();
+                }
             });
 
             // 「はじめから」ボタンの処理
@@ -88,8 +124,10 @@
                 });
 
                 // 最初の質問を表示
+                currentIndex = 0;
                 questions[0].classList.remove('hidden');
                 questions[0].classList.add('fade-in');
+                nextButtons[0].classList.remove('hidden');
 
                 // 終了メッセージを非表示にする
                 endMessage.classList.add('hidden');
