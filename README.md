@@ -1,4 +1,4 @@
-# es-manegement-app
+# estion.
 
 ### 使用技術
 **フロントエンド**
@@ -16,14 +16,16 @@
 
 **ミドルウェア**
 <p style="display: inline">
-<img src="https://img.shields.io/badge/-Nginx-269539.svg?logo=nginx&style=popout">
 <img src="https://img.shields.io/badge/-MySQL-E87912.svg?logo=mysql&style=popout">
-
+    
+<!--
+<img src="https://img.shields.io/badge/-Nginx-269539.svg?logo=nginx&style=popout">
 **インフラ**
 <p style="display: inline">
 <img src="https://img.shields.io/badge/-Linux-212121.svg?logo=linux&style=popout">
 <img src="https://img.shields.io/badge/-AWS-252F3E.svg?logo=amazon&style=popout">
 <img src="https://img.shields.io/badge/-Docker-FFFFFF.svg?logo=docker&style=popout">
+-->
 </p>
 
 &nbsp;
