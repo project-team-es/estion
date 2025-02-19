@@ -61,6 +61,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/entrysheet/{entrysheet}/content/{content}', [ContentController::class, 'destroy'])->name('content.destroy');
 
     // GeminiAPI
-    Route::get('/interview/{content}', [GeminiController::class, 'index'])->name('interview.index');
+    Route::get('/entrysheet/{entrysheet}/interview/{content}', [GeminiController::class, 'index'])->name('interview.index');
     Route::post('/interview', [GeminiController::class, 'execute'])->name('interview.execute');
 });
