@@ -21,7 +21,7 @@ class GeminiController extends Controller implements HasMiddleware
         $answer = $content->answer;
 
         $result = $this->execute($question, $answer);
-        return view('interview.index', compact('entrysheet', 'result'));
+        return view('interview.index', compact('entrysheet', 'content', 'result'));
     }
     
     public function execute($question, $answer)
@@ -29,8 +29,9 @@ class GeminiController extends Controller implements HasMiddleware
 
         $instruction = "あなたは優秀な新卒採用の面接官です。\n"
                         . "入力は新卒学生が提出したエントリーシートの質問と回答です\n"
-                        . "回答に対して深堀りの質問を5つ以上出力して下さい\n"
-                        . "ただし、出力は **必ず** 配列形式にしてください。\n"
+                        . "回答に対して深堀りの質問を5つ出力して下さい\n"
+                        . "「この」「その」などの指示詞は使用しないでください\n" 
+                        . "出力は **必ず** 配列形式にしてください。\n"
                         . "他の情報は一切含めないでください。\n"
                         . "以下の例に厳密に従ってください。\n\n"
                         . "### **出力例:**\n"
