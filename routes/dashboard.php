@@ -1,4 +1,6 @@
 <?php
+use App\Http\Controllers\GeminiController;
+
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\IndustryController;
@@ -9,6 +11,10 @@ use Illuminate\Support\Facades\Route;
 
 // ログイン必須のルートをグループ化
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    // GeminiAPI
+    Route::get('/interview', [GeminiController::class, 'index'])->name('interview.index');
+    Route::post('/interview', [GeminiController::class, 'execute'])->name('interview.execute');
     
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -47,7 +53,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/entrysheet/{entrysheet}', [EntrysheetController::class, 'destroy'])->name('entrysheet.destroy');
     Route::get('/entrysheet/{id}/pdf', [EntrySheetController::class, 'generatePDF'])->name('entrysheet.pdf');
     Route::get('/entrysheets/search', [EntrySheetController::class, 'search'])->name('entrysheet.search');
-
 
     // Content
     Route::post('/entrysheet/{entrysheet}/content', [ContentController::class, 'store'])->name('content.store');
