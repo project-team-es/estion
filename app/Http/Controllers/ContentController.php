@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentRequest;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
 use App\Models\Content;
 use App\Models\Entrysheet;
@@ -11,7 +12,7 @@ use App\Models\Entrysheet;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
-class ContentController extends Controller
+class ContentController extends Controller implements HasMiddleware
 {
     /**
      * Display a listing of the resource.
@@ -82,5 +83,13 @@ class ContentController extends Controller
     {
         $content->delete();
         return redirect()->route('entrysheet.show', ['entrysheet' => $entrysheet->id])->with('success', '質問と回答が削除されました！');
+    }
+    
+    public static function middleware(): array
+    {
+        return [
+            'auth',
+            'verified'
+        ];
     }
 }
