@@ -3,26 +3,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden sm:rounded-[12px] shadow-lg">
                 <div class="p-6 text-gray-900">
-                    <!-- 入力フォーム -->
-                    <div class="bg-gray-50 rounded-[12px] p-6 shadow-inner">
-                        <form action="{{ route('interview.execute') }}" method="post" class="w-full">
-                            @csrf
-                            <label for="toGeminiText" class="block text-gray-600 font-semibold mb-2">エントリーシートを入力してください:</label>
-                            <textarea 
-                                name="toGeminiText" 
-                                id="toGeminiText" 
-                                class="w-full h-28 p-4 border border-gray-300 rounded-[12px] focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
-                                placeholder="ここに入力..."
-                                autofocus>@isset($toGeminiCommand){{ $toGeminiCommand }}@endisset</textarea>
-
-                            <button 
-                                type="submit" 
-                                class="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[12px] transition duration-300 shadow-md hover:shadow-lg">
-                                質問を生成
-                            </button>
-                        </form>
-                    </div>
-
                     <!-- 生成された質問一覧 -->
                     @isset($result)
                     <div class="mt-6">
@@ -37,6 +17,14 @@
                                         <p class="text-lg">{!! $question !!}</p>
                                     </li>
                                 @endforeach
+                                <!-- 質問終了メッセージ -->
+                                <li id="endMessage" class="hidden p-4 bg-white rounded-[12px] shadow text-gray-700 text-center text-lg">
+                                    質問は以上です
+                                    <br>
+                                    <button id="restartButton" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300">
+                                        はじめから
+                                    </button>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -49,6 +37,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const questions = document.querySelectorAll('.question-item');
+            const endMessage = document.getElementById('endMessage');
+            const restartButton = document.getElementById('restartButton');
+
             let currentIndex = 0;
 
             // 最初の質問だけを表示
@@ -69,14 +60,39 @@
                         item.classList.remove('fade-out');
                     }, 500);
 
-                    // 次の質問を遅延表示
+                    // 次の質問を遅延表示 or すべての質問を表示
                     setTimeout(() => {
                         if (index + 1 < questions.length) {
                             questions[index + 1].classList.remove('hidden');
                             questions[index + 1].classList.add('fade-in');
+                        } else {
+                            // すべての質問を表示
+                            questions.forEach(q => {
+                                q.classList.remove('hidden');
+                                q.classList.add('fade-in');
+                            });
+
+                            // 最後の質問の後に "質問は終了です" を表示
+                            endMessage.classList.remove('hidden');
+                            endMessage.classList.add('fade-in');
                         }
-                    }, 500); // フェードアウト後に次の質問を表示
+                    }, 500);
                 });
+            });
+
+            // 「はじめから」ボタンの処理
+            restartButton.addEventListener('click', function () {
+                // すべての質問を非表示にする
+                questions.forEach(question => {
+                    question.classList.add('hidden');
+                });
+
+                // 最初の質問を表示
+                questions[0].classList.remove('hidden');
+                questions[0].classList.add('fade-in');
+
+                // 終了メッセージを非表示にする
+                endMessage.classList.add('hidden');
             });
         });
     </script>
