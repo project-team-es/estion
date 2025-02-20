@@ -63,6 +63,20 @@ class EntrysheetController extends Controller implements HasMiddleware
         return view('entrysheet.create', compact('industries', 'companies','presetTitles'));
     }
 
+    public function createWithCompany($company_id)
+    {
+
+        $presetTitles = [
+            'インターン', '夏インターン', '秋・冬インターン', '長期インターン',
+            '本選考', '説明会', 'アンケート', 'OB・OG訪問', 'その他の就活イベント'
+        ];
+        $company = Company::find($company_id);
+        if (!$company) {
+            abort(404, '企業が見つかりません');
+        }
+        return view('entrysheet.create', compact('company', 'presetTitles'));
+    }
+    
     /**
      * Store a newly created resource in storage.
      */

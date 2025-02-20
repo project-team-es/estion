@@ -29,25 +29,29 @@
                         <!-- 企業選択 -->
                         <div class="mb-4">
                             <label for="company_id" class="block text-gray-700 font-bold mb-2">企業</label>
-                            <select name="company_id" id="company_id" class=" border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500" required>
-                                <option value="">企業を選択してください</option>
+                            @if(isset($company)) 
+                                <!-- 企業が選択済みの場合（企業からの新規作成） -->
+                                <p class="border border-gray-300 rounded-[12px] p-2 bg-gray-100">{{ $company->name }}</p>
+                                <input type="hidden" name="company_id" value="{{ $company->id }}">
+                            @else
+                                <select name="company_id" id="company_id" class="border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500" required>
+                                    <option value="">企業を選択してください</option>
                                     @foreach ($industries as $industry)
-                                        @if ($industry->companies->isNotEmpty()) <!-- 業界に企業がある場合のみ表示 -->
+                                        @if ($industry->companies->isNotEmpty()) 
                                             <optgroup label="{{ $industry->name }}">
-                                                @foreach ($industry->companies as $company)
-                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                @foreach ($industry->companies as $companyOption)
+                                                    <option value="{{ $companyOption->id }}">{{ $companyOption->name }}</option>
                                                 @endforeach
                                             </optgroup>
                                         @endif
                                     @endforeach
-                            </select>
-
-                            <!-- 企業作成ボタン -->
-                            <a href="{{ route('company.create') }}" class="ml-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-[12px]">
-                                新しく企業を登録
-                            </a>
+                                </select>
+                                <a href="{{ route('company.create') }}" class="ml-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-[12px]">
+                                    新しく企業を登録
+                                </a>
+                            @endif
                         </div>
-                        
+
                         <!-- タイトル選択 -->
                         <div class="mb-4">
                             <label for="title" class="block text-gray-700 font-bold mb-2">タイトル</label>
@@ -59,7 +63,6 @@
                             </select>
                         </div>
 
-                
                         <!-- ステータス -->
                         <div class="mb-4">
                             <label for="status" class="block text-gray-700 font-bold mb-2">ステータス</label>

@@ -20,8 +20,7 @@ return new class extends Migration
         
             // 外部キー制約
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-        });
-        
+        });        
     }
 
     /**
