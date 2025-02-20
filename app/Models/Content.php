@@ -12,6 +12,10 @@ class Content extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['entrysheet_id', 'question', 'answer', 'character_limit'];
+    
+    protected $casts = [
+        'answer' => 'string', // NULL を許容
+    ];
 
     /**
      * エントリーシート（EntrySheet）とのリレーション

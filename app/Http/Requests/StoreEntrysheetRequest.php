@@ -23,10 +23,11 @@ class StoreEntrysheetRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'status' => 'required|string|in:下書き,提出済み,書類通過,書類落ち',
             'deadline' => 'nullable|date',
             'google_event_id' => 'nullable|string',
             'company_id' => 'required|exists:companies,id',
+            'questions' => 'required|array',
+            'questions.*' => 'required|string',
         ];
     }
 }

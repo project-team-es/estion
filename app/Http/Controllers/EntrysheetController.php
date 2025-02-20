@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateEntrysheetRequest;
 use App\Models\Entrysheet;
 use App\Models\Company;
 use App\Models\Industry;
+use App\Models\Content;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -84,11 +85,18 @@ class EntrysheetController extends Controller implements HasMiddleware
     {
         $entrysheet = Entrysheet::create([
             'title' => $request->title,
-            'status' => $request->status,
             'deadline' => $request->deadline,
             'company_id' => $request->company_id,
             'user_id' => Auth::id(),
         ]);
+
+        // 質問を保存
+        foreach ($request->questions as $question) {
+            Content::create([
+                'entrysheet_id' => $entrysheet->id,
+                'question' => $question,
+            ]);
+        }
 
         // Google カレンダーへ登録
         if ($request->deadline) {
