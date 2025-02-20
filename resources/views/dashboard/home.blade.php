@@ -24,7 +24,7 @@
 
             <!-- 企業一覧モーダル -->
             <div id="industry-modal-container" class="fixed top-[13%] left-[20%] p-2 flex items-start hidden opacity-0 transition-opacity duration-300 ease-in-out z-50">
-                <div class="w-[57vw] max-w-[90vw] bg-white border-gray-100 rounded-[12px] p-6 relative">
+                <div class="w-[50vw] max-w-[90vw] bg-white border-gray-100 rounded-[12px] p-6 relative">
                     <p id="industry-modal-title" class="text-center font-semibold text-gray-800 text-lg mb-4"></p>
 
                     <button class="text-center absolute top-4 right-4 bg-gray-800 text-white px-3 py-1 rounded-[12px] text-sm hover:bg-gray-600"
@@ -37,9 +37,6 @@
                             <li class="px-4 py-2 rounded-[12px] flex items-center justify-start w-full">
                                 <div class="w-1/3 text-center flex-grow-0 flex-shrink-0">
                                     <span class="text-gray-900">企業名</span>
-                                </div>
-                                <div class="w-1/3 text-center flex-grow-0 flex-shrink-0 text-gray-900">
-                                    ステータス
                                 </div>
                                 <div class="w-1/3 text-center flex-grow-0 flex-shrink-0">
                                     <span class="text-gray-900">採用HP</span>
@@ -167,7 +164,7 @@
     // hover時の表示表示内容
     function updateIndustryModal(industryId) {
         const industryName = document.querySelector(`[onclick="toggleIndustryModal(${industryId})"] p`).innerText;
-        document.getElementById('industry-modal-title').innerText = industryName + " の企業一覧";
+        //document.getElementById('industry-modal-title').innerText = industryName + " の企業一覧";
 
         let companies = {!! $industriesWithCompanies !!};
         let contentDiv = document.getElementById('industry-modal-content');
@@ -182,9 +179,7 @@
                                     ? `<a href="${company.show}" class="text-blue-500 hover:text-blue-900">${company.name}</a>` 
                                     : `<span class="text-gray-900">${company.name}</span>`}
                             </div>
-                            <div class="w-1/3 text-center flex-grow-0 flex-shrink-0 text-gray-900">
-                                ${company.status || '------'}
-                            </div>
+                            
                             <div class="w-1/3 text-center flex-grow-0 flex-shrink-0">
                                 ${company.homepage 
                                     ? `<a href="${company.homepage}" target="_blank" class="text-blue-500 hover:text-blue-900">採用HP</a>` 

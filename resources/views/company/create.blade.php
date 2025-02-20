@@ -58,19 +58,13 @@
                            class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
                 </div>
 
-                <!-- ステータス -->
+                <!-- ステータス 
                 <div class="mb-4">
                     <label for="status" class="block text-gray-700 font-bold mb-2">ステータス (任意)</label>
                     <input type="text" name="status" id="status" 
                            class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
                 </div>
-
-                <!-- 選考フロー -->
-                <div class="mb-4">
-                    <label for="process" class="block text-gray-700 font-bold mb-2">選考フロー (任意)</label>
-                    <input type="text" name="process" id="process" 
-                           class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
-                </div>
+                -->
 
                 <!-- 登録ボタン -->
                 <div class="text-right">
@@ -79,6 +73,7 @@
                         登録
                     </button>
                 </div>
+
             </form>
         </div>
     </div>
