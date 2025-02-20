@@ -73,7 +73,7 @@
             <div class="mt-6">
                 <h3 class="text-xl font-bold items-center">
                     エントリーシート一覧
-                    <a href="{{ route('entrysheet.create') }}"
+                    <a href="{{ route('entrysheet.create.with.company', ['company_id' => $company->id]) }}" 
                     class="px-3 py-1 text-sm text-white bg-blue-500 font-semibold rounded-full border transition-transform duration-200 hover:scale-105 hover:bg-blue-600">
                         新規作成
                     </a>

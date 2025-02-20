@@ -8,14 +8,15 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EntrysheetController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\CompanyFileController;
+use App\Http\Controllers\CalendarController;
 use Illuminate\Support\Facades\Route;
 
 // ログイン必須のルートをグループ化
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // GeminiAPI
-    Route::get('/interview', [GeminiController::class, 'index'])->name('interview.index');
-    Route::post('/interview', [GeminiController::class, 'execute'])->name('interview.execute');
+    // Route::get('/interview', [GeminiController::class, 'index'])->name('interview.index');
+    // Route::post('/interview', [GeminiController::class, 'execute'])->name('interview.execute');
     
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -47,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // EntrySheet
     Route::get('/entrysheet', [EntrysheetController::class, 'index'])->name('entrysheet');
     Route::get('/entrysheet/create', [EntrysheetController::class, 'create'])->name('entrysheet.create');
+    Route::get('/entrysheets/create/{company_id}', [EntrysheetController::class, 'createWithCompany'])->where('company_id', '[0-9]+')->name('entrysheet.create.with.company');
     Route::post('/entrysheet', [EntrysheetController::class, 'store'])->name('entrysheet.store');
     Route::get('/entrysheet/{entrysheet}', [EntrysheetController::class, 'show'])->name('entrysheet.show');
     Route::get('/entrysheet/{entrysheet}/edit', [EntrysheetController::class, 'edit'])->name('entrysheet.edit');
