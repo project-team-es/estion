@@ -26,12 +26,15 @@ class DashboardController extends Controller implements HasMiddleware
         ->orderByRaw('ISNULL(deadline), deadline ASC')
         ->get();
         
-        // 現在ログイン中のユーザーのコンテンツを取得
-        $contents = Content::whereHas('entrysheet', function ($query) use ($user) {
+        $contents = Content::with('entrysheet.company') // ここでEager Loading
+        ->whereHas('entrysheet', function ($query) use ($user) {
             $query->where('user_id', $user->id);
-        })->orderBy('created_at', 'desc')->get();
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-        // ユーザーに紐づく企業のみを取得する
+
+        //ユーザーに紐づく企業のみを取得する
         $industriesWithCompanies = $industries->mapWithKeys(function ($industry) use ($user) {
             return [
                 $industry->id => $industry->companies()
