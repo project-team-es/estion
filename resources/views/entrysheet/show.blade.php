@@ -24,7 +24,6 @@
                     <p class="mt-2"><strong>締切日:</strong> {{ $entrysheet->deadline ?? '未設定' }}</p>
 
                     <!-- 登録済みの質問と回答 一括更新フォーム -->
-                    <h3 class="text-xl font-bold mt-6">登録済みの質問と回答</h3>
                     @if ($entrysheet->contents->isEmpty())
                         <p class="text-gray-600 mt-4">まだ登録された質問がありません。</p>
                     @else
@@ -36,18 +35,9 @@
                                 <!-- 既存コンテンツ -->
                                 @foreach ($entrysheet->contents as $content)
                                     <li class="p-4 border rounded-[12px]">
-                                        <!-- 質問と削除ボタンを1行に配置 -->
-                                        <div class="flex justify-between items-center">
-                                            <p class="font-bold">質問: {{ $content->question }}</p>
-                                            <!-- 削除ボタン（Ajaxで削除） -->
-                                            <button type="button" onclick="deleteContent('{{ route('content.destroy', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}')" 
-                                                    class="bg-red-500 text-white px-3 py-1 rounded-full text-sm">
-                                                −
-                                            </button>
-                                        </div>
                                         <!-- 回答入力部分 -->
                                         <div class="flex items-center justify-between mb-2">
-                                            <label for="answer-{{ $content->id }}" class="text-gray-700 font-bold">回答</label>
+                                            <p class="font-bold">{{ $content->question }}</p>
                                             <!-- コピーアイコン -->
                                             <button type="button" onclick="copyAnswer('answer-{{ $content->id }}', this)" 
                                                 class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
@@ -171,17 +161,11 @@
         li.className = 'p-4 border rounded-[12px] new-content';
         li.innerHTML = `
             <div>
-                <div class="flex justify-between items-center">
-                    <label class="font-bold">質問:</label>
-                    <button type="button" onclick="removeNewContent(this)" class="bg-red-500 text-white px-3 py-1 rounded-full text-sm">
-                        −
-                    </button>
-                </div>
                 <input type="text" name="new_questions[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" placeholder="質問を入力">
             </div>
             <div class="mt-2">
                 <div class="flex justify-between items-center">
-                    <label class="font-bold">回答:</label>
+                    <label class="font-bold"></label>
                     <button type="button" onclick="copyAnswer('new-answer-${newContentCounter}', this)" 
                         class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
                         {!! config('icons.copy') !!}
