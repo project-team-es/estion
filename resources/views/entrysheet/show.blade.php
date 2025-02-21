@@ -160,12 +160,16 @@
         let li = document.createElement('li');
         li.className = 'p-4 border rounded-[12px] new-content';
         li.innerHTML = `
-            <div>
-                <input type="text" name="new_questions[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" placeholder="質問を入力">
+            <div class="flex justify-between items-center">
+                <label class="font-bold">質問:</label>
+                <button type="button" onclick="removeNewContent(this)" class="m-1 bg-red-500 text-white w-8 h-8 flex items-center justify-center rounded-full text-sm">
+                    -
+                </button>
             </div>
+            <input type="text" name="new_questions[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" placeholder="質問を入力">
             <div class="mt-2">
                 <div class="flex justify-between items-center">
-                    <label class="font-bold"></label>
+                    <label class="font-bold">回答:</label>
                     <button type="button" onclick="copyAnswer('new-answer-${newContentCounter}', this)" 
                         class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
                         {!! config('icons.copy') !!}
@@ -174,7 +178,7 @@
                 <div class="flex items-center">
                     <textarea id="new-answer-${newContentCounter}" name="new_answers[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" rows="3" placeholder="回答を入力" oninput="updateCharCount(this, this.nextElementSibling)"></textarea>
                 </div>
-                <!-- 文字数表示用 -->
+                <!-- 文字数表示 -->
                 <p class="text-gray-600 mt-1">現在の文字数: 0</p>
             </div>
         `;
