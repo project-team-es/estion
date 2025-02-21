@@ -14,38 +14,38 @@
                         <!-- フィルターボタン（右端） -->
                         <button id="filterButton" 
                             class="text-gray-500 font-bold py-2 px-4 rounded-full transition
-                                hover:bg-gray-300 hover:text-white">
+                                   hover:bg-gray-300 hover:text-white">
                             {!! config('icons.search') !!}
                         </button>
                     </div>
 
                     <!-- モーダル -->
                     <div id="filter-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-                        <div class="bg-white rounded-[12px] w-full max-w-lg p-6">
-                            <button id="close-modal" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">&times;</button>
-                            
-                            <h2 class="text-xl font-bold mb-4">フィルター設定</h2>
-                            
+                        <div class="bg-white rounded-[12px] w-full max-w-lg p-6 relative">
+                            <button id="close-modal" class="absolute top-3 right-3 text-gray-600 hover:text-gray-800 text-xl">
+                                &times;
+                            </button>          
+                            <h2 class="text-xl font-bold mb-4 text-center">フィルター設定</h2>
                             <!-- フィルターフォーム -->
-                            <form method="GET" action="{{ route('company.search') }}" class="flex flex-col items-center space-y-4">
+                            <form method="GET" action="{{ route('company.search') }}" class="flex flex-col space-y-4">
                                 <!-- 企業名検索 -->
                                 <input type="text" name="search" placeholder="企業名で検索" 
-                                       class="border border-gray-300 rounded-[12px] px-4 py-2 mb-2 w-full" 
+                                       class="border border-gray-300 rounded-[12px] px-4 py-2 w-full" 
                                        value="{{ request('search') }}">
 
                                 <!-- 業界絞り込み（チェックボックス） -->
-                                <div class="flex flex-col mb-4 w-full">
+                                <div class="flex flex-col">
                                     @foreach($industries as $industry)
-                                        <label class="mb-2">
+                                        <label class="flex items-center space-x-2">
                                             <input type="checkbox" name="industry_ids[]" value="{{ $industry->id }}"
                                                    @if(in_array($industry->id, request('industry_ids', []))) checked @endif>
-                                            {{ $industry->name }}
+                                            <span>{{ $industry->name }}</span>
                                         </label>
                                     @endforeach
                                 </div>
 
                                 <!-- 絞り込みボタン -->
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 ml-2 rounded-[12px] w-full">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-[12px] w-full">
                                     絞り込み
                                 </button>
                             </form>
@@ -81,19 +81,33 @@
 
     <!-- JavaScriptでモーダルの表示/非表示 -->
     <script>
-        // フィルターボタンをクリックしてモーダルを表示
-        document.getElementById('filter-toggle').addEventListener('click', function() {
-            document.getElementById('filter-modal').classList.remove('hidden');
-        });
+        document.addEventListener("DOMContentLoaded", function () {
+            const filterButton = document.getElementById("filterButton");
+            const filterModal = document.getElementById("filter-modal");
+            const closeModal = document.getElementById("close-modal");
+            const closeModalBtn = document.getElementById("close-modal-btn");
 
-        // モーダルを閉じるボタン
-        document.getElementById('close-modal').addEventListener('click', function() {
-            document.getElementById('filter-modal').classList.add('hidden');
-        });
+            // フィルターボタンをクリックでモーダル表示
+            filterButton.addEventListener("click", function () {
+                filterModal.classList.remove("hidden");
+            });
 
-        // 閉じるボタン（モーダル内）
-        document.getElementById('close-modal-btn').addEventListener('click', function() {
-            document.getElementById('filter-modal').classList.add('hidden');
+            // 閉じるボタン（×）をクリックでモーダル非表示
+            closeModal.addEventListener("click", function () {
+                filterModal.classList.add("hidden");
+            });
+
+            // モーダル内の「閉じる」ボタンをクリックで非表示
+            closeModalBtn.addEventListener("click", function () {
+                filterModal.classList.add("hidden");
+            });
+
+            // モーダル外側をクリックで閉じる
+            filterModal.addEventListener("click", function (event) {
+                if (event.target === filterModal) {
+                    filterModal.classList.add("hidden");
+                }
+            });
         });
     </script>
 </x-app-layout>
