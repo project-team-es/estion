@@ -23,7 +23,7 @@
                     @endif
 
                     <!-- エントリーシート作成フォーム -->
-                    <form method="POST" action="{{ route('entrysheet.store') }}">
+                    <form method="POST" action="{{ route('entrysheet.store') }}" id="entrysheet-form">
                         @csrf
 
                         <!-- 企業選択 -->
@@ -77,7 +77,9 @@
                                     <button type="button" class="ml-2 bg-red-500 text-white px-3 py-1 rounded-[12px] remove-question hidden">削除</button>
                                 </div>
                             </div>
-                            <button type="button" id="add-question" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-[12px]">＋ 質問を追加</button>
+                            <button type="button" id="add-question" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-[12px]">
+                                ＋ 質問を追加
+                            </button>
                         </div>
 
                         <!-- 登録ボタン -->
@@ -110,5 +112,19 @@
         if (event.target.classList.contains('remove-question')) {
             event.target.parentElement.remove();
         }
+    });
+
+    document.getElementById("entrysheet-form").addEventListener("submit", function() {
+        // 「＋ 質問を追加」ボタンを無効化
+        let addButton = document.getElementById("add-question");
+        addButton.disabled = true;
+        addButton.classList.add("bg-gray-400", "cursor-not-allowed");
+        addButton.classList.remove("bg-blue-500", "hover:bg-blue-600");
+        addButton.textContent = "追加不可";
+
+        // 登録ボタンも無効化
+        let submitButton = document.getElementById("submit-button");
+        submitButton.disabled = true;
+        submitButton.textContent = "登録中...";
     });
 </script>

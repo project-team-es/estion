@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentRequest;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -73,6 +74,24 @@ class ContentController extends Controller implements HasMiddleware
         'character_limit' => $request->character_limit,
     ]);
     return redirect()->route('entrysheet.show', ['entrysheet' => $content->entrysheet_id])->with('success', '質問と回答が更新されました！');
+    }
+
+    public function bulkUpdate(Request $request, EntrySheet $entrysheet)
+    {
+        $request->validate([
+            'answers' => 'array',
+            'answers.*' => 'nullable|string'
+        ]);
+
+        foreach ($request->answers as $contentId => $answer) {
+            $content = Content::find($contentId);
+            if ($content) {
+                $content->update(['answer' => $answer]);
+            }
+        }
+
+        return redirect()->route('entrysheet.show', $entrysheet->id)
+            ->with('success', '回答を保存しました');
     }
 
 

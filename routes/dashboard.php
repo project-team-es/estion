@@ -62,7 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/entrysheet/{entrysheet}/content/{content}/edit', [ContentController::class, 'edit'])->name('content.edit');
     Route::put('/entrysheet/{entrysheet}/content/{content}', [ContentController::class, 'update'])->name('content.update');
     Route::delete('/entrysheet/{entrysheet}/content/{content}', [ContentController::class, 'destroy'])->name('content.destroy');
-
+    Route::patch('/entrysheet/{entrysheet}/bulk-update', [ContentController::class, 'bulkUpdate'])->name('content.bulkUpdate');
 
     // CompanyFile
     Route::post('/company/{company}/files', [App\Http\Controllers\CompanyFileController::class, 'store'])->name('company.files.store');
