@@ -38,13 +38,12 @@
                                         <!-- 回答入力部分 -->
                                         <div class="flex items-center justify-between mb-2">
                                             <p class="font-bold">{{ $content->question }}</p>
-                                            <!-- コピーアイコン -->
                                             <button type="button" onclick="copyAnswer('answer-{{ $content->id }}', this)" 
                                                 class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
                                                 {!! config('icons.copy') !!}
                                             </button>
                                         </div>
-                                        <!-- 回答入力欄 -->
+                                        <!-- 回答入力欄（初期行数1） -->
                                         <textarea name="answers[{{ $content->id }}]" 
                                                   id="answer-{{ $content->id }}" 
                                                   class="w-full border-gray-300 rounded-[12px] mt-2 p-2" 
@@ -93,63 +92,33 @@
 
 <!-- コピー機能・新規設問追加のスクリプト -->
 <script>
-    // コピー機能：対象が TEXTAREA の場合は value を取得
-    function copyAnswer(answerId, buttonElement) {
-        let answerElement = document.getElementById(answerId);
-        if (!answerElement) {
-            alert("コピー対象の要素が見つかりません");
-            return;
-        }
-        let textToCopy = answerElement.value;
-        navigator.clipboard.writeText(textToCopy).then(function() {
-            buttonElement.innerHTML = `{!! config('icons.check') !!}`;
-            setTimeout(function() {
-                buttonElement.innerHTML = `{!! config('icons.copy') !!}`;
-            }, 1000);
-        }).catch(function(err) {
-            alert("コピーに失敗しました: " + err);
-        });
+    // テキストエリア自動リサイズ関数
+    function autoResizeTextArea(textarea) {
+        textarea.style.height = 'auto'; // 高さリセット
+        textarea.style.height = textarea.scrollHeight + 'px'; // 内容に合わせて高さ設定
     }
 
-    // Ajaxによる削除処理
-    function deleteContent(url) {
-        if (!confirm("本当に削除しますか？")) {
-            return;
-        }
-        fetch(url, {
-            method: "DELETE",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                "Content-Type": "application/json"
-            }
-        }).then(response => {
-            if (response.ok) {
-                location.reload();
-            } else {
-                alert("削除に失敗しました");
-            }
-        }).catch(err => {
-            alert("削除に失敗しました: " + err);
-        });
-    }
-
-    // --- 既存の回答テキストエリアの文字数更新処理 ---
+    // 文字数更新関数
     function updateCharCount(textarea, displayElem) {
         displayElem.innerText = "現在の文字数: " + textarea.value.length;
     }
+
+    // 既存のテキストエリアのイベントリスナー設定
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll("textarea[id^='answer-']").forEach(function(textarea) {
-            // 既存コンテンツは id が "answer-{contentId}" となっているので、charCount-{contentId} を取得
             let idParts = textarea.getAttribute("id").split('-');
             let display = document.getElementById("charCount-" + idParts[1]);
             if (display) {
                 updateCharCount(textarea, display);
             }
             textarea.addEventListener('input', function() {
+                autoResizeTextArea(textarea);
                 if (display) {
                     updateCharCount(textarea, display);
                 }
             });
+            // 初期サイズ調整
+            autoResizeTextArea(textarea);
         });
     });
 
@@ -176,9 +145,9 @@
                     </button>
                 </div>
                 <div class="flex items-center">
-                    <textarea id="new-answer-${newContentCounter}" name="new_answers[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" rows="3" placeholder="回答を入力" oninput="updateCharCount(this, this.nextElementSibling)"></textarea>
+                    <textarea id="new-answer-${newContentCounter}" name="new_answers[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" rows="1" placeholder="回答を入力" oninput="autoResizeTextArea(this); updateCharCount(this, this.nextElementSibling)"></textarea>
                 </div>
-                <!-- 文字数表示 -->
+                <!-- 文字数表示用 -->
                 <p class="text-gray-600 mt-1">現在の文字数: 0</p>
             </div>
         `;
