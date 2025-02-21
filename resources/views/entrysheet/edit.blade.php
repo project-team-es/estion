@@ -47,10 +47,10 @@
                         <!-- 締切日 -->
                         <div class="mb-4">
                             <label for="deadline" class="block text-gray-700 font-bold mb-2">締切日</label>
-                            <div id="deadline-wrapper" class="relative flex items-center border border-gray-300 rounded-[12px] focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 cursor-pointer">
+                            <div id="deadline-wrapper" class="relative flex items-center border border-gray-300 rounded-[12px] cursor-pointer">
                                 <input type="date" name="deadline" id="deadline" 
                                     value="{{ old('deadline', $entrysheet->deadline ? substr($entrysheet->deadline, 0, 10) : '') }}"
-                                    class="pl-4 pr-4 py-2 w-full rounded-[12px] focus:ring-blue-500 focus:border-blue-500 appearance-none">
+                                    class="pl-4 pr-4 py-2 w-full rounded-[12px] appearance-none">
                             </div>
                         </div>
 

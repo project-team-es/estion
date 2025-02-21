@@ -50,7 +50,7 @@
                                                   rows="1">{{ $content->answer }}</textarea>
                                         <!-- 文字数表示と面接ボタンを1行に配置 -->
                                         <div class="flex items-center justify-between mt-1">
-                                            <p id="charCount-{{ $content->id }}" class="text-gray-600">
+                                            <p id="charCount-{{ $content->id }}" class="text-xs text-gray-600">
                                                 現在の文字数: {{ strlen($content->answer) }}
                                             </p>
                                             <button type="button" 
@@ -148,7 +148,7 @@
                     <textarea id="new-answer-${newContentCounter}" name="new_answers[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" rows="1" placeholder="回答を入力" oninput="autoResizeTextArea(this); updateCharCount(this, this.nextElementSibling)"></textarea>
                 </div>
                 <!-- 文字数表示用 -->
-                <p class="text-gray-600 mt-1">現在の文字数: 0</p>
+                <p class="text-xs text-gray-600 mt-1">現在の文字数: 0</p>
             </div>
         `;
         document.getElementById('contents-list').appendChild(li);

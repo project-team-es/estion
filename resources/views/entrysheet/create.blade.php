@@ -64,8 +64,11 @@
 
                         <!-- 締切日 -->
                         <div class="mb-4">
-                            <label for="deadline" class="block text-gray-700 font-bold mb-2">締切日 (任意)</label>
-                            <input type="date" name="deadline" id="deadline" class="border-gray-300 rounded-[12px] w-full">
+                            <label for="deadline" class="block text-gray-700 font-bold mb-2">締切日</label>
+                            <div id="deadline-wrapper" class="relative flex items-center border border-gray-300 rounded-[12px] cursor-pointer">
+                                <input type="date" name="deadline" id="deadline" 
+                                    class="pl-4 pr-4 py-2 w-full rounded-[12px] appearance-none">
+                            </div>
                         </div>
 
                         <!-- 質問入力（複数登録可能） -->
@@ -77,8 +80,8 @@
                                     <button type="button" class="ml-2 bg-red-500 text-white px-3 py-1 rounded-[12px] remove-question hidden">削除</button>
                                 </div>
                             </div>
-                            <button type="button" id="add-question" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-[12px]">
-                                ＋ 質問を追加
+                            <button type="button" id="add-question" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-full block mx-auto">
+                                ＋
                             </button>
                         </div>
 
@@ -97,13 +100,17 @@
 </x-app-layout>
 
 <script>
+    document.getElementById('deadline-wrapper').addEventListener('click', function() {
+    document.getElementById('deadline').showPicker();
+    });
+
     document.getElementById('add-question').addEventListener('click', function() {
         let container = document.getElementById('questions-container');
         let newQuestion = document.createElement('div');
         newQuestion.classList.add('question-group', 'flex', 'items-center', 'mb-2');
         newQuestion.innerHTML = `
             <input type="text" name="questions[]" class="border-gray-300 rounded-[12px] w-full" required>
-            <button type="button" class="ml-2 bg-red-500 text-white px-3 py-1 rounded-[12px] remove-question">削除</button>
+            <button type="button" class="ml-2 bg-red-500 text-white w-8 h-8 flex items-center justify-center rounded-full remove-question">-</button>
         `;
         container.appendChild(newQuestion);
     });
