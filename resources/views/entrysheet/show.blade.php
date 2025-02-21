@@ -35,17 +35,6 @@
                                 <!-- 既存コンテンツ -->
                                 @foreach ($entrysheet->contents as $content)
                                     <li class="p-4 border rounded-[12px]">
-                                        <!-- 文字数表示と面接ボタンを1行に配置 -->
-                                        <div class="flex items-center justify-between">
-                                            <p id="charCount-{{ $content->id }}" class="text-gray-600">
-                                                現在の文字数: {{ strlen($content->answer) }}
-                                            </p>
-                                            <button type="button" 
-                                                    onclick="location.href='{{ route('interview.index', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}'" 
-                                                    class="bg-green-300 hover:bg-green-400 text-gray-700 px-3 py-1 rounded-full text-sm">
-                                                面接
-                                            </button>
-                                        </div>
                                         <!-- 回答入力部分 -->
                                         <div class="flex items-center justify-between mb-2">
                                             <p class="font-bold">{{ $content->question }}</p>
@@ -58,7 +47,18 @@
                                         <textarea name="answers[{{ $content->id }}]" 
                                                   id="answer-{{ $content->id }}" 
                                                   class="w-full border-gray-300 rounded-[12px] mt-2 p-2" 
-                                                  rows="1" oninput="autoResizeTextArea(this); updateCharCount(this, document.getElementById('charCount-{{ $content->id }}'));">{{ $content->answer }}</textarea>
+                                                  rows="1">{{ $content->answer }}</textarea>
+                                        <!-- 文字数表示と面接ボタンを1行に配置 -->
+                                        <div class="flex items-center justify-between mt-1">
+                                            <p id="charCount-{{ $content->id }}" class="text-gray-600">
+                                                現在の文字数: {{ strlen($content->answer) }}
+                                            </p>
+                                            <button type="button" 
+                                                    onclick="location.href='{{ route('interview.index', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}'" 
+                                                    class="bg-green-300 hover:bg-green-400 text-gray-700 px-3 py-1 rounded-full text-sm">
+                                                面接
+                                            </button>
+                                        </div>
                                     </li>
                                 @endforeach
                             </ul>
@@ -158,4 +158,29 @@
         li.remove();
     }
     document.getElementById('add-content-btn').addEventListener('click', addNewContent);
+
+    // テキストエリア自動リサイズ関数
+    function autoResizeTextArea(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    }
+    // 既存のテキストエリアのイベントリスナー設定
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll("textarea[id^='answer-']").forEach(function(textarea) {
+            // 既存コンテンツは id が "answer-{contentId}" なので、charCount-{contentId} を取得
+            let idParts = textarea.getAttribute("id").split('-');
+            let display = document.getElementById("charCount-" + idParts[1]);
+            if (display) {
+                updateCharCount(textarea, display);
+            }
+            textarea.addEventListener('input', function() {
+                autoResizeTextArea(textarea);
+                if (display) {
+                    updateCharCount(textarea, display);
+                }
+            });
+            // 初期リサイズ
+            autoResizeTextArea(textarea);
+        });
+    });
 </script>
