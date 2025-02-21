@@ -57,6 +57,7 @@
                                                     class="bg-green-300 hover:bg-green-400 text-gray-700 px-3 py-1 rounded-full text-sm">
                                                 面接
                                             </button>
+                                            </form>
                                         </div>
                                     </li>
                                 @endforeach
@@ -89,7 +90,8 @@
     </div>
 </x-app-layout>
 
-<!-- コピー機能および自動保存用スクリプト -->
+
+<!-- コピー機能および自動保存・localStorage連携用スクリプト -->
 <script>
     // コピー機能
     function copyAnswer(answerId, buttonElement) {
@@ -186,6 +188,8 @@
                 throw new Error('サーバーエラー: ' + response.status);
             }
             console.log('自動保存に成功しました');
+            // 自動保存に成功したら localStorage をクリア
+            localStorage.removeItem('entrysheetData');
         })
         .catch(error => {
             console.error('自動保存でエラーが発生しました:', error);
@@ -250,4 +254,55 @@
 
     // 「+」ボタンにイベントリスナーを追加
     document.getElementById('add-content-btn').addEventListener('click', addNewContent);
+
+    // 入力内容の変更を localStorage に保存する（input イベント）
+    document.addEventListener('input', function() {
+        const data = gatherData();
+        localStorage.setItem('entrysheetData', JSON.stringify(data));
+    });
+
+    // ページロード時に localStorage の内容を復元する
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedData = localStorage.getItem('entrysheetData');
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            
+            // 既存の回答を復元
+            for (const key in data.answers) {
+                let textarea = document.querySelector(`textarea[name="${key}"]`);
+                if (textarea) {
+                    textarea.value = data.answers[key];
+                }
+            }
+            
+            // 新規設問を復元（既に新規設問が存在している場合はクリアして再生成）
+            if (data.new_questions && data.new_questions.length > 0) {
+                // 既存の新規設問を一度全削除
+                document.querySelectorAll("input[name='new_questions[]']").forEach(function(input) {
+                    input.closest('li').remove();
+                });
+                // 新規設問を再生成
+                for (let i = 0; i < data.new_questions.length; i++) {
+                    let li = document.createElement('li');
+                    li.className = 'p-4 border rounded-[12px]';
+                    li.innerHTML = `
+                        <div>
+                            <label class="font-bold">質問:</label>
+                            <input type="text" name="new_questions[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" placeholder="質問を入力" value="${data.new_questions[i]}">
+                        </div>
+                        <div class="mt-2">
+                            <label class="font-bold">回答:</label>
+                            <textarea name="new_answers[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" rows="3" placeholder="回答を入力">${data.new_answers[i]}</textarea>
+                        </div>
+                        <div class="mt-2 text-right">
+                            <button type="button" onclick="removeNewContent(this)" class="bg-red-500 text-white px-3 py-1 rounded-full text-sm">
+                                削除
+                            </button>
+                        </div>
+                    `;
+                    document.getElementById('contents-list').appendChild(li);
+                }
+            }
+        }
+    });
 </script>
