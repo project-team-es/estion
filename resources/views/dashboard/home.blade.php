@@ -68,6 +68,10 @@
                                     <li class="bg-white p-4 rounded-[12px] shadow-sm border relative cursor-pointer transition hover:shadow-md"
                                         onclick="location.href='{{ route('entrysheet.show', ['entrysheet' => $content->entrysheet->id]) }}'"
                                         oncontextmenu="showContextMenu(event, '{{ route('content.edit', ['entrysheet' => $content->entrysheet->id, 'content' => $content->id]) }}', '{{ route('content.destroy', ['entrysheet' => $content->entrysheet->id, 'content' => $content->id]) }}')">
+                                        <!-- 企業名を表示 -->
+                                        <p class="text-sm text-gray-500 font-bold mb-2">
+                                            {{ $content->entrysheet->company->name ?? '企業情報なし' }}
+                                        </p>
                                         <p class="text-base font-semibold text-gray-800 truncate">{{ $content->question }}</p>
                                         <p class="text-sm text-gray-500">
                                             {{ $content->answer }}
