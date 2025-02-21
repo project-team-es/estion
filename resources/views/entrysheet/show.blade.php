@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden rounded-[12px] border">
                 <div class="p-8 text-gray-900">
-
+                    <!-- ヘッダー -->
                     <div class="flex items-center justify-between w-full">
                         <div class="flex items-center space-x-4">
                             <h2 class="text-2xl font-bold">{{ $entrysheet->company->name }}</h2>
@@ -23,86 +23,76 @@
                     <p class="mt-4"><strong>ステータス:</strong> {{ $entrysheet->status }}</p>
                     <p class="mt-2"><strong>締切日:</strong> {{ $entrysheet->deadline ?? '未設定' }}</p>
 
-                    <!-- 質問と回答の登録フォーム -->
-                    <h3 class="text-xl font-bold mt-6">質問と回答を追加</h3>
-
-                    <!-- エラーメッセージ -->
-                    @if ($errors->any())
-                        <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-[12px]">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('content.store', $entrysheet->id) }}">
-                        @csrf
-
-                        <!-- 質問 -->
-                        <div class="mb-5">
-                            <label for="question" class="block text-gray-700 font-bold mb-2">質問</label>
-                            <input type="text" name="question" id="question" value="{{ old('question') }}" 
-                                class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2" required>
-                        </div>
-
-                        <!-- 文字数制限 -->
-                        <div class="mb-5">
-                            <label for="character_limit" class="block text-gray-700 font-bold mb-2">文字数制限</label>
-                            <input type="number" name="character_limit" id="character_limit" value="{{ old('character_limit') }}"
-                                class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
-                        </div>
-
-                        <!-- 回答 -->
-                        <div class="mb-5">
-                            <div class="flex items-center justify-between mb-2">
-                                <label for="answer" class="text-gray-700 font-bold">回答</label>
-                                <!-- コピーアイコン -->
-                                <button type="button" onclick="copyAnswer('answer', this)" 
-                                    class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
-                                    {!! config('icons.copy') !!}
-                                </button>
-                            </div>
-                            <!-- 回答エリア -->
-                            <textarea name="answer" id="answer" rows="4"
-                                class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2"
-                                required>{{ old('answer') }}</textarea>
-
-                            <p id="charCount" class="text-gray-600 mt-2">現在の文字数: 0</p>
-                        </div>
-                        <div class="text-right">
-                            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                                追加
-                            </button>
-                        </div>
-                    </form>
-
+                    <!-- 登録済みの質問と回答 一括更新フォーム -->
                     <h3 class="text-xl font-bold mt-6">登録済みの質問と回答</h3>
-
                     @if ($entrysheet->contents->isEmpty())
                         <p class="text-gray-600 mt-4">まだ登録された質問がありません。</p>
                     @else
-                        <ul class="mt-4 space-y-2">
-                            @foreach ($entrysheet->contents as $content)
-                                <li class="p-4 border rounded-[12px] transition-transform duration-200 hover:scale-105 cursor-pointer relative"
-                                    oncontextmenu="showContextMenu(event, 
-                                                '{{ route('interview.index', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}',
-                                                '{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}', 
-                                                '{{ route('content.destroy', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}')">
-                                    <div class="flex justify-between items-center">
-                                        <p class="font-bold">質問: {{ $content->question }}</p>
-                                        <button type="button" onclick="copyAnswer('answer-{{ $content->id }}', this)" 
-                                            class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[-5px]">
-                                            {!! config('icons.copy') !!}
-                                        </button>
-                                    </div>
-                                    <p class="mt-1">回答: <span id="answer-{{ $content->id }}">{{ $content->answer }}</span></p>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <!-- メインフォーム（更新用） -->
+                        <form id="bulkUpdateForm" method="POST" action="{{ route('content.bulkUpdate', $entrysheet->id) }}">
+                            @csrf
+                            @method('PATCH')
+                            <ul class="mt-4 space-y-4" id="contents-list">
+                                <!-- 既存コンテンツ -->
+                                @foreach ($entrysheet->contents as $content)
+                                    <li class="p-4 border rounded-[12px]">
+                                        <!-- 質問と削除ボタンを1行に配置 -->
+                                        <div class="flex justify-between items-center">
+                                            <p class="font-bold">質問: {{ $content->question }}</p>
+                                            <!-- 削除ボタン（Ajaxで削除） -->
+                                            <button type="button" onclick="deleteContent('{{ route('content.destroy', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}')" 
+                                                    class="bg-red-500 text-white px-3 py-1 rounded-full text-sm">
+                                                −
+                                            </button>
+                                        </div>
+                                        <!-- 回答入力部分 -->
+                                        <div class="flex items-center justify-between mb-2">
+                                            <label for="answer-{{ $content->id }}" class="text-gray-700 font-bold">回答</label>
+                                            <!-- コピーアイコン -->
+                                            <button type="button" onclick="copyAnswer('answer-{{ $content->id }}', this)" 
+                                                class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
+                                                {!! config('icons.copy') !!}
+                                            </button>
+                                        </div>
+                                        <!-- 回答入力欄 -->
+                                        <textarea name="answers[{{ $content->id }}]" 
+                                                  id="answer-{{ $content->id }}" 
+                                                  class="w-full border-gray-300 rounded-[12px] mt-2 p-2" 
+                                                  rows="3">{{ $content->answer }}</textarea>
+                                        <!-- 文字数表示と面接ボタンを1行に配置 -->
+                                        <div class="flex items-center justify-between mt-1">
+                                            <p id="charCount-{{ $content->id }}" class="text-gray-600">
+                                                現在の文字数: {{ strlen($content->answer) }}
+                                            </p>
+                                            <button type="button" 
+                                                    onclick="location.href='{{ route('interview.index', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}'" 
+                                                    class="bg-green-300 hover:bg-green-400 text-gray-700 px-3 py-1 rounded-full text-sm">
+                                                面接
+                                            </button>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            
+                            <!-- 新規設問追加ボタン（中央寄せ） -->
+                            <div class="mt-4 flex justify-center">
+                                <button type="button" id="add-content-btn" class="bg-blue-500 text-white px-4 py-2 rounded-full">
+                                    +
+                                </button>
+                            </div>
+                            
+                            <!-- 手動保存ボタン -->
+                            <div class="mt-6 text-right">
+                                <button type="submit" 
+                                        class="bg-green-500 text-white px-6 py-3 rounded-[12px] hover:bg-green-600">
+                                    保存
+                                </button>
+                            </div>
+                        </form>
                     @endif
-                    <a href="{{ route('entrysheet') }}" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-[12px]">
+
+                    <!-- 戻るボタン -->
+                    <a href="{{ route('entrysheet') }}" class="mt-6 inline-block bg-blue-500 text-white px-4 py-2 rounded-[12px]">
                         戻る
                     </a>
                 </div>
@@ -111,98 +101,104 @@
     </div>
 </x-app-layout>
 
-
+<!-- コピー機能・新規設問追加のスクリプト -->
 <script>
-function copyAnswer(answerId, buttonElement) {
-    let answerElement = document.getElementById(answerId);
-    let textToCopy = answerElement.tagName === "TEXTAREA" ? answerElement.value : answerElement.innerText;
+    // コピー機能：対象が TEXTAREA の場合は value を取得
+    function copyAnswer(answerId, buttonElement) {
+        let answerElement = document.getElementById(answerId);
+        if (!answerElement) {
+            alert("コピー対象の要素が見つかりません");
+            return;
+        }
+        let textToCopy = answerElement.value;
+        navigator.clipboard.writeText(textToCopy).then(function() {
+            buttonElement.innerHTML = `{!! config('icons.check') !!}`;
+            setTimeout(function() {
+                buttonElement.innerHTML = `{!! config('icons.copy') !!}`;
+            }, 1000);
+        }).catch(function(err) {
+            alert("コピーに失敗しました: " + err);
+        });
+    }
 
-    navigator.clipboard.writeText(textToCopy).then(function() {
-        // コピー成功時にアイコンをチェックマークに変更
-        buttonElement.innerHTML = ` {!! config('icons.check') !!}`;
+    // Ajaxによる削除処理
+    function deleteContent(url) {
+        if (!confirm("本当に削除しますか？")) {
+            return;
+        }
+        fetch(url, {
+            method: "DELETE",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert("削除に失敗しました");
+            }
+        }).catch(err => {
+            alert("削除に失敗しました: " + err);
+        });
+    }
 
-        // 3秒後に元のコピーアイコンに戻す
-        setTimeout(function() {
-            buttonElement.innerHTML = `{!! config('icons.copy') !!}`;
-        }, 3000);
-    }).catch(function(err) {
-        alert("コピーに失敗しました: " + err);
-    });
-}
-
-
-// 右クリックの処理
-document.addEventListener("click", function () {
-    document.getElementById("contextMenu").classList.add("hidden");
-});
-
-function showContextMenu(event, interviewUrl, editUrl, deleteUrl) {
-    event.preventDefault(); // 右クリックのデフォルトメニューを無効化
-
-    let contextMenu = document.getElementById("contextMenu");
-    let interviewButton = document.getElementById("interviewButton");
-    let editButton = document.getElementById("editButton");
-    let deleteButton = document.getElementById("deleteButton");
-    
-    // 面接ボタンのアクション設定
-    interviewButton.onclick = function () {
-        location.href = interviewUrl;
-    };
-
-    // 編集ボタンのアクションを設定
-    editButton.onclick = function () {
-        location.href = editUrl;
-    };
-
-    // 削除ボタンのアクションを設定
-    deleteButton.onclick = function () {
-        if (confirm("本当に削除しますか？")) {
-            fetch(deleteUrl, {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ _method: "DELETE" })
-            })
-            .then(response => {
-                if (response.ok) {
-                    location.reload(); // 成功したらページリロード
-                } else {
-                    alert("削除に失敗しました");
+    // --- 既存の回答テキストエリアの文字数更新処理 ---
+    function updateCharCount(textarea, displayElem) {
+        displayElem.innerText = "現在の文字数: " + textarea.value.length;
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll("textarea[id^='answer-']").forEach(function(textarea) {
+            // 既存コンテンツは id が "answer-{contentId}" となっているので、charCount-{contentId} を取得
+            let idParts = textarea.getAttribute("id").split('-');
+            let display = document.getElementById("charCount-" + idParts[1]);
+            if (display) {
+                updateCharCount(textarea, display);
+            }
+            textarea.addEventListener('input', function() {
+                if (display) {
+                    updateCharCount(textarea, display);
                 }
             });
-        }
-    };
+        });
+    });
 
-    // 画面外に出ないようにメニュー位置調整
-    let menuWidth = contextMenu.offsetWidth;
-    let menuHeight = contextMenu.offsetHeight;
-    let windowWidth = window.innerWidth;
-    let windowHeight = window.innerHeight;
-
-    let posX = event.pageX;
-    let posY = event.pageY;
-
-    if (posX + menuWidth > windowWidth) {
-        posX -= menuWidth;
+    // --- 新規設問の処理 ---
+    let newContentCounter = 0;
+    function addNewContent() {
+        newContentCounter++;
+        let li = document.createElement('li');
+        li.className = 'p-4 border rounded-[12px] new-content';
+        li.innerHTML = `
+            <div>
+                <div class="flex justify-between items-center">
+                    <label class="font-bold">質問:</label>
+                    <button type="button" onclick="removeNewContent(this)" class="bg-red-500 text-white px-3 py-1 rounded-full text-sm">
+                        −
+                    </button>
+                </div>
+                <input type="text" name="new_questions[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" placeholder="質問を入力">
+            </div>
+            <div class="mt-2">
+                <div class="flex justify-between items-center">
+                    <label class="font-bold">回答:</label>
+                    <button type="button" onclick="copyAnswer('new-answer-${newContentCounter}', this)" 
+                        class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
+                        {!! config('icons.copy') !!}
+                    </button>
+                </div>
+                <div class="flex items-center">
+                    <textarea id="new-answer-${newContentCounter}" name="new_answers[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" rows="3" placeholder="回答を入力" oninput="updateCharCount(this, this.nextElementSibling)"></textarea>
+                </div>
+                <!-- 文字数表示用 -->
+                <p class="text-gray-600 mt-1">現在の文字数: 0</p>
+            </div>
+        `;
+        document.getElementById('contents-list').appendChild(li);
     }
-    if (posY + menuHeight > windowHeight) {
-        posY -= menuHeight;
+    function removeNewContent(button) {
+        let li = button.closest('li');
+        li.remove();
     }
-
-    contextMenu.style.left = `${posX}px`;
-    contextMenu.style.top = `${posY}px`;
-    contextMenu.classList.remove("hidden");
-}
-
-function updateCharCount() {
-                                let textarea = document.getElementById('answer');
-                                let charCount = textarea.value.length;
-                                document.getElementById('charCount').innerText = `現在の文字数: ${charCount}`;
-                           }
-                            document.addEventListener("DOMContentLoaded", function() {
-                                updateCharCount(); 
-                                document.getElementById('answer').addEventListener('input', updateCharCount);
-                            });
+    document.getElementById('add-content-btn').addEventListener('click', addNewContent);
 </script>

@@ -24,7 +24,7 @@ class StoreContentRequest extends FormRequest
         return [
             'question' => 'required|string|max:255',
             'answer' => [
-                'required',
+                'nullable',
                 'string',
                 function ($attribute, $value, $fail) {
                     $characterLimit = $this->input('character_limit'); // ユーザー入力値

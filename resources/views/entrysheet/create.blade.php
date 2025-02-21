@@ -23,18 +23,17 @@
                     @endif
 
                     <!-- エントリーシート作成フォーム -->
-                    <form method="POST" action="{{ route('entrysheet.store') }}">
+                    <form method="POST" action="{{ route('entrysheet.store') }}" id="entrysheet-form">
                         @csrf
 
                         <!-- 企業選択 -->
                         <div class="mb-4">
                             <label for="company_id" class="block text-gray-700 font-bold mb-2">企業</label>
                             @if(isset($company)) 
-                                <!-- 企業が選択済みの場合（企業からの新規作成） -->
                                 <p class="border border-gray-300 rounded-[12px] p-2 bg-gray-100">{{ $company->name }}</p>
                                 <input type="hidden" name="company_id" value="{{ $company->id }}">
                             @else
-                                <select name="company_id" id="company_id" class="border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500" required>
+                                <select name="company_id" id="company_id" class="border-gray-300 rounded-[12px]" required>
                                     <option value="">企業を選択してください</option>
                                     @foreach ($industries as $industry)
                                         @if ($industry->companies->isNotEmpty()) 
@@ -55,7 +54,7 @@
                         <!-- タイトル選択 -->
                         <div class="mb-4">
                             <label for="title" class="block text-gray-700 font-bold mb-2">タイトル</label>
-                            <select name="title" id="title" class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500" required>
+                            <select name="title" id="title" class="border-gray-300 rounded-[12px]" required>
                                 <option value="">タイトルを選択</option>
                                 @foreach ($presetTitles as $title)
                                     <option value="{{ $title }}">{{ $title }}</option>
@@ -63,31 +62,29 @@
                             </select>
                         </div>
 
-                        <!-- ステータス -->
-                        <div class="mb-4">
-                            <label for="status" class="block text-gray-700 font-bold mb-2">ステータス</label>
-                            <select name="status" id="status" class="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500" required>
-                                <option value="">ステータスを選択</option>
-                                <option value="下書き">下書き</option>
-                                <option value="提出済み">提出済み</option>
-                                <option value="書類通過">書類通過</option>
-                                <option value="書類落ち">書類落ち</option>
-                            </select>
-                        </div>
-
                         <!-- 締切日 -->
                         <div class="mb-4">
                             <label for="deadline" class="block text-gray-700 font-bold mb-2">締切日 (任意)</label>
-                            <div id="deadline-wrapper" class="relative flex items-center border border-gray-300 rounded-[12px] focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 cursor-pointer">
-                                <input type="date" name="deadline" id="deadline" 
-                                    class="pl-4 pr-4 py-2 w-full rounded-[12px] focus:ring-blue-500 focus:border-blue-500 appearance-none">
+                            <input type="date" name="deadline" id="deadline" class="border-gray-300 rounded-[12px] w-full">
+                        </div>
+
+                        <!-- 質問入力（複数登録可能） -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-bold mb-2">質問</label>
+                            <div id="questions-container">
+                                <div class="question-group flex items-center mb-2">
+                                    <input type="text" name="questions[]" class="border-gray-300 rounded-[12px] w-full" required>
+                                    <button type="button" class="ml-2 bg-red-500 text-white px-3 py-1 rounded-[12px] remove-question hidden">削除</button>
+                                </div>
                             </div>
+                            <button type="button" id="add-question" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-[12px]">
+                                ＋ 質問を追加
+                            </button>
                         </div>
 
                         <!-- 登録ボタン -->
                         <div class="text-right">
-                            <button type="submit" id="submit-button"
-                                class="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <button type="submit" id="submit-button" class="bg-blue-600 text-white px-6 py-3 rounded-[12px]">
                                 登録
                             </button>
                         </div>
@@ -100,13 +97,34 @@
 </x-app-layout>
 
 <script>
-    document.getElementById('deadline-wrapper').addEventListener('click', function() {
-        document.getElementById('deadline').showPicker();
+    document.getElementById('add-question').addEventListener('click', function() {
+        let container = document.getElementById('questions-container');
+        let newQuestion = document.createElement('div');
+        newQuestion.classList.add('question-group', 'flex', 'items-center', 'mb-2');
+        newQuestion.innerHTML = `
+            <input type="text" name="questions[]" class="border-gray-300 rounded-[12px] w-full" required>
+            <button type="button" class="ml-2 bg-red-500 text-white px-3 py-1 rounded-[12px] remove-question">削除</button>
+        `;
+        container.appendChild(newQuestion);
     });
 
-    document.querySelector("form").addEventListener("submit", function() {
-        let button = document.getElementById("submit-button");
-        button.disabled = true; // ボタンを無効化
-        button.textContent = "登録中..."; // ボタンのテキストを変更
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-question')) {
+            event.target.parentElement.remove();
+        }
+    });
+
+    document.getElementById("entrysheet-form").addEventListener("submit", function() {
+        // 「＋ 質問を追加」ボタンを無効化
+        let addButton = document.getElementById("add-question");
+        addButton.disabled = true;
+        addButton.classList.add("bg-gray-400", "cursor-not-allowed");
+        addButton.classList.remove("bg-blue-500", "hover:bg-blue-600");
+        addButton.textContent = "追加不可";
+
+        // 登録ボタンも無効化
+        let submitButton = document.getElementById("submit-button");
+        submitButton.disabled = true;
+        submitButton.textContent = "登録中...";
     });
 </script>
