@@ -62,18 +62,30 @@
 
                     @if ($companies->isEmpty())
                         <p class="text-gray-600 mt-4">登録された企業がありません。</p>
-                    @else
-                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            @foreach ($companies as $company)
-                                <div class="p-4 border rounded-[12px] cursor-pointer hover:bg-gray-100" 
-                                    onclick="location.href='{{ route('company.show', $company->id) }}'">
-                                    <h3 class="text-lg font-semibold">{{ $company->name }}</h3>
-                                    <p class="text-sm text-gray-600">{{ $company->industry->name ?? '業界なし' }}</p>
-                                    <p class="text-sm text-gray-600 mt-1">{{ $company->status ?? 'ステータスなし' }}</p>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
+                        @else
+                            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                @foreach ($companies as $company)
+                                    <div class="p-4 border rounded-[12px] cursor-pointer relative company-item transition-all duration-300 hover:shadow-lg"
+                                        data-company-id="{{ $company->id }}">
+                                        <div class="flex justify-between items-center">
+                                            <h3 class="text-lg font-semibold">{{ $company->name }}</h3>
+                                            <!-- ゴミ箱アイコン -->
+                                            <button class="hidden trash-btn text-gray-500 w-7 h-7 p-0 rounded-full transition-all duration-300 flex items-center justify-center hover:text-red-500">
+                                                {!! config('icons.trash') !!}
+                                            </button>
+
+                                        </div>
+                                        <p class="text-sm text-gray-600">{{ $company->industry->name ?? '業界なし' }}</p>
+                                        <p class="text-sm text-gray-600 mt-1">{{ $company->status ?? 'ステータスなし' }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                        <!-- 右クリック時の削除ボタン -->
+                        <button id="delete-btn" class="hidden fixed bg-gray-400 w-9 h-9 p-0 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center hover:bg-red-500">
+                            {!! config('icons.trash') !!}
+                        </button>
+
                 </div>
             </div>
         </div>
@@ -109,5 +121,68 @@
                 }
             });
         });
-    </script>
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+        let selectedCompanyId = null;
+
+        document.querySelectorAll(".company-item").forEach(item => {
+            const trashBtn = item.querySelector(".trash-btn"); // 各企業のゴミ箱アイコン
+
+            // **左クリックで詳細ページへ遷移**
+            item.addEventListener("click", function (event) {
+                if (!event.target.closest(".trash-btn")) { // ゴミ箱アイコンをクリックした場合は無視
+                    const companyId = this.getAttribute("data-company-id");
+                    window.location.href = `/company/${companyId}`; // 企業詳細ページに遷移
+                }
+            });
+
+            // **右クリック時にゴミ箱アイコンを表示**
+            item.addEventListener("contextmenu", function (event) {
+                event.preventDefault(); // デフォルトの右クリックメニューを無効化
+                event.stopPropagation(); // 他のクリックイベントの影響を防ぐ
+                selectedCompanyId = this.getAttribute("data-company-id");
+
+                // すべてのゴミ箱アイコンを非表示にする
+                document.querySelectorAll(".trash-btn").forEach(btn => btn.classList.add("hidden"));
+
+                // 選択された企業のゴミ箱アイコンを表示
+                trashBtn.classList.remove("hidden");
+            });
+
+            // **ゴミ箱アイコンのクリック処理**
+            trashBtn.addEventListener("click", function (event) {
+                event.stopPropagation(); // 企業リストのクリックイベントを防ぐ
+                if (selectedCompanyId && confirm("この企業を削除しますか？")) {
+                    fetch(`/company/${selectedCompanyId}`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            item.remove(); // 企業を削除
+                        } else {
+                            alert("削除に失敗しました。");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("削除エラー:", error);
+                        alert("削除に失敗しました。");
+                    });
+                }
+            });
+        });
+
+        // **他の場所をクリックしたらゴミ箱アイコンを非表示**
+        document.addEventListener("click", function (event) {
+            if (!event.target.closest(".company-item") && !event.target.closest(".trash-btn")) {
+                document.querySelectorAll(".trash-btn").forEach(btn => btn.classList.add("hidden"));
+            }
+        });
+    });
+
+</script>
 </x-app-layout>

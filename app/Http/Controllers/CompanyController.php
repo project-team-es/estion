@@ -12,7 +12,7 @@ use App\Models\Industry;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller implements HasMiddleware
 {
@@ -108,11 +108,20 @@ class CompanyController extends Controller implements HasMiddleware
         if ($company->user_id !== Auth::id()) {
             abort(403, '権限がありません');
         }
-    
-        $company->delete();
-    
-        return redirect()->route('company')->with('success', '企業を削除しました。');
+
+        DB::beginTransaction();
+        try {
+            // もし `deleted_at` カラムがある場合は `forceDelete()` で物理削除
+            $company->forceDelete();
+
+            DB::commit();
+            return response()->json(['message' => '企業を削除しました。']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => '削除に失敗しました。'], 500);
+        }
     }
+
 
     public function search(Request $request): View
     {
