@@ -8,8 +8,9 @@
                     <div class="flex justify-between items-center mb-4">
                         <!-- エントリーシート作成ボタン（左端） -->
                         <a href="{{ route('entrysheet.create') }}" 
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[12px]">
-                            エントリーシートを作成
+                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[12px]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-plus-2">
+                                <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M3 15h6"/><path d="M6 12v6"/></svg>
                         </a>
 
                         <!-- フィルターボタン（右端） -->
