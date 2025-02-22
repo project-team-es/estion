@@ -73,14 +73,23 @@
                     <h2 class="text-xl font-bold mt-6">登録したエントリーシート</h2>
 
                     @if ($entrysheets->isEmpty())
-                        <p class="text-gray-600 mt-4">登録されたエントリーシートがありません。</p>
+                    <p class="text-gray-600 mt-4">登録されたエントリーシートがありません。</p>
                     @else
                         <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach ($entrysheets as $entrysheet)
                                 @if (!empty($entrysheet->company) && !empty($entrysheet->company->name))
-                                    <div class="p-4 border rounded-[12px] cursor-pointer transition-transform duration-200 hover:scale-105" 
+                                    <div class="p-4 border rounded-[12px] cursor-pointer relative entrysheet-item transition-transform duration-200 hover:scale-105"
+                                        data-entrysheet-id="{{ $entrysheet->id }}"
                                         onclick="location.href='{{ route('entrysheet.show', $entrysheet->id) }}'">
-                                        <h3 class="text-lg font-semibold">{{ $entrysheet->title }}</h3>
+                                        
+                                        <div class="flex justify-between items-center">
+                                            <h3 class="text-lg font-semibold">{{ $entrysheet->title }}</h3>
+                                            <!-- 右クリックで表示される削除アイコン -->
+                                            <button class="hidden trash-btn absolute right-4 text-gray-500 w-7 h-7 p-0 rounded-full transition-all duration-300 flex items-center justify-center hover:text-red-500">
+                                                {!! config('icons.trash') !!}
+                                            </button>
+                                        </div>
+                                        
                                         <p class="text-sm text-gray-600 mt-1">企業: {{ $entrysheet->company->name }}</p>
                                         <p class="text-sm text-gray-600">ステータス: {{ $entrysheet->status }}</p>
 
@@ -91,7 +100,7 @@
                                 @endif
                             @endforeach
                         </div>
-@endif
+                    @endif
 
                 </div>
             </div>
@@ -113,5 +122,68 @@
             filterModal.classList.add('hidden');
             filterModal.classList.remove('block');
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        let selectedEntrysheetId = null;
+
+        document.querySelectorAll(".entrysheet-item").forEach(item => {
+            const trashBtn = item.querySelector(".trash-btn"); // 削除アイコン
+
+            // **左クリックで詳細ページへ遷移**
+            item.addEventListener("click", function (event) {
+                if (!event.target.closest(".trash-btn")) { // ゴミ箱アイコンをクリックした場合は無視
+                    const entrysheetId = this.getAttribute("data-entrysheet-id");
+                    window.location.href = `/entrysheet/${entrysheetId}`;
+                }
+            });
+
+            // **右クリック時に削除アイコンを表示**
+            item.addEventListener("contextmenu", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                selectedEntrysheetId = this.getAttribute("data-entrysheet-id");
+
+                // すべてのゴミ箱アイコンを非表示
+                document.querySelectorAll(".trash-btn").forEach(btn => btn.classList.add("hidden"));
+
+                // 選択されたエントリーシートの削除アイコンを表示
+                trashBtn.classList.remove("hidden");
+            });
+
+            // **削除アイコンのクリック処理**
+            trashBtn.addEventListener("click", function (event) {
+                event.stopPropagation();
+                if (selectedEntrysheetId && confirm("このエントリーシートを削除しますか？")) {
+                    fetch(`/entrysheet/${selectedEntrysheetId}`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            item.remove(); // エントリーシートを削除
+                        } else {
+                            alert("削除に失敗しました。");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("削除エラー:", error);
+                        alert("削除に失敗しました。");
+                    });
+                }
+            });
+        });
+
+        // **他の場所をクリックしたら削除アイコンを非表示**
+        document.addEventListener("click", function (event) {
+            if (!event.target.closest(".entrysheet-item") && !event.target.closest(".trash-btn")) {
+                document.querySelectorAll(".trash-btn").forEach(btn => btn.classList.add("hidden"));
+            }
+        });
+    });
+
     </script>
 </x-app-layout>
