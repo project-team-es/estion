@@ -75,13 +75,18 @@
 
             <!-- エントリーシート一覧 -->
             <div class="mt-6">
-                <h3 class="text-xl font-bold items-center">
-                    エントリーシート一覧
-                    <a href="{{ route('entrysheet.create.with.company', ['company_id' => $company->id]) }}" 
-                    class="px-3 py-1 text-sm text-white bg-blue-500 font-semibold rounded-full border transition-transform duration-200 hover:scale-105 hover:bg-blue-600">
-                        新規作成
-                    </a>
-                </h3>
+            <h3 class="flex items-center text-xl font-bold space-x-2">
+                <span>エントリーシート一覧</span>
+                <a href="{{ route('entrysheet.create.with.company', ['company_id' => $company->id]) }}"
+                    class="bg-blue-500 inline-flex items-center justify-center p-2 rounded-[12px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-plus-2">
+                        <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/>
+                        <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+                        <path d="M3 15h6"/>
+                        <path d="M6 12v6"/>
+                    </svg>
+                </a>
+            </h3>
                 
                 @if ($company->entrysheets->isEmpty())
                     <p class="text-gray-600 mt-4">この企業のエントリーシートは登録されていません。</p>
@@ -104,16 +109,20 @@
             </div>
 
             <div class="mt-12">
-                <h3 class="text-xl font-bold items-center">
-                    その他のファイル
-                    <form action="{{ route('company.files.store', $company->id) }}" method="post" enctype="multipart/form-data" class="inline-block ml-4">
-                        @csrf
-                        <input type="file" name="file" class="hidden" id="fileInput" onchange="this.form.submit()">
-                        <label for="fileInput" class="px-3 py-1 text-sm text-white bg-blue-500 font-semibold rounded-full border transition-transform duration-200 hover:scale-105 hover:bg-blue-600 cursor-pointer">
-                            アップロード
-                        </label>
-                    </form>
-                </h3>
+            <h3 class="flex items-center text-xl font-bold">
+                <span>その他のファイル</span>
+                <form action="{{ route('company.files.store', $company->id) }}" method="post" enctype="multipart/form-data" class="ml-4">
+                    @csrf
+                    <input type="file" name="file" class="hidden" id="fileInput" onchange="this.form.submit()">
+                    <label for="fileInput" class="bg-blue-500 inline-flex items-center justify-center p-2 rounded-[12px] transition-transform duration-200 hover:scale-105 hover:bg-blue-600 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" x2="12" y1="3" y2="15"/>
+                        </svg>
+                    </label>
+                </form>
+            </h3>
                 
                 @if ($company->files->isEmpty())
                     <p class="text-gray-600 mt-4">この企業に関連するその他のファイルは登録されていません。</p>
