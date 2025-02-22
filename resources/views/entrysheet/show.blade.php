@@ -44,7 +44,17 @@
                                 data-edit-url="{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}">
                                 <!-- コンテンツ表示部分 -->
                                 <div class="flex items-center justify-between mb-2">
-                                    <p class="font-bold">{{ $content->question }}</p>
+                                    <div class="flex items-center">
+                                        <p class="font-bold">{{ $content->question }}</p>
+                                        <a href="{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}"
+                                           class="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition-colors duration-200 hover:cursor-pointer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="opacity: 0.5;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
+                                                <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
+                                                <path d="m15 5 4 4"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+
                                     <button type="button" onclick="copyAnswer('answer-{{ $content->id }}', this)" 
                                         class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
                                         {!! config('icons.copy') !!}
@@ -236,32 +246,6 @@
                 menuDiv.style.flexDirection = 'column';
                 menuDiv.style.gap = '8px';
 
-                // 編集ボタンの作成
-                const editBtn = document.createElement('button');
-                editBtn.textContent = '編集';
-                editBtn.style.padding = '8px 12px';
-                editBtn.style.border = 'none';
-                editBtn.style.backgroundColor = '#3490dc';
-                editBtn.style.color = '#fff';
-                editBtn.style.borderRadius = '12px';
-                editBtn.style.cursor = 'pointer';
-                editBtn.style.width = '100%';
-                editBtn.style.transition = 'background-color 0.3s ease';
-                editBtn.addEventListener('mouseover', function() {
-                    editBtn.style.backgroundColor = '#2779bd';
-                });
-                editBtn.addEventListener('mouseout', function() {
-                    editBtn.style.backgroundColor = '#3490dc';
-                });
-                editBtn.addEventListener('click', function() {
-                    // li の data-edit-url 属性から編集用のURLを取得
-                    const editUrl = li.getAttribute('data-edit-url');
-                    if (editUrl) {
-                        window.location.href = editUrl;
-                    }
-                    menuDiv.remove();
-                });
-
                 // 削除ボタンの作成
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = '削除';
@@ -294,8 +278,7 @@
                     menuDiv.remove();
                 });
 
-                // メニューにボタンを追加
-                menuDiv.appendChild(editBtn);
+                // 削除ボタンのみをメニューに追加
                 menuDiv.appendChild(deleteBtn);
                 document.body.appendChild(menuDiv);
             }
