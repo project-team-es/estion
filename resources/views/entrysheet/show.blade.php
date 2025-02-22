@@ -24,62 +24,61 @@
                     <p class="mt-2"><strong>締切日:</strong> {{ $entrysheet->deadline ?? '未設定' }}</p>
 
                     <!-- 登録済みの質問と回答 一括更新フォーム -->
-                    @if ($entrysheet->contents->isEmpty())
-                        <p class="text-gray-600 mt-4">まだ登録された質問がありません。</p>
-                    @else
-                        <!-- メインフォーム（更新用） -->
-                        <form id="bulkUpdateForm" method="POST" action="{{ route('content.bulkUpdate', $entrysheet->id) }}">
-                            @csrf
-                            @method('PATCH')
-                            <ul class="mt-4 space-y-4" id="contents-list">
-                                <!-- 既存コンテンツ -->
-                                @foreach ($entrysheet->contents as $content)
-                                    <li class="p-4 border rounded-[12px]">
-                                        <!-- 回答入力部分 -->
-                                        <div class="flex items-center justify-between mb-2">
-                                            <p class="font-bold">{{ $content->question }}</p>
-                                            <button type="button" onclick="copyAnswer('answer-{{ $content->id }}', this)" 
-                                                class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
-                                                {!! config('icons.copy') !!}
-                                            </button>
-                                        </div>
-                                        <!-- 回答入力欄（初期行数1） -->
-                                        <textarea name="answers[{{ $content->id }}]" 
-                                                  id="answer-{{ $content->id }}" 
-                                                  class="w-full border-gray-300 rounded-[12px] mt-2 p-2" 
-                                                  rows="1">{{ $content->answer }}</textarea>
-                                        <!-- 文字数表示と面接ボタンを1行に配置 -->
-                                        <div class="flex items-center justify-between mt-1">
-                                            <p id="charCount-{{ $content->id }}" class="text-xs text-gray-600">
-                                                現在の文字数: {{ strlen($content->answer) }}
-                                            </p>
-                                            <button type="button" 
-                                                    onclick="location.href='{{ route('interview.index', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}'" 
-                                                    class="bg-green-300 hover:bg-green-400 text-gray-700 px-3 py-1 rounded-full text-sm">
-                                                面接
-                                            </button>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            
-                            <!-- 新規設問追加ボタン（中央寄せ） -->
-                            <div class="mt-4 flex justify-center">
-                                <button type="button" id="add-content-btn" class="bg-blue-500 text-white px-4 py-2 rounded-full">
-                                    +
-                                </button>
-                            </div>
-                            
-                            <!-- 手動保存ボタン -->
-                            <div class="mt-6 text-right">
-                                <button type="submit" 
-                                        class="bg-green-500 text-white px-6 py-3 rounded-[12px] hover:bg-green-600">
-                                    保存
-                                </button>
-                            </div>
-                        </form>
-                    @endif
+                    <form id="bulkUpdateForm" method="POST" action="{{ route('content.bulkUpdate', $entrysheet->id) }}">
+                        @csrf
+                        @method('PATCH')
+                        <!-- 削除されたコンテンツIDを記録する隠しフィールド -->
+                        <input type="hidden" name="deleted_ids" id="deleted_ids" value="">
 
+                        @if ($entrysheet->contents->isEmpty())
+                            <p class="text-gray-600 mt-4">まだ登録された質問がありません。</p>
+                        @endif
+
+                        <!-- 既存コンテンツリスト（空の場合は空のリストになる） -->
+                        <ul class="mt-4 space-y-4" id="contents-list">
+                            @foreach ($entrysheet->contents as $content)
+                                <li class="p-4 border rounded-[12px]" data-content-id="{{ $content->id }}">
+                                    <!-- コンテンツ表示部分 -->
+                                    <div class="flex items-center justify-between mb-2">
+                                        <p class="font-bold">{{ $content->question }}</p>
+                                        <button type="button" onclick="copyAnswer('answer-{{ $content->id }}', this)" 
+                                            class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
+                                            {!! config('icons.copy') !!}
+                                        </button>
+                                    </div>
+                                    <textarea name="answers[{{ $content->id }}]" 
+                                            id="answer-{{ $content->id }}" 
+                                            class="w-full border-gray-300 rounded-[12px] mt-2 p-2" 
+                                            rows="1">{{ $content->answer }}</textarea>
+                                    <div class="flex items-center justify-between mt-1">
+                                        <p id="charCount-{{ $content->id }}" class="text-xs text-gray-600">
+                                            現在の文字数: {{ strlen($content->answer) }}
+                                        </p>
+                                        <button type="button" 
+                                                onclick="location.href='{{ route('interview.index', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}'" 
+                                                class="bg-green-300 hover:bg-green-400 text-gray-700 px-3 py-1 rounded-full text-sm">
+                                            面接
+                                        </button>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <!-- 新規設問追加ボタン（常に表示） -->
+                        <div class="mt-4 flex justify-center">
+                            <button type="button" id="add-content-btn" class="bg-blue-500 text-white px-4 py-2 rounded-full">
+                                +
+                            </button>
+                        </div>
+                        
+                        <!-- 手動保存ボタン -->
+                        <div class="mt-6 text-right">
+                            <button type="submit" 
+                                    class="bg-green-500 text-white px-6 py-3 rounded-[12px] hover:bg-green-600">
+                                保存
+                            </button>
+                        </div>
+                    </form>
                     <!-- 戻るボタン -->
                     <a href="{{ route('entrysheet') }}" class="mt-6 inline-block bg-blue-500 text-white px-4 py-2 rounded-[12px]">
                         戻る
@@ -196,6 +195,70 @@
             });
             // 初期リサイズ
             autoResizeTextArea(textarea);
+        });
+    });
+
+   /*
+    *  右クリック時の削除機能
+    */
+    document.addEventListener('DOMContentLoaded', function() {
+        const contentList = document.getElementById('contents-list');
+
+        // コンテンツ上で右クリックされたときの処理
+        contentList.addEventListener('contextmenu', function(e) {
+            const li = e.target.closest('li');
+            if (li) {
+                e.preventDefault();
+
+                // 既に表示中の削除ボタンがあれば削除
+                const existingBtn = document.querySelector('.custom-delete-btn');
+                if (existingBtn) {
+                    existingBtn.remove();
+                }
+
+                // カスタム削除ボタンを生成
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = '削除';
+                deleteBtn.className = 'custom-delete-btn';
+                deleteBtn.style.position = 'absolute';
+                deleteBtn.style.top = e.pageY + 'px';
+                deleteBtn.style.left = e.pageX + 'px';
+                deleteBtn.style.zIndex = 1000;
+                deleteBtn.style.padding = '4px 8px';
+                deleteBtn.style.backgroundColor = '#e3342f';
+                deleteBtn.style.color = '#fff';
+                deleteBtn.style.border = 'none';
+                deleteBtn.style.borderRadius = '50px';
+                deleteBtn.style.cursor = 'pointer';
+
+                // 削除ボタンクリック時の処理
+                deleteBtn.addEventListener('click', function() {
+                    // li からコンテンツIDを取得
+                    const contentId = li.getAttribute('data-content-id');
+                    if (contentId) {
+                        // 隠しフィールドにIDを追加（既存の値があればカンマで区切って連結）
+                        const hiddenInput = document.getElementById('deleted_ids');
+                        if (hiddenInput.value) {
+                            hiddenInput.value += ',' + contentId;
+                        } else {
+                            hiddenInput.value = contentId;
+                        }
+                    }
+                    // DOMから該当の li を削除
+                    li.remove();
+                    deleteBtn.remove();
+                });
+
+                document.body.appendChild(deleteBtn);
+            }
+        });
+
+        // 他の場所をクリックしたら、表示中の削除ボタンを非表示にする
+        document.addEventListener('click', function(e) {
+            const deleteBtn = document.querySelector('.custom-delete-btn');
+            if (deleteBtn && !deleteBtn.contains(e.target)) {
+                deleteBtn.remove();
+            }
         });
     });
 </script>
