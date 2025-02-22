@@ -125,7 +125,7 @@
     // --- 新規設問の処理 ---
     let newContentCounter = 0;
     function addNewContent() {
-        newContentCounter++;
+        newContentCounter++; 
         let li = document.createElement('li');
         li.className = 'p-4 border rounded-[12px] new-content';
         li.innerHTML = `
@@ -145,14 +145,29 @@
                     </button>
                 </div>
                 <div class="flex items-center">
-                    <textarea id="new-answer-${newContentCounter}" name="new_answers[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" rows="1" placeholder="回答を入力" oninput="autoResizeTextArea(this); updateCharCount(this, this.nextElementSibling)"></textarea>
+                    <textarea id="new-answer-${newContentCounter}" name="new_answers[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" rows="1" placeholder="回答を入力"></textarea>
                 </div>
                 <!-- 文字数表示用 -->
-                <p class="text-xs text-gray-600 mt-1">現在の文字数: 0</p>
+                <p class="text-xs text-gray-600 mt-1" id="charCount-new-${newContentCounter}">現在の文字数: 0</p>
             </div>
         `;
         document.getElementById('contents-list').appendChild(li);
+
+        // テキストエリアと文字数カウント用の要素を取得
+        let textarea = li.querySelector(`textarea`);
+        let displayElem = li.querySelector(`#charCount-new-${newContentCounter}`);
+
+        // 初期化処理
+        updateCharCount(textarea, displayElem);
+        autoResizeTextArea(textarea);
+
+        // イベントリスナーを追加
+        textarea.addEventListener('input', function() {
+            autoResizeTextArea(this);
+            updateCharCount(this, displayElem);
+        });
     }
+
     function removeNewContent(button) {
         let li = button.closest('li');
         li.remove();
