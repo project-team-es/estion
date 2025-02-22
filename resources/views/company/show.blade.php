@@ -61,14 +61,15 @@
                             <path d="m15 5 4 4"/>
                         </svg>
                     </a>
-                    <!-- 削除ボタン（赤色） -->
+                    <!-- 削除ボタン（アイコンのみ） -->
                     <form action="{{ route('company.destroy', $company->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');" class="inline-block">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="px-3 py-1 text-sm text-white bg-red-500 font-semibold rounded-full border border-red-500 transition-transform duration-200 hover:scale-105 hover:bg-red-600">
-                            削除
+                        <button type="submit" class="p-2 rounded-full text-gray-500 hover:text-red-500 transition-colors duration-200">
+                            {!! config('icons.trash') !!}
                         </button>
                     </form>
+
                 </div>
             </div>
 
