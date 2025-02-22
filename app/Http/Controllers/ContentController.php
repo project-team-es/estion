@@ -44,12 +44,12 @@ class ContentController extends Controller implements HasMiddleware
      */
     public function update(UpdateContentRequest $request, Entrysheet $entrysheet, Content $content)
     {
-    $content->update([
-        'question' => $request->question,
-        'answer' => $request->answer,
-        'character_limit' => $request->character_limit,
-    ]);
-    return redirect()->route('entrysheet.show', ['entrysheet' => $content->entrysheet_id])->with('success', '質問と回答が更新されました！');
+        $content->update([
+            'question' => $request->question,
+            'answer' => $request->answer,
+            'character_limit' => $request->character_limit,
+        ]);
+        return redirect()->route('entrysheet.show', ['entrysheet' => $content->entrysheet_id])->with('success', '質問と回答が更新されました！');
     }
 
     /**
