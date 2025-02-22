@@ -15,6 +15,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\View as ViewClass;
+use Illuminate\Support\Facades\DB;
 
 use Mpdf\Mpdf;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -160,12 +161,18 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function destroy(Entrysheet $entrysheet)
     {
-        $this->deleteGoogleCalendarEvent($entrysheet);
-        $entrysheet->delete();
+        // ユーザー権限の確認
+        if ($entrysheet->user_id !== Auth::id()) {
+            return response()->json(['error' => '削除権限がありません'], 403);
+        }
 
-        return redirect()->route('entrysheet')->with('success', 'エントリーシートを削除しました。');
+        try {
+            $entrysheet->delete(); // ソフトデリート（物理削除したい場合は `forceDelete()`）
+            return response()->json(['message' => 'エントリーシートを削除しました。'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => '削除に失敗しました。', 'details' => $e->getMessage()], 500);
+        }
     }
-
     public function generatePDF($id)
     {
         $entrysheet = EntrySheet::with('contents')->findOrFail($id);
