@@ -69,6 +69,14 @@ class ContentController extends Controller implements HasMiddleware
             }
         }
 
+        // カンマ区切りの文字列を配列に変換
+        $deletedIds = $request->input('deleted_ids');
+        if ($deletedIds) {
+            $idsArray = explode(',', $deletedIds);
+            // IDsを利用して削除処理
+            Content::whereIn('id', $idsArray)->delete();
+        }
+
         // 新規追加された設問と回答を処理する
         if ($request->has('new_questions') && $request->has('new_answers')) {
             $newQuestions = $request->input('new_questions', []);
