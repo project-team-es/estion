@@ -11,9 +11,11 @@
                             
                             <!-- PDFボタン -->
                             <a href="{{ route('entrysheet.pdf', $entrysheet->id) }}" 
+                               target="_blank" rel="noopener noreferrer"
                                class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm hover:bg-blue-500">
                                 PDF
                             </a>
+                            
                         </div>
                         <a href="{{ route('entrysheet.edit', $entrysheet) }}" class="bg-blue-500 text-white px-4 py-2 rounded-[12px]">
                             編集
