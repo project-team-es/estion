@@ -70,11 +70,18 @@
                                     <p id="charCount-{{ $content->id }}" class="text-xs text-gray-600">
                                         現在の文字数: {{ strlen($content->answer) }}
                                     </p>
-                                    <button type="button" 
-                                            onclick="location.href='{{ route('interview.index', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}'" 
-                                            class="bg-green-300 hover:bg-green-400 text-gray-700 px-3 py-1 rounded-full text-sm">
-                                        面接
-                                    </button>
+                                    @if (!empty($content->answer))
+                                        <!-- 回答がある場合は通常のボタン -->
+                                        <a href="{{ route('interview.expected', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}"
+                                        class="bg-green-300 hover:bg-green-400 text-gray-700 px-3 py-1 rounded-full text-sm">
+                                            面接
+                                        </a>
+                                    @else
+                                        <!-- 回答がない場合はクリック不可だが、見た目はそのまま -->
+                                        <span class="bg-gray-300 text-gray-500 px-3 py-1 rounded-full text-sm cursor-pointer">
+                                            面接
+                                        </span>
+                                    @endif
                                 </div>
                             </li>
                         @endforeach

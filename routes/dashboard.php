@@ -71,6 +71,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/company/files/view/{file}', [App\Http\Controllers\CompanyFileController::class, 'view'])->name('company.files.view');
 
     // GeminiAPI
-    Route::get('/entrysheet/{entrysheet}/interview/{content}', [GeminiController::class, 'index'])->name('interview.index');
+    // Route::get('/entrysheet/{entrysheet}/interview/{content}', [GeminiController::class, 'index'])->name('interview.index');
     Route::post('/interview', [GeminiController::class, 'execute'])->name('interview.execute');
+    Route::get('/interview/{entrysheet}/{content}/expected', [GeminiController::class, 'showExpectedES'])->name('interview.expected');
+    Route::get('/interview/{entrysheet}/{content}/start', [GeminiController::class, 'index'])->name('interview.start');
 });
