@@ -56,10 +56,7 @@
                     <!-- 編集ボタン（業界の右側に配置） -->
                     <a href="{{ route('company.edit', $company->id) }}"
                        class="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition-colors duration-200 hover:cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="opacity: 0.5;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
-                            <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
-                            <path d="m15 5 4 4"/>
-                        </svg>
+                       {!! config('icons.edit_mini') !!}
                     </a>
                     <!-- 削除ボタン（アイコンのみ） -->
                     <form action="{{ route('company.destroy', $company->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');" class="inline-block">
@@ -79,12 +76,7 @@
                 <span>エントリーシート一覧</span>
                 <a href="{{ route('entrysheet.create.with.company', ['company_id' => $company->id]) }}"
                     class="bg-blue-500 inline-flex items-center justify-center p-2 rounded-[12px]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-plus-2">
-                        <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/>
-                        <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
-                        <path d="M3 15h6"/>
-                        <path d="M6 12v6"/>
-                    </svg>
+                    {!! config('icons.add_es_mini') !!}
                 </a>
             </h3>
                 
@@ -115,11 +107,7 @@
                     @csrf
                     <input type="file" name="file" class="hidden" id="fileInput" onchange="this.form.submit()">
                     <label for="fileInput" class="bg-blue-500 inline-flex items-center justify-center p-2 rounded-[12px] transition-transform duration-200 hover:scale-105 hover:bg-blue-600 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="17 8 12 3 7 8"/>
-                            <line x1="12" x2="12" y1="3" y2="15"/>
-                        </svg>
+                        {!! config('icons.upload') !!}
                     </label>
                 </form>
             </h3>
