@@ -96,9 +96,10 @@
                             </button>
                         </div>
                     </form>
-                    <!-- 戻るボタン -->
-                    <a href="{{ route('entrysheet') }}" class="mt-6 inline-block bg-blue-500 text-white px-4 py-2 rounded-[12px]">
-                        戻る
+                    
+                    <a href="{{ route('entrysheet') }}" 
+                    class="flex items-center justify-center w-10 h-10 text-gray-500 rounded-full transition-colors duration-200 hover:bg-gray-200 hover:cursor-pointer">
+                        {!! config('icons.undo') !!}
                     </a>
                 </div>
             </div>
