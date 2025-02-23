@@ -4,18 +4,15 @@
             <div class="bg-white overflow-hidden sm:rounded-[12px] shadow-lg">
                 <div class="p-6 text-gray-900">
                     <!-- 生成された質問一覧 -->
-                    @isset($result)
+                    @if (!empty($questions))
                     <div class="mt-6">
                         <h2 class="text-xl font-bold text-gray-900 mb-4">生成された質問</h2>
                         <div class="bg-gray-50 border border-gray-300 rounded-[12px] p-6 shadow-lg">
-                            @php
-                                $questions = json_decode($result, true);
-                            @endphp
                             <ul class="list-none text-gray-800 space-y-4">
                                 @foreach($questions as $index => $question)
                                     <li class="question-item hidden p-4 bg-white rounded-[12px] shadow hover:bg-blue-50 transition duration-300">
                                         <div class="flex justify-between items-center">
-                                            <p class="text-lg">{!! $question !!}</p>
+                                            <p class="text-lg">{{ $question }}</p>
                                             <button class="next-question hidden px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300">
                                                 次の質問へ →
                                             </button>
@@ -33,7 +30,7 @@
                             </ul>
                         </div>
                     </div>
-                    @endisset
+                    @endif
 
                     <!-- エントリーシートに戻るボタン -->
                     <div class="mt-6 text-left">
@@ -47,7 +44,6 @@
             </div>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const questions = document.querySelectorAll('.question-item');

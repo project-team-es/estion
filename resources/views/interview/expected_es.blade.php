@@ -8,12 +8,26 @@
                 <p class="mt-2"><strong>回答:</strong> {{ $content->answer }}</p>
             </div>
 
-            <div class="mt-6 text-center">
-                <a href="{{ route('interview.start', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}"
-                   class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
-                    面接開始
-                </a>
-            </div>
+            <!-- 面接リクエストフォーム -->
+            <form method="POST" action="{{ route('interview.start') }}">
+                @csrf
+                <input type="hidden" name="entrysheet_id" value="{{ $entrysheet->id }}">
+                <input type="hidden" name="content_id" value="{{ $content->id }}">
+
+                <div class="mt-6">
+                    <label for="interview_request" class="block text-lg font-semibold">面接リクエスト</label>
+                    <textarea id="interview_request" name="interview_request" rows="2"
+                              class="w-full border-gray-300 rounded-lg mt-2 p-2"
+                              placeholder="例: キャリアプリントと絡めて質問してほしい"></textarea>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <button type="submit"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+                        面接開始
+                    </button>
+                </div>
+            </form>
 
             <div class="mt-4 text-center">
                 <a href="{{ route('entrysheet.show', ['entrysheet' => $entrysheet->id]) }}" class="text-blue-500 hover:underline">戻る</a>
