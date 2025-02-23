@@ -5,15 +5,15 @@
                 <div class="p-8 text-gray-900">
                     <!-- ヘッダー -->
                     <div class="flex items-center justify-between w-full">
-                        <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-3">
                             <h2 class="text-2xl font-bold">{{ $entrysheet->company->name }}</h2>
                             <p class="text-lg font-semibold"><strong>{{ $entrysheet->title }}</strong></p>
                             
                             <!-- PDFボタン -->
                             <a href="{{ route('entrysheet.pdf', $entrysheet->id) }}" 
-                               target="_blank" rel="noopener noreferrer"
-                               class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm hover:bg-blue-500">
-                                PDF
+                                target="_blank" rel="noopener noreferrer"
+                                class="text-[#001eff] py-1 rounded-full text-sm">
+                                    {!! config('icons.pdf') !!}
                             </a>
                         </div>
                         
