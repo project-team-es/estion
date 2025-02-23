@@ -16,9 +16,9 @@
 
                 <div class="mt-6">
                     <label for="interview_request" class="block text-lg font-semibold">面接リクエスト</label>
-                    <textarea id="interview_request" name="interview_request" rows="2"
+                    <textarea id="interview_request" name="interview_request" rows="1"
                               class="w-full border-gray-300 rounded-lg mt-2 p-2"
-                              placeholder="例: キャリアプリントと絡めて質問してほしい"></textarea>
+                              placeholder="例: キャリアプランと絡めて質問してほしい"></textarea>
                 </div>
 
                 <div class="mt-6 text-center">
