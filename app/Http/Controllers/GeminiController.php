@@ -8,6 +8,7 @@ use Gemini\Laravel\Facades\Gemini;
 
 use App\Models\Content;
 use App\Models\Entrysheet;
+use App\Models\Analysis;
 
 use Illuminate\Support\Str;
 
@@ -32,6 +33,25 @@ class GeminiController extends Controller implements HasMiddleware
         }
 
         return view('interview.index', compact('entrysheet', 'content', 'questions'));
+    }
+
+    public function index_analysis(Request $request)
+    {
+        $analysis = Analysis::findOrFail($request->input('analysis_id'));
+
+        $question = $analysis->question;
+        $answer = $analysis->answer;
+        $interviewRequest = $request->input('interview_request', '');
+
+        $result = $this->execute($question, $answer, $interviewRequest);
+        $questions = $result;
+        // dd($questions);
+        if (!is_array($result) || empty($result)) {
+            return redirect()->route('analysis.index')
+                ->with('error', '面接質問を取得できませんでした。もう一度試してください。');
+        }
+
+        return view('interview.index_analysis', compact('analysis', 'questions'));
     }
     
     
@@ -93,5 +113,12 @@ class GeminiController extends Controller implements HasMiddleware
     {
         return view('interview.expected_es', compact('entrysheet', 'content'));
     }
+
+    public function showExpectedAnalysis(Analysis $analysis)
+    {
+        return view('interview.expected_analysis', compact('analysis'));
+    }
+
+
 
 }

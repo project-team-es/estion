@@ -31,6 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/analyses/bulk-update/{user}', [AnalysisController::class, 'bulkUpdate'])->name('analysis.bulkUpdate');
     Route::get('/analyses/{analysis}/edit', [AnalysisController::class, 'edit'])->name('analysis.edit');
     Route::patch('/analyses/{analysis}', [AnalysisController::class, 'update'])->name('analysis.update');
+    Route::get('/interview/{analysis}/expected', [GeminiController::class, 'showExpectedAnalysis'])->name('interview.expected.analysis');
+    Route::post('/interview/analysis/start', [GeminiController::class, 'index_analysis'])->name('interview.analysis');
 
     // Company
     Route::get('/company', [CompanyController::class, 'index'])->name('company');
