@@ -5,101 +5,69 @@
                 <div class="p-8 text-gray-900">
                     <!-- ヘッダー -->
                     <div class="flex items-center justify-between w-full">
-                        <div class="flex items-center space-x-3">
-                            <h2 class="text-2xl font-bold">{{ $entrysheet->company->name }}</h2>
-                            <p class="text-lg font-semibold"><strong>{{ $entrysheet->title }}</strong></p>
-                            
-                            <!-- PDFボタン -->
-                            <a href="{{ route('entrysheet.pdf', $entrysheet->id) }}" 
-                                target="_blank" rel="noopener noreferrer"
-                                class="text-[#001eff] py-1 rounded-full text-sm">
-                                    {!! config('icons.pdf') !!}
-                            </a>
-                        </div>
-                        
-                        <a href="{{ route('entrysheet.edit', $entrysheet) }}"
-                            class="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition-colors duration-200 hover:cursor-pointer">
-                                {!! config('icons.edit') !!}
-                        </a>
+                        <h2 class="text-2xl font-bold">自己分析</h2>
                     </div>
-                    <p class="mt-2"><strong>締切日:</strong> {{ $entrysheet->deadline ?? '未設定' }}</p>
+                    <p class="mt-2 text-gray-600">以下の質問に対して、あなたの回答を入力してください。</p>
 
-                    <!-- 登録済みの質問と回答 一括更新フォーム -->
-                    <form id="bulkUpdateForm" method="POST" action="{{ route('content.bulkUpdate', $entrysheet->id) }}">
+                    <!-- 自己分析一括更新フォーム -->
+                    <form id="bulkUpdateForm" method="POST" action="{{ route('analysis.bulkUpdate', Auth::id()) }}">
                         @csrf
                         @method('PATCH')
-                        <!-- 削除されたコンテンツIDを記録する隠しフィールド -->
+                        <!-- 削除された項目のIDを記録する hidden フィールド -->
                         <input type="hidden" name="deleted_ids" id="deleted_ids" value="">
 
-                        @if ($entrysheet->contents->isEmpty())
-                            <p class="text-gray-600 mt-4">まだ登録された質問がありません。</p>
+                        @if($analyses->isEmpty())
+                            <p class="text-gray-600 mt-4">まだ自己分析の質問が登録されていません。</p>
                         @endif
 
-                        <!-- 既存コンテンツリスト（空の場合は空のリストになる） -->
+                        <!-- 自己分析リスト -->
                         <ul class="mt-4 space-y-4" id="contents-list">
-                            @foreach ($entrysheet->contents as $content)
-                                <li class="p-4 border rounded-[12px]" 
-                                    data-content-id="{{ $content->id }}" 
-                                    data-edit-url="{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}">
-                                    <!-- コンテンツ表示部分 -->
+                            @foreach($analyses as $analysis)
+                                <li class="p-4 border rounded-[12px]" data-analysis-id="{{ $analysis->id }}">
+                                    <!-- 質問と編集・削除アクション -->
                                     <div class="flex items-center justify-between mb-2">
-                                        <div class="flex items-center">
-                                            <p class="font-bold">{{ $content->question }}</p>
-                                            <a href="{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}"
-                                            class="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition-colors duration-200 hover:cursor-pointer">
-                                                {!! config('icons.edit_mini') !!}
+                                        <div class="flex items-center space-x-2">
+                                            <p class="font-bold">{{ $analysis->question }}</p>
+                                            <a href="{{ route('analysis.edit', ['analysis' => $analysis->id]) }}"
+                                                class="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition-colors duration-200">
+                                                    {!! config('icons.edit_mini') !!}
                                             </a>
                                         </div>
-
-                                        <button type="button" onclick="copyAnswer('answer-{{ $content->id }}', this)" 
+                                        <button type="button" onclick="copyAnswer('answer-{{ $analysis->id }}', this)" 
                                             class="text-gray-700 p-2 rounded-full hover:bg-gray-200 transition relative top-[5px]">
                                             {!! config('icons.copy') !!}
-                                        </button>
+                                    </button>
                                     </div>
-                                    <textarea name="answers[{{ $content->id }}]" 
-                                            id="answer-{{ $content->id }}" 
-                                            class="w-full border-gray-300 rounded-[12px] mt-2 p-2" 
-                                            rows="1">{{ $content->answer }}</textarea>
+                                    <!-- 回答入力エリア -->
+                                    <textarea name="answers[{{ $analysis->id }}]" 
+                                                id="answer-{{ $analysis->id }}" 
+                                                class="w-full border-gray-300 rounded-[12px] mt-2 p-2" 
+                                                rows="1" 
+                                                placeholder="回答を入力">{{ $analysis->answer }}</textarea>
+
                                     <div class="flex items-center justify-between mt-1">
-                                        <p id="charCount-{{ $content->id }}" class="text-xs text-gray-600">
-                                            現在の文字数: {{ strlen($content->answer) }}
+                                        <p id="charCount-{{ $analysis->id }}" class="text-xs text-gray-600">
+                                            現在の文字数: {{ strlen($analysis->answer) }}
                                         </p>
-                                        @if (!empty($content->answer))
-                                            <!-- 回答がある場合は通常のボタン -->
-                                            <a href="{{ route('interview.expected', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}"
-                                            class="bg-green-300 hover:bg-green-400 text-gray-700 px-3 py-1 rounded-full text-sm">
-                                                面接
-                                            </a>
-                                        @else
-                                            <!-- 回答がない場合はクリック不可だが、見た目はそのまま -->
-                                            <span class="bg-gray-300 text-gray-500 px-3 py-1 rounded-full text-sm cursor-pointer">
-                                                面接
-                                            </span>
-                                        @endif
                                     </div>
                                 </li>
                             @endforeach
                         </ul>
 
-                        <!-- 新規設問追加ボタン（常に表示） -->
+                        <!-- 新規質問追加ボタン -->
                         <div class="mt-4 flex justify-center">
                             <button type="button" id="add-content-btn" class="bg-transparent p-0 text-blue-500 hover:text-blue-700 transition-colors duration-200">
                                 {!! config('icons.plus') !!}
                             </button>
                         </div>
-                                                
+
                         <!-- 手動保存ボタン -->
                         <div class="mt-6 text-right">
-                            <button type="submit" 
-                                    class="bg-green-500 text-white px-6 py-3 rounded-[12px] hover:bg-green-600">
+                            <button type="submit" class="bg-green-500 text-white px-6 py-3 rounded-[12px] hover:bg-green-600">
                                 保存
                             </button>
                         </div>
                     </form>
-                    <!-- 戻るボタン -->
-                    <a href="{{ route('entrysheet') }}" class="mt-6 inline-block bg-blue-500 text-white px-4 py-2 rounded-[12px]">
-                        戻る
-                    </a>
                 </div>
             </div>
         </div>
@@ -140,6 +108,7 @@
 
     // --- 新規設問の処理 ---
     let newContentCounter = 0;
+
     function addNewContent() {
         newContentCounter++; 
         let li = document.createElement('li');
@@ -147,9 +116,8 @@
         li.innerHTML = `
             <div class="flex justify-between items-center">
                 <label class="font-bold">質問:</label>
-                <button type="button" onclick="removeNewContent(this)" 
-                        class="m-1 bg-white text-gray-500 w-8 h-8 flex items-center justify-center rounded-full text-sm transition-colors duration-200 hover:text-red-500">
-                    {!! config('icons.trash') !!}
+                <button type="button" onclick="removeNewContent(this)" class="m-1 bg-red-500 text-white w-8 h-8 flex items-center justify-center rounded-full text-sm">
+                    -
                 </button>
             </div>
             <input type="text" name="new_questions[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" placeholder="質問を入力">
@@ -168,6 +136,7 @@
                 <p class="text-xs text-gray-600 mt-1" id="charCount-new-${newContentCounter}">現在の文字数: 0</p>
             </div>
         `;
+        // 修正: 'contents-list'
         document.getElementById('contents-list').appendChild(li);
 
         // テキストエリアと文字数カウント用の要素を取得
@@ -183,7 +152,7 @@
             autoResizeTextArea(this);
             updateCharCount(this, displayElem);
         });
-    }
+}
 
     function removeNewContent(button) {
         let li = button.closest('li');
@@ -196,6 +165,7 @@
         textarea.style.height = 'auto';
         textarea.style.height = textarea.scrollHeight + 'px';
     }
+
     // 既存のテキストエリアのイベントリスナー設定
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll("textarea[id^='answer-']").forEach(function(textarea) {
@@ -245,6 +215,7 @@
                 menuDiv.style.borderRadius = '12px';
                 menuDiv.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
                 menuDiv.style.padding = '8px';
+
                 // 列表示にするためにflexDirectionをcolumnに設定
                 menuDiv.style.display = 'flex';
                 menuDiv.style.flexDirection = 'column';
@@ -268,8 +239,8 @@
                     deleteBtn.style.backgroundColor = '#e3342f';
                 });
                 deleteBtn.addEventListener('click', function() {
-                    // li からコンテンツIDを取得し、隠しフィールドに追記
-                    const contentId = li.getAttribute('data-content-id');
+                    // li からコンテンツIDを取得（属性名を修正）
+                    const contentId = li.getAttribute('data-analysis-id');
                     if (contentId) {
                         const hiddenInput = document.getElementById('deleted_ids');
                         if (hiddenInput.value) {
