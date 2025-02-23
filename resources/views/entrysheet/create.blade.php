@@ -77,12 +77,14 @@
                             <div id="questions-container">
                                 <div class="question-group flex items-center mb-2">
                                     <input type="text" name="questions[]" class="border-gray-300 rounded-[12px] w-full" required>
-                                    <button type="button" class="ml-2 bg-red-500 text-white px-3 py-1 rounded-[12px] remove-question hidden">削除</button>
                                 </div>
                             </div>
-                            <button type="button" id="add-question" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-full block mx-auto">
-                                ＋
-                            </button>
+
+                            <div class="mt-4 flex justify-center">
+                                <button type="button" id="add-question" class="bg-transparent p-0 text-blue-500 hover:text-blue-700 transition-colors duration-200">
+                                    {!! config('icons.puls') !!}
+                                </button>
+                            </div>
                         </div>
 
                         <!-- 登録ボタン -->
@@ -91,6 +93,7 @@
                                 登録
                             </button>
                         </div>
+                        
                     </form>
 
                 </div>
@@ -110,7 +113,9 @@
         newQuestion.classList.add('question-group', 'flex', 'items-center', 'mb-2');
         newQuestion.innerHTML = `
             <input type="text" name="questions[]" class="border-gray-300 rounded-[12px] w-full" required>
-            <button type="button" class="ml-2 bg-red-500 text-white w-8 h-8 flex items-center justify-center rounded-full remove-question">-</button>
+            <button type="button" class="bg-red ml-2 text-white w-8 h-8 flex items-center justify-center rounded-full remove-question">
+                {!! config('icons.minus') !!}
+            </button>
         `;
         container.appendChild(newQuestion);
     });

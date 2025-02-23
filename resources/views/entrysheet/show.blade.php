@@ -19,10 +19,7 @@
                         
                         <a href="{{ route('entrysheet.edit', $entrysheet) }}"
                             class="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition-colors duration-200 hover:cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="opacity: 0.5;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
-                                <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
-                                <path d="m15 5 4 4"/>
-                            </svg>
+                                {!! config('icons.edit') !!}
                         </a>
                     </div>
                     <p class="mt-2"><strong>締切日:</strong> {{ $entrysheet->deadline ?? '未設定' }}</p>
@@ -50,10 +47,7 @@
                                         <p class="font-bold">{{ $content->question }}</p>
                                         <a href="{{ route('content.edit', ['entrysheet' => $entrysheet->id, 'content' => $content->id]) }}"
                                            class="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition-colors duration-200 hover:cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="opacity: 0.5;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
-                                                <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
-                                                <path d="m15 5 4 4"/>
-                                            </svg>
+                                            {!! config('icons.edit_mini') !!}
                                         </a>
                                     </div>
 
@@ -82,11 +76,11 @@
 
                         <!-- 新規設問追加ボタン（常に表示） -->
                         <div class="mt-4 flex justify-center">
-                            <button type="button" id="add-content-btn" class="bg-blue-500 text-white px-4 py-2 rounded-full">
-                                +
+                            <button type="button" id="add-content-btn" class="bg-transparent p-0 text-blue-500 hover:text-blue-700 transition-colors duration-200">
+                                {!! config('icons.puls') !!}
                             </button>
                         </div>
-                        
+                                                
                         <!-- 手動保存ボタン -->
                         <div class="mt-6 text-right">
                             <button type="submit" 
