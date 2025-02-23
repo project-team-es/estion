@@ -2,6 +2,7 @@
 use App\Http\Controllers\GeminiController;
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\CompanyController;
@@ -13,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 
 // ログイン必須のルートをグループ化
 Route::middleware(['auth', 'verified'])->group(function () {
-
-    // GeminiAPI
-    // Route::get('/interview', [GeminiController::class, 'index'])->name('interview.index');
-    // Route::post('/interview', [GeminiController::class, 'execute'])->name('interview.execute');
     
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -29,11 +26,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/bookmark', [BookmarkController::class, 'store'])->name('bookmark.store');
     Route::delete('/bookmark/{bookmark}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
 
-    // Industry
-    // Route::get('/industry', [IndustryController::class, 'home'])->name('industry');
-    // Route::get('/industry/create', [IndustryController::class, 'create'])->name('industry.create');
-    // Route::post('/industry', [IndustryController::class, 'store'])->name('industry.store');
-    // Route::get('/industry/{industry}', [IndustryController::class, 'show'])->name('industry.show');
+    // Analysis
+    Route::get('/analysis', [AnalysisController::class, 'index'])->name('analysis.index');
+    Route::patch('/analyses/bulk-update/{user}', [AnalysisController::class, 'bulkUpdate'])->name('analysis.bulkUpdate');
+    Route::get('/analyses/{analysis}/edit', [AnalysisController::class, 'edit'])->name('analysis.edit');
+    Route::patch('/analyses/{analysis}', [AnalysisController::class, 'update'])->name('analysis.update');
 
     // Company
     Route::get('/company', [CompanyController::class, 'index'])->name('company');

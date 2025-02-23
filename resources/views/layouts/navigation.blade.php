@@ -50,6 +50,9 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('プロフィール') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('analysis.index')">
+                            {{ __('自己分析') }}
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('bookmark.create')">
                             {{ __('ブックマーク') }}
                         </x-dropdown-link>
