@@ -66,4 +66,10 @@ class GeminiController extends Controller implements HasMiddleware
             'verified'
         ];
     }
+    
+    public function showExpectedES(EntrySheet $entrysheet, Content $content)
+    {
+        return view('interview.expected_es', compact('entrysheet', 'content'));
+    }
+
 }
