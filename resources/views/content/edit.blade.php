@@ -73,10 +73,12 @@
                         </div>
                     </form>
 
-                    <!-- 戻るボタン -->
-                    <a href="{{ route('entrysheet.show', $content->entrysheet_id) }}" class="mt-4 inline-block bg-gray-500 text-white px-4 py-2 rounded-[12px] hover:bg-gray-400">
-                        戻る
-                    </a>
+                    <div class="flex justify-end space-x-4">
+                        <a href="{{ url()->previous() }}" 
+                        class="p-3 bg-gray-500 text-white rounded-full hover:bg-gray-400 transition">
+                            {!! config('icons.undo') !!}
+                        </a>
+                    </div>
 
                 </div>
             </div>

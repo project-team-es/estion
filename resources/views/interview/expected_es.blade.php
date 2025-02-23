@@ -30,8 +30,12 @@
             </form>
 
             <div class="mt-4 text-center">
-                <a href="{{ route('entrysheet.show', ['entrysheet' => $entrysheet->id]) }}" class="text-blue-500 hover:underline">戻る</a>
+                <a href="{{ route('entrysheet.show', ['entrysheet' => $entrysheet->id]) }}" 
+                class="flex items-center justify-center w-10 h-10 text-gray-500 rounded-full transition-colors duration-200 hover:bg-gray-200 hover:cursor-pointer">
+                    {!! config('icons.undo') !!}
+                </a>
             </div>
+
         </div>
     </div>
 </x-app-layout>

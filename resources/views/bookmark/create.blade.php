@@ -30,9 +30,10 @@
                         </div>
 
                         <div class="flex justify-end space-x-4">
-                            <a href="{{ url()->previous() }}" class="bg-gray-500 text-white px-6 py-3 rounded-[12px] hover:bg-gray-400">
-                                戻る
-                            </a>
+                        <a href="{{ url()->previous() }}" 
+                        class="flex items-center justify-center w-10 h-10 text-gray-500 rounded-full transition-colors duration-200 hover:bg-gray-200 hover:cursor-pointer">
+                            {!! config('icons.undo') !!}
+                        </a>
                             <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500">
                                 追加
                             </button>
