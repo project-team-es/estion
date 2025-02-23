@@ -33,17 +33,6 @@
                                     <input type="text" name="search" value="{{ request('search') }}" 
                                            placeholder="企業名で検索" class="px-4 py-2 border rounded-[12px]">
 
-                                    <!-- ステータスフィルター -->
-                                    <div>
-                                        <label for="status" class="block text-sm">ステータス</label>
-                                        <select name="status" id="status" class="px-4 py-2 border rounded-[12px] appearance-none pr-10">
-                                            <option value="">すべて</option>
-                                            <option value="未設定" {{ request('status') == '未設定' ? 'selected' : '' }}>未設定</option>
-                                            <option value="進行中" {{ request('status') == '進行中' ? 'selected' : '' }}>進行中</option>
-                                            <option value="完了" {{ request('status') == '完了' ? 'selected' : '' }}>完了</option>
-                                        </select>
-                                    </div>
-
                                     <!-- 並び替え -->
                                     <div>
                                         <label for="order_by" class="block text-sm">並び替え</label>
@@ -92,8 +81,6 @@
                                         </div>
                                         
                                         <p class="text-sm text-gray-600 mt-1">企業: {{ $entrysheet->company->name }}</p>
-                                        <p class="text-sm text-gray-600">ステータス: {{ $entrysheet->status }}</p>
-
                                         @if (!empty($entrysheet->deadline))
                                             <p class="text-sm text-gray-600">締切: {{ $entrysheet->deadline }}</p>
                                         @endif

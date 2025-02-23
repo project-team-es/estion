@@ -97,11 +97,6 @@
                                 onclick="location.href='{{ route('entrysheet.show', $entrysheet->id) }}'">
                                 <h3 class="text-lg font-semibold">{{ $entrysheet->title }}</h3>
                                 <p class="text-sm text-gray-600">締切: {{ $entrysheet->deadline ?? '未設定' }}</p>
-                                <div class="mt-2">
-                                    <span class="px-3 py-1 text-sm font-semibold border border-gray-400 rounded-full">
-                                        {{ $entrysheet->status }}
-                                    </span>
-                                </div>
                             </div>
                         @endforeach
                     </div>
