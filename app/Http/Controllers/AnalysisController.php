@@ -17,8 +17,28 @@ class AnalysisController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // ログインユーザーの自己分析を全件取得
         $analyses = Analysis::where('user_id', $user->id)->get();
+
+        if ($analyses->isEmpty()) {
+            $defaultQuestions = [
+                '性格・人柄：あなたはご友人やご家族からどのように表現されますか？よく言われることを3点教えてください。',
+                '経歴：幼少期～大学までのご経験を教えてください。',
+                'ガクチカ-1：経歴で記入した幼少期～大学時代までの経験の中で、最も自分に影響を与えたことについて、具体的な内容とあなたに与えた影響をお書きください。',
+                'ガクチカ-2：大学時代に注力している研究・学業をご記入ください。',
+                '将来像：あなたが目指す将来像。',
+            ];
+    
+            foreach ($defaultQuestions as $question) {
+                Analysis::create([
+                    'user_id' => auth()->id(),
+                    'question' => $question,
+                    'answer' => '',
+                ]);
+            }
+    
+            $analyses = Analysis::where('user_id', auth()->id())->get();
+        }
+        
         return view('analysis.index', compact('analyses'));
     }
 
