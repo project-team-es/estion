@@ -116,8 +116,8 @@
         li.innerHTML = `
             <div class="flex justify-between items-center">
                 <label class="font-bold">質問:</label>
-                <button type="button" onclick="removeNewContent(this)" class="m-1 bg-red-500 text-white w-8 h-8 flex items-center justify-center rounded-full text-sm">
-                    -
+                <button type="button" onclick="removeNewContent(this)" class="m-1 text-gray-500 hover:text-red-500 w-8 h-8 flex items-center justify-center rounded-full text-sm">
+                    {!! config('icons.trash') !!}
                 </button>
             </div>
             <input type="text" name="new_questions[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" placeholder="質問を入力">
@@ -223,22 +223,23 @@
 
                 // 削除ボタンの作成
                 const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = '削除';
+                deleteBtn.innerHTML = `{!! config('icons.trash') !!}`;
                 deleteBtn.style.padding = '8px 12px';
                 deleteBtn.style.border = 'none';
-                deleteBtn.style.backgroundColor = '#e3342f';
-                deleteBtn.style.color = '#fff';
+                deleteBtn.style.color = 'gray';
                 deleteBtn.style.borderRadius = '12px';
                 deleteBtn.style.cursor = 'pointer';
                 deleteBtn.style.width = '100%';
                 deleteBtn.style.transition = 'background-color 0.3s ease';
                 deleteBtn.addEventListener('mouseover', function() {
-                    deleteBtn.style.backgroundColor = '#cc1f1a';
+                    deleteBtn.style.color = 'red';
                 });
                 deleteBtn.addEventListener('mouseout', function() {
-                    deleteBtn.style.backgroundColor = '#e3342f';
+                    deleteBtn.style.color = 'gray';
                 });
+
                 deleteBtn.addEventListener('click', function() {
+                    alert("本当に削除してもよろしいですか?");
                     // li からコンテンツIDを取得（属性名を修正）
                     const contentId = li.getAttribute('data-analysis-id');
                     if (contentId) {

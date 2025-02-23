@@ -252,21 +252,21 @@
 
                 // 削除ボタンの作成
                 const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = '削除';
+                deleteBtn.innerHTML = `{!! config('icons.trash') !!}`;
                 deleteBtn.style.padding = '8px 12px';
                 deleteBtn.style.border = 'none';
-                deleteBtn.style.backgroundColor = '#e3342f';
-                deleteBtn.style.color = '#fff';
+                deleteBtn.style.color = 'gray';
                 deleteBtn.style.borderRadius = '12px';
                 deleteBtn.style.cursor = 'pointer';
                 deleteBtn.style.width = '100%';
                 deleteBtn.style.transition = 'background-color 0.3s ease';
                 deleteBtn.addEventListener('mouseover', function() {
-                    deleteBtn.style.backgroundColor = '#cc1f1a';
+                    deleteBtn.style.color = 'red';
                 });
                 deleteBtn.addEventListener('mouseout', function() {
-                    deleteBtn.style.backgroundColor = '#e3342f';
+                    deleteBtn.style.color = 'gray';
                 });
+
                 deleteBtn.addEventListener('click', function() {
                     // li からコンテンツIDを取得し、隠しフィールドに追記
                     const contentId = li.getAttribute('data-content-id');
