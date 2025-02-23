@@ -74,5 +74,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('/entrysheet/{entrysheet}/interview/{content}', [GeminiController::class, 'index'])->name('interview.index');
     Route::post('/interview', [GeminiController::class, 'execute'])->name('interview.execute');
     Route::get('/interview/{entrysheet}/{content}/expected', [GeminiController::class, 'showExpectedES'])->name('interview.expected');
-    Route::get('/interview/{entrysheet}/{content}/start', [GeminiController::class, 'index'])->name('interview.start');
+    Route::post('/interview/start', [GeminiController::class, 'index'])->name('interview.start');
 });
