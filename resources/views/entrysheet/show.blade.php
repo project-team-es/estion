@@ -147,8 +147,9 @@
         li.innerHTML = `
             <div class="flex justify-between items-center">
                 <label class="font-bold">質問:</label>
-                <button type="button" onclick="removeNewContent(this)" class="m-1 bg-red-500 text-white w-8 h-8 flex items-center justify-center rounded-full text-sm">
-                    -
+                <button type="button" onclick="removeNewContent(this)" 
+                        class="m-1 bg-white text-gray-500 w-8 h-8 flex items-center justify-center rounded-full text-sm transition-colors duration-200 hover:text-red-500">
+                    {!! config('icons.trash') !!}
                 </button>
             </div>
             <input type="text" name="new_questions[]" class="w-full border-gray-300 rounded-[12px] mt-2 p-2" placeholder="質問を入力">
