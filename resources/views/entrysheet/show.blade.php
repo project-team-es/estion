@@ -25,8 +25,6 @@
                             </svg>
                         </a>
                     </div>
-
-                    <p class="mt-4"><strong>ステータス:</strong> {{ $entrysheet->status }}</p>
                     <p class="mt-2"><strong>締切日:</strong> {{ $entrysheet->deadline ?? '未設定' }}</p>
 
                     <!-- 登録済みの質問と回答 一括更新フォーム -->

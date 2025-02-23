@@ -76,7 +76,6 @@
 
                                         </div>
                                         <p class="text-sm text-gray-600">{{ $company->industry->name ?? '業界なし' }}</p>
-                                        <p class="text-sm text-gray-600 mt-1">{{ $company->status ?? 'ステータスなし' }}</p>
                                     </div>
                                 @endforeach
                             </div>
