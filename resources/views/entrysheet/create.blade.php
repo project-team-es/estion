@@ -82,7 +82,7 @@
 
                             <div class="mt-4 flex justify-center">
                                 <button type="button" id="add-question" class="bg-transparent p-0 text-blue-500 hover:text-blue-700 transition-colors duration-200">
-                                    {!! config('icons.puls') !!}
+                                    {!! config('icons.plus') !!}
                                 </button>
                             </div>
                         </div>
