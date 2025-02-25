@@ -60,21 +60,13 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:text-red-700">
-                                            削除
+                                            {!! config('icons.trash') !!}
                                         </button>
                                     </form>
                                 </li>
                             @endforeach
                         </ul>
                     @endif
-
-                    <!-- お気に入りbookmark作成ボタン -->
-                    <div class="mt-6 text-right">
-                        <a href="{{ route('bookmark.create') }}" 
-                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-[12px]">
-                            ブックマークを追加
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
