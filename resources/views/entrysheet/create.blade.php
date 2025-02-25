@@ -132,7 +132,7 @@
         addButton.disabled = true;
         addButton.classList.add("bg-gray-400", "cursor-not-allowed");
         addButton.classList.remove("bg-blue-500", "hover:bg-blue-600");
-        addButton.textContent = "追加不可";
+        addButton.textContent = "";
 
         // 登録ボタンも無効化
         let submitButton = document.getElementById("submit-button");
