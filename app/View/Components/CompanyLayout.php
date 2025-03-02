@@ -5,7 +5,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class DashboardLayout extends Component
+class CompanyLayout extends Component
 {
     /**
      * コンポーネントの新しいインスタンスを作成します。
