@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
-use App\Models\Bookmark;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,9 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['layouts.navigation', 'bookmark.create'], function ($view) {
-            $bookmarks = auth()->check() ? Bookmark::where('user_id', auth()->id())->get() : collect();
-            $view->with('bookmarks', $bookmarks);
-        });
+        Vite::prefetch(concurrency: 3);
     }
 }

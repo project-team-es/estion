@@ -24,13 +24,11 @@
                     {{ __('Sheet') }}
                 </x-nav-link>
                 
-                @if ($bookmarks->isNotEmpty())
-                    <!-- Divider -->
-                    <div class="hidden md:block h-6 w-px bg-gray-300"></div>
-                    @foreach ($bookmarks->take(3) as $bookmark)
-                        <x-nav-link :href="$bookmark->url" :external="true" class="block py-2">{{ $bookmark->name }}</x-nav-link>
-                    @endforeach
-                @endif
+                @if (isset($bookmarks) && $bookmarks->isNotEmpty())
+    @foreach ($bookmarks->take(3) as $bookmark)
+        <x-nav-link :href="$bookmark->url" class="block py-2" target="_blank">{{ $bookmark->name }}</x-nav-link>
+    @endforeach
+@endif
             </div>
             
             <!-- Right: User Name (Desktop) -->
@@ -86,11 +84,11 @@
         <x-nav-link :href="route('entrysheet')" :active="request()->routeIs('entrysheet')" class="block py-2">{{ __('sheet') }}</x-nav-link>
         <div class="border-t my-2"></div>
 
-        @if ($bookmarks->isNotEmpty())
-            @foreach ($bookmarks->take(3) as $bookmark)
-            <x-nav-link :href="$bookmark->url" class="block py-2" target="_blank">{{ $bookmark->name }}</x-nav-link>
-            @endforeach
-        @endif
+        @if (isset($bookmarks) && $bookmarks->isNotEmpty())
+    @foreach ($bookmarks->take(3) as $bookmark)
+        <x-nav-link :href="$bookmark->url" class="block py-2" target="_blank">{{ $bookmark->name }}</x-nav-link>
+    @endforeach
+@endif
 
         <div class="border-t my-2"></div>
         <x-dropdown-link :href="route('profile.edit')" class="block py-2">{{ __('Profile') }}</x-dropdown-link>

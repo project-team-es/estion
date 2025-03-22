@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified'])->group(function () {
     
     // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Google カレンダーの予定を取得するルート
     Route::get('/calendar/events', [CalendarController::class, 'getUserEvents'])->name('calendar.events');
