@@ -32,7 +32,7 @@ class EntrysheetController extends Controller implements HasMiddleware
         $entrysheets = Entrysheet::where('user_id', Auth::id())->with('company')->get();
 
 
-        return Inertia::render('Entrysheet/Index', [
+        return Inertia::render('App/Entrysheet/index', [
             'entrysheets' => $entrysheets,
         ]);
         // return view('entrysheet.home', compact('entrysheets'));

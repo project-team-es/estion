@@ -55,7 +55,7 @@ class DashboardController extends Controller
     
         return Inertia::render('App/Dashboard/index', [
             'bookmarks' => $bookmarks,
-            'industriesWithCompanies' => $industriesWithCompanies, // json_encode 不要
+            'industriesWithCompanies' => $industriesWithCompanies,
             'industries' => $industries,
             'entrysheets' => $entrysheets,
             'contents' => $contents,

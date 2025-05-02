@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "@/Components/NavBar"; // ← すでにあるナビバーを読み込む
+// import NavBar from "@/Components/NavBar"; // ← すでにあるナビバーを読み込む
 
 export default function AppLayout({ children, title }) {
   return (

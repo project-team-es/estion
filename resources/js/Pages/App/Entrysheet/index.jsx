@@ -130,4 +130,4 @@ export default function EntrysheetIndex() {
   );
 }
 
-EntrysheetIndex.layout = (page) => <AppLayout title="エントリーシート一覧">{page}</AppLayout>;
+
