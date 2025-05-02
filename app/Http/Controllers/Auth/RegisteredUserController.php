@@ -46,7 +46,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        
-        return Inertia::location(route('dashboard'));
+        return redirect()->route('dashboard');
     }
 }

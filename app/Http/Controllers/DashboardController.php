@@ -1,20 +1,20 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
-
-use App\Models\Entrysheet;
+use Inertia\Inertia;
+use App\Models\Company;
+use App\Models\Industry;
 use App\Models\Content;
-use App\Models\Bookmark;
-
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
-class DashboardController extends Controller implements HasMiddleware
+class DashboardController extends Controller
 {
-    public function index(Request $request): View {
+    public function index()
+    {
         $user = Auth::user();
-        
+
         // ログインユーザーに紐づくエントリーシートとブックマークを取得
         $bookmarks = $user->bookmark()->get();
         // ログインユーザーに紐づく業界のみ取得
@@ -53,21 +53,12 @@ class DashboardController extends Controller implements HasMiddleware
             ];
         })->toArray();
     
-        return view('dashboard.home', [
+        return Inertia::render('Dashboard', [
             'bookmarks' => $bookmarks,
-            'industriesWithCompanies' => json_encode($industriesWithCompanies), // 直接配列で渡す
+            'industriesWithCompanies' => $industriesWithCompanies, // json_encode 不要
             'industries' => $industries,
             'entrysheets' => $entrysheets,
             'contents' => $contents,
         ]);
-    }
-    
-
-    public static function middleware(): array
-    {
-        return [
-            'auth',
-            'verified'
-        ];
     }
 }

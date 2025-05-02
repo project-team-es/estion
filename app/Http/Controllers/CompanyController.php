@@ -8,6 +8,9 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 use App\Models\Company;
 use App\Models\Industry;
+use Inertia\Inertia;
+use Inertia\Response;
+
 
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
@@ -16,12 +19,15 @@ use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller implements HasMiddleware
 {
-    public function index(Request $request): View
+    public function index(Request $request): Response
     {
         $companies = Company::where('user_id', Auth::id())->get();
         $industries = Industry::all();
 
-        return view('company.home', compact('companies', 'industries'));
+        return Inertia::render('Company/Index', [
+            'companies' => $companies,
+            'industries' => $industries,
+        ]);
     }
 
     public static function middleware(): array
@@ -38,9 +44,11 @@ class CompanyController extends Controller implements HasMiddleware
     public function create()
     {
         $industries = Industry::all();
-        return view('company.create', compact('industries'));
+        return Inertia::render('Company/Create', [
+            'industries' => $industries
+        ]);
     }
-
+    // return view('company.create', compact('industries'));
     /**
      * Store a newly created resource in storage.
      */
@@ -66,8 +74,10 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function show(Company $company)
     {
-        $company->load('entrysheets');
-        return view('company.show', compact('company'));
+        $company->load(['entrysheets', 'files', 'industry']);
+        return Inertia::render('Company/Show', [
+            'company' => $company,
+        ]);
     }
 
     /**
