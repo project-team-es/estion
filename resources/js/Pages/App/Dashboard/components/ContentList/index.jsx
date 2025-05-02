@@ -16,7 +16,6 @@ export default function ContentList({ contents }) {
                         onClick={() => router.visit(`/entrysheet/${content.entrysheet.id}`)}
                         onContextMenu={(e) => {
                             e.preventDefault();
-                            // カスタム右クリックメニューなどもここで
                         }}
                     >
                         <p className="text-sm text-gray-500 font-bold mb-2">

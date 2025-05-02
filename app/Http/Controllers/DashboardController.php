@@ -53,7 +53,7 @@ class DashboardController extends Controller
             ];
         })->toArray();
     
-        return Inertia::render('Dashboard', [
+        return Inertia::render('App/Dashboard/index', [
             'bookmarks' => $bookmarks,
             'industriesWithCompanies' => $industriesWithCompanies, // json_encode 不要
             'industries' => $industries,
