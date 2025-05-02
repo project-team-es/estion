@@ -4,13 +4,13 @@ import IndustryList from "@/Pages/App/Dashboard/components/IndustryList";
 import ContentList from "@/Pages/App/Dashboard/components/ContentList";
 import EntrySheetList from "@/Pages/App/Dashboard/components/EntrySheetList";
 import { Link } from "@inertiajs/react";
+import AppLayout from "@/Layouts/AppLayout";
 
 export default function Dashboard({ industries, contents, entrysheets, industriesWithCompanies }) {
 
-    console.log("industries:", industries);
     return (
+        <AppLayout title="Dashboard">
         <div className="min-h-screen bg-gray-100">
-            <NavBar />
 
             <div className="flex">
                 <IndustryList industries={industries} industriesWithCompanies={industriesWithCompanies} />
@@ -23,5 +23,6 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
                 ログアウト
             </Link>
         </div>
+        </AppLayout>
     );
 }

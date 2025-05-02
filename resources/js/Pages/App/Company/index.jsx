@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { usePage } from "@inertiajs/react";
+import AppLayout from "@/Layouts/AppLayout";
 
 
 export default function CompanyIndex() {
@@ -39,6 +40,7 @@ export default function CompanyIndex() {
   };
 
   return (
+    <AppLayout>
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden sm:rounded-[12px] p-6 text-gray-900">
@@ -90,5 +92,6 @@ export default function CompanyIndex() {
           </div>
         </div>
       </div>
+      </AppLayout>
   );
 }

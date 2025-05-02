@@ -16,6 +16,7 @@ export default function EntrysheetIndex() {
   };
 
   return (
+    <AppLayout>
     <div className="py-12">
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div className="bg-white overflow-hidden sm:rounded-[12px] relative">
@@ -127,6 +128,7 @@ export default function EntrysheetIndex() {
         </div>
       </div>
     </div>
+    </AppLayout>
   );
 }
 
