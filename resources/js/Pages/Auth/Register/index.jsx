@@ -1,8 +1,6 @@
-// resources/js/Pages/Register.jsx
 import React from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
-import AuthInput from "@/Components/Auth/AuthInput";
-import AuthButton from "@/Components/Auth/AuthButton";
+import AuthInput from "@/Pages/Auth/components/AuthInput";
+import AuthButton from "@/Pages/Auth/components/AuthButton";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Register() {
@@ -19,7 +17,10 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout>
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+            <div className="absolute top-6 left-8 text-4xl font-bold text-black">
+                estion.
+            </div>
             <Head title="新規登録" />
 
             <div className="w-full max-w-lg mt-6 px-8 py-8 bg-white border rounded-[12px]">
@@ -85,6 +86,6 @@ export default function Register() {
                     </div>
                 </form>
             </div>
-        </GuestLayout>
+        </div>
     );
 }
