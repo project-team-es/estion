@@ -1,8 +1,8 @@
 import React from "react";
-import Logo from "@/Components/GuestNav/Logo";
-import NavLinks from "@/Components/GuestNav/NavLinks";
-import MobileMenu from "./MobileMenu";
-import MenuToggle from "./MenuToggle";
+import Logo from "@/Pages/Guest/components/NavBar/Logo";
+import NavLinks from "@/Pages/Guest/components/NavBar/NavLinks";
+import MobileMenu from "@/Pages/Guest/components/NavBar/MobileMenu";
+import MenuToggle from "@/Pages/Guest/components/NavBar/MenuToggle";
 
 export default function NavBar() {
     console.log("NavBar rendered");

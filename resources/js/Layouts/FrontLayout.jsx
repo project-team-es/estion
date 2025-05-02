@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "@/Components/GuestNav/NavBar";
+import NavBar from "@/Pages/Guest/components/NavBar";
 import Footer from "@/Components/Footer";
 
 export default function FrontLayout({ children, title }) {
