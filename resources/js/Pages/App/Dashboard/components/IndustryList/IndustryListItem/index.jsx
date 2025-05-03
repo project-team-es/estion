@@ -3,7 +3,7 @@ export default function IndustryListItem({ industry, onMouseEnter, onMouseLeave 
     return (
         <div
             key={industry.id}
-            className="relative bg-white p-2 rounded-[12px] cursor-pointer hover:bg-gray-100 text-sm"
+            className="bg-white p-2 rounded-[12px] shadow-sm border relative cursor-pointer transition hover:shadow-md"
             style={{
                 minHeight: "60px",
                 display: "flex",
@@ -13,7 +13,7 @@ export default function IndustryListItem({ industry, onMouseEnter, onMouseLeave 
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
-            <p className="text-center text-m font-semibold truncate">{industry.name}</p>
+            <p className="text-center text-sm text-gray-500 font-semibold truncate">{industry.name}</p>
         </div>
     );
 }

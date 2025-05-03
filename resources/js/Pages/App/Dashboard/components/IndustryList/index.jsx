@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import IndustryListItem from "./IndustryListItem";
 import IndustryModal from "./IndustryModal";
 
 export default function IndustryList({ industries, industriesWithCompanies }) {
-    const [selectedIndustryId, setSelectedIndustryId] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedIndustry, setSelectedIndustry] = useState(null);
+    const leaveTimeout = useRef(null);
+    const LEAVE_DELAY = 200; // モーダルを非表示にするまでの遅延時間 (ms)
 
-    const handleIndustryMouseEnter = (industryId) => {
-        setSelectedIndustryId(industryId);
-        setIsModalOpen(true);
+    const handleIndustryMouseEnter = (industry) => {
+        clearTimeout(leaveTimeout.current);
+        setSelectedIndustry(industry);
     };
 
     const handleIndustryMouseLeave = () => {
-        setSelectedIndustryId(null);
+        leaveTimeout.current = setTimeout(() => {
+            setSelectedIndustry(null);
+        }, LEAVE_DELAY);
     };
 
     const closeModal = () => {
-        setIsModalOpen(false);
-        setSelectedIndustryId(null);
+        setSelectedIndustry(null);
     };
 
     const handleCopyToClipboard = (text) => {
@@ -30,8 +32,7 @@ export default function IndustryList({ industries, industriesWithCompanies }) {
             });
     };
 
-    const selectedIndustry = industries.find(industry => industry.id === selectedIndustryId);
-    const companiesInSelectedIndustry = industriesWithCompanies[selectedIndustryId] || [];
+    const companiesInSelectedIndustry = selectedIndustry ? industriesWithCompanies[selectedIndustry.id] || [] : [];
 
     return (
         <div className="w-1/6 p-4 fixed top-10 left-6 md:left-10 lg:left-16
@@ -46,19 +47,25 @@ export default function IndustryList({ industries, industriesWithCompanies }) {
                         <IndustryListItem
                             key={industry.id}
                             industry={industry}
-                            onMouseEnter={() => handleIndustryMouseEnter(industry.id)}
+                            onMouseEnter={() => handleIndustryMouseEnter(industry)}
                             onMouseLeave={handleIndustryMouseLeave}
                         />
                     ))}
                 </div>
             )}
 
-            {isModalOpen && selectedIndustryId && (
+            {selectedIndustry && (
                 <IndustryModal
                     industry={selectedIndustry}
                     companies={companiesInSelectedIndustry}
                     onClose={closeModal}
                     onCopyToClipboard={handleCopyToClipboard}
+                    onMouseEnter={() => clearTimeout(leaveTimeout.current)}
+                    onMouseLeave={() => {
+                        leaveTimeout.current = setTimeout(() => {
+                            setSelectedIndustry(null);
+                        }, LEAVE_DELAY);
+                    }}
                 />
             )}
         </div>

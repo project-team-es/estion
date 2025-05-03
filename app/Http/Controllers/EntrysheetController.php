@@ -129,7 +129,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     {
         $entrysheet->load(['company', 'contents']); // company も必要
 
-        return Inertia::render('App/Entrysheet/Show/ndex', [
+        return Inertia::render('App/Entrysheet/Show/index', [
             'entrysheet' => $entrysheet,
         ]);
     }
