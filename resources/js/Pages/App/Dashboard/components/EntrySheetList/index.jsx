@@ -2,10 +2,10 @@ import React from "react";
 import { router } from "@inertiajs/react";
 
 export default function EntrySheetList({ entrysheets }) {
-    console.log(entrysheets); 
+    console.log(entrysheets);
     return (
-        <div className="w-1/6 p-4 fixed top-16 right-6 md:right-10 lg:right-16
-                        md:h-screen md:flex md:flex-col md:justify-between">
+        <div className="w-1/6 p-4 fixed top-10 right-6 md:right-10 lg:right-16 {/* top-16 を top-10 に変更 */}
+                        md:h-screen md:flex md:flex-col md:justify-between z-10 relative">
             <p className="text-center font-bold mb-4">締切間近</p>
 
             {entrysheets.length === 0 ? (
