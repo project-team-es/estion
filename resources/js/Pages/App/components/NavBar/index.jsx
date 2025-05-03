@@ -12,7 +12,7 @@ export default function NavBar() {
                 <div className="flex space-x-6 text-sm font-medium text-gray-600">
                     <Link href="/dashboard" className="hover:text-gray-900">Dashboard</Link>
                     <Link href="/company" className="hover:text-gray-900">Company</Link>
-                    <Link href="/entrysheet" className="hover:text-gray-900">Sheet</Link>
+                    <Link href="/entrysheet" className="hover:text-gray-900">EntrySheet</Link>
                 </div>
 
                 <div className="text-sm text-gray-700 font-semibold">

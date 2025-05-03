@@ -68,7 +68,7 @@ class EntrysheetController extends Controller implements HasMiddleware
             'その他の就活イベント'
         ];
     
-        return Inertia::render('Entrysheet/Create', [
+        return Inertia::render('App/Entrysheet/Create/index', [
             'industries' => $industries,
             'companies' => $companies,
             'presetTitles' => $presetTitles,
@@ -88,7 +88,7 @@ class EntrysheetController extends Controller implements HasMiddleware
             abort(404, '企業が見つかりません');
         }
 
-        return Inertia::render('Entrysheet/Create', [
+        return Inertia::render('App/Entrysheet/Create/index', [
             'company' => $company,
             'presetTitles' => $presetTitles,
         ]);
@@ -129,7 +129,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     {
         $entrysheet->load(['company', 'contents']); // company も必要
 
-        return Inertia::render('Entrysheet/Show', [
+        return Inertia::render('App/Entrysheet/Show/ndex', [
             'entrysheet' => $entrysheet,
         ]);
     }

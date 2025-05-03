@@ -44,7 +44,7 @@ class CompanyController extends Controller implements HasMiddleware
     public function create()
     {
         $industries = Industry::all();
-        return Inertia::render('Company/Create', [
+        return Inertia::render('App/Company/Create/index', [
             'industries' => $industries
         ]);
     }
@@ -75,7 +75,7 @@ class CompanyController extends Controller implements HasMiddleware
     public function show(Company $company)
     {
         $company->load(['entrysheets', 'files', 'industry']);
-        return Inertia::render('Company/Show', [
+        return Inertia::render('App/Company/Show/index', [
             'company' => $company,
         ]);
     }
