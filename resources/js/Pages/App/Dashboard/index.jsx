@@ -15,7 +15,7 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
                         industries={industries}
                         industriesWithCompanies={industriesWithCompanies}
                     />
-                    <main className="flex-grow ml-[1%] mr-[1%] px-4 mt-10"> {/* mt-16 を mt-10 に変更 */}
+                    <main className="flex-grow ml-[1%] mr-[1%] px-4 mt-10">
                         <ContentList contents={contents} />
                     </main>
                     {entrysheets && (

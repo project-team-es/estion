@@ -1,4 +1,3 @@
-// 1. 個々の業界リストアイテムを表示するコンポーネント
 export default function IndustryListItem({ industry, onMouseEnter, onMouseLeave }) {
     return (
         <div

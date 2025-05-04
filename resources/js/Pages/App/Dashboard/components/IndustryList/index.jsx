@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
 import IndustryListItem from "./IndustryListItem";
 import IndustryModal from "./IndustryModal";
+import { copyToClipboard } from "@/Utils/copyToClipboard";
 
 export default function IndustryList({ industries, industriesWithCompanies }) {
     const [selectedIndustry, setSelectedIndustry] = useState(null);
     const leaveTimeout = useRef(null);
-    const LEAVE_DELAY = 200; // モーダルを非表示にするまでの遅延時間 (ms)
+    const LEAVE_DELAY = 200;
 
     const handleIndustryMouseEnter = (industry) => {
         clearTimeout(leaveTimeout.current);
@@ -23,13 +24,7 @@ export default function IndustryList({ industries, industriesWithCompanies }) {
     };
 
     const handleCopyToClipboard = (text) => {
-        navigator.clipboard.writeText(text)
-            .then(() => {
-                alert("コピーしました: " + text);
-            })
-            .catch((err) => {
-                console.error("コピーに失敗しました:", err);
-            });
+        copyToClipboard(text);
     };
 
     const companiesInSelectedIndustry = selectedIndustry ? industriesWithCompanies[selectedIndustry.id] || [] : [];

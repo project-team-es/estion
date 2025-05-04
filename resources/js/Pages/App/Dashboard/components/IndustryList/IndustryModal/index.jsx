@@ -3,15 +3,15 @@ import { Link } from "@inertiajs/react";
 
 export default function IndustryModal({ industry, companies, onClose, onCopyToClipboard, onMouseEnter, onMouseLeave }) {
     const modalRef = useRef(null);
-    const [isVisible, setIsVisible] = useState(false); // 表示状態を管理する state
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
-                setIsVisible(false); // 外側クリックで非表示に
+                setIsVisible(false);
                 setTimeout(() => {
                     onClose();
-                }, 300); // トランジションが終わるのを待って onClose を実行
+                }, 300);
             }
         };
 
@@ -23,7 +23,6 @@ export default function IndustryModal({ industry, companies, onClose, onCopyToCl
     }, [onClose]);
 
     useEffect(() => {
-        // 親コンポーネントの isModalOpen と selectedIndustryId に基づいて isVisible を更新
         setIsVisible(!!industry && !!companies);
     }, [industry, companies]);
 
@@ -36,7 +35,7 @@ export default function IndustryModal({ industry, companies, onClose, onCopyToCl
             id="industry-modal-container"
             className={`fixed top-[15%] left-[21%] p-2 flex items-start z-50 cursor-default
                         transition-opacity duration-300 ease-in-out
-                        ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} // Tailwind のトランジションクラスと opacity を制御
+                        ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
             ref={modalRef}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
@@ -48,7 +47,7 @@ export default function IndustryModal({ industry, companies, onClose, onCopyToCl
 
                 <button
                     className="text-center absolute top-4 right-4 bg-gray-800 text-white px-3 py-1 rounded-[12px] text-sm hover:bg-gray-600"
-                    onClick={() => setIsVisible(false)} // 閉じるボタンで非表示状態に変更
+                    onClick={() => setIsVisible(false)}
                 >
                     閉じる
                 </button>
