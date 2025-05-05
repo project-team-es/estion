@@ -86,7 +86,11 @@ class CompanyController extends Controller implements HasMiddleware
     public function edit(Company $company)
     {
         $industries = Industry::all(); 
-        return view('company.edit', compact('company', 'industries'));
+
+        return Inertia::render('App/Company/Edit/index', [
+            'company' => $company, 
+            'industries' => $industries,
+        ]);
     }
 
     /**
@@ -125,10 +129,8 @@ class CompanyController extends Controller implements HasMiddleware
             $company->forceDelete();
 
             DB::commit();
-            return response()->json(['message' => '企業を削除しました。']);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => '削除に失敗しました。'], 500);
         }
     }
 

@@ -1,0 +1,128 @@
+import React, { useState, useEffect } from "react";
+import AppLayout from "@/Layouts/AppLayout";
+import { useForm, Link, router } from "@inertiajs/react";
+
+export default function Edit({ content, errors }) {
+    const { data, setData, put, processing } = useForm({
+        question: content.question,
+        character_limit: content.character_limit || "",
+        answer: content.answer,
+    });
+
+    const [charCount, setCharCount] = useState(content.answer ? content.answer.length : 0);
+
+    const handleChange = (event) => {
+        setData(event.target.name, event.target.value);
+        if (event.target.name === 'answer') {
+            setCharCount(event.target.value.length);
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        put(route("content.update", { entrysheet: content.entrysheet_id, content: content.id }));
+    };
+
+    const handleGoBack = () => {
+        window.history.back();
+    };
+
+    return (
+        <AppLayout title="質問と回答の編集">
+            <div className="py-12">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden rounded-[12px] border">
+                        <div className="p-8 text-gray-900">
+                            <h1 className="text-2xl font-bold mb-6">質問と回答を編集</h1>
+
+                            {Object.keys(errors).length > 0 && (
+                                <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-[12px]">
+                                    <ul>
+                                        {Object.values(errors).map((error, index) => (
+                                            <li key={index}>{error}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {/* 編集フォーム */}
+                            <form onSubmit={handleSubmit}>
+                                {/* 質問 */}
+                                <div className="mb-4">
+                                    <label htmlFor="question" className="block text-gray-700 font-bold mb-2">
+                                        質問
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="question"
+                                        id="question"
+                                        value={data.question}
+                                        onChange={handleChange}
+                                        className="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3"
+                                        required
+                                    />
+                                </div>
+
+                                {/* 文字数制限 */}
+                                <div className="mb-4">
+                                    <label htmlFor="character_limit" className="block text-gray-700 font-bold mb-2">
+                                        文字数制限 (任意)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="character_limit"
+                                        id="character_limit"
+                                        value={data.character_limit}
+                                        onChange={handleChange}
+                                        className="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3"
+                                    />
+                                </div>
+
+                                {/* 回答 */}
+                                <div className="mb-4">
+                                    <label htmlFor="answer" className="block text-gray-700 font-bold mb-2">
+                                        回答
+                                    </label>
+                                    <textarea
+                                        name="answer"
+                                        id="answer"
+                                        rows="4"
+                                        value={data.answer}
+                                        onChange={handleChange}
+                                        className="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3"
+                                        required
+                                    />
+                                    <p id="charCount" className="text-gray-600 mt-2">
+                                        現在の文字数: {charCount}
+                                    </p>
+                                </div>
+
+                                {/* 更新ボタン */}
+                                <div className="text-right">
+                                    <button
+                                        type="submit"
+                                        className="bg-blue-600 text-white px-4 py-2 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                        disabled={processing}
+                                    >
+                                        更新
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div className="flex justify-end space-x-4 mt-4">
+                                <button
+                                    onClick={handleGoBack}
+                                    className="p-3 bg-gray-500 text-white rounded-full hover:bg-gray-400 transition"
+                                >
+                                    {/* ここにアイコンを表示する場合は、props で渡すか、直接インポートします */}
+                                    {/* 例: <span dangerouslySetInnerHTML={{ __html: icons.undo }} /> */}
+                                    戻る
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </AppLayout>
+    );
+}

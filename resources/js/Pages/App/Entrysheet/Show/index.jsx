@@ -7,7 +7,7 @@ export default function Show() {
   const { entrysheet } = usePage().props;
 
   const { data, setData, patch, processing } = useForm({
-    answers: {}, // { contentId: "回答", ... }
+    answers: {}, 
   });
 
   // 初期データセット

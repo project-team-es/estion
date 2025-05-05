@@ -1,4 +1,3 @@
-// resources/js/Components/Company/CompanyList.jsx
 import React from "react";
 
 export default function CompanyList({ companies }) {
@@ -16,7 +15,6 @@ export default function CompanyList({ companies }) {
                 >
                     <div className="flex justify-between items-center">
                         <h3 className="text-lg font-semibold">{company.name}</h3>
-                        {/* ゴミ箱ボタンなどの右クリック操作は後で実装 */}
                     </div>
                     <p className="text-sm text-gray-600">{company.industry?.name ?? "業界なし"}</p>
                 </div>

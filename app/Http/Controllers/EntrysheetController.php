@@ -150,7 +150,12 @@ class EntrysheetController extends Controller implements HasMiddleware
             'OB・OG訪問',
             'その他の就活イベント'
         ];
-        return view('entrysheet.edit', compact('entrysheet', 'companies','presetTitles'));
+        return Inertia::render('App/Entrysheet/Edit/index', [
+            'entrysheet' => $entrysheet,
+            'companies' => $companies,
+            'presetTitles' => $presetTitles,
+
+        ]);
     }
 
     /**
@@ -164,10 +169,6 @@ class EntrysheetController extends Controller implements HasMiddleware
             'deadline' => $request->deadline,
             'company_id' => $request->company_id,
         ]);
-
-        // if ($request->deadline) {
-        //     $this->updateGoogleCalendarEvent($entrysheet);
-        // }
 
         return redirect()->route('entrysheet.show', $entrysheet->id)
             ->with('success', 'エントリーシートを更新しました！');
@@ -185,9 +186,7 @@ class EntrysheetController extends Controller implements HasMiddleware
 
         try {
             $entrysheet->delete(); // ソフトデリート（物理削除したい場合は `forceDelete()`）
-            return response()->json(['message' => 'エントリーシートを削除しました。'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => '削除に失敗しました。', 'details' => $e->getMessage()], 500);
         }
     }
     public function generatePDF($id)

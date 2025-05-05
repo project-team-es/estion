@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { usePage } from "@inertiajs/react";
+import { usePage, router } from "@inertiajs/react"; 
 import AppLayout from "@/Layouts/AppLayout";
 import CompanyList from "./CompanyList";
 import CompanyActionButtons from "./CompanyActionButtons";
@@ -17,28 +17,12 @@ export default function Company() {
         setSelectedCompanyId(id);
     };
 
-    const handleDelete = async (id) => {
-        if (!confirm("この企業を削除しますか？")) return;
-
-        try {
-            const response = await fetch(`/company/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]').content,
-                    "Content-Type": "application/json",
-                },
+    const handleDelete = (id) => {
+            if (!confirm("この企業を削除しますか？")) return;
+            router.delete(route("company.destroy", id), {
+                preserveScroll: true,
             });
-
-            if (response.ok) {
-                location.reload();
-            } else {
-                alert("削除に失敗しました。");
-            }
-        } catch (err) {
-            console.error("削除エラー:", err);
-            alert("削除に失敗しました。");
-        }
-    };
+        };
 
     return (
         <AppLayout>

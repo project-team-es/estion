@@ -9,7 +9,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 use App\Models\Content;
 use App\Models\Entrysheet;
-
+use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
@@ -35,7 +35,10 @@ class ContentController extends Controller implements HasMiddleware
      */
     public function edit(Entrysheet $entrysheet, Content $content)
     {
-        return view('content.edit', compact('entrysheet', 'content'));
+        return Inertia::render('App/Entrysheet/Content/Edit/index', [
+            'entrysheet' => $entrysheet, 
+            'content' => $content,
+        ]);
     }
 
 

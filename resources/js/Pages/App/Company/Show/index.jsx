@@ -2,11 +2,10 @@ import React from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import AddEsMiniButton from "@/Components/AddEsMiniButton";
 import { router } from "@inertiajs/react";
-import CompanyInfo from "@/Components/Company/CompanyInof";
-import CompanyActions from "@/Components/Company/CompanyActions";
+import CompanyInfo from "./CompanyInof";
+import CompanyActions from "./CompanyActions";
 
 export default function Show({ company }) {
-  console.log(company);
   return (
     <div className="max-w-7xl mx-auto py-12 px-6">
       <div className="bg-white rounded-[12px] p-6 border">
