@@ -6,6 +6,7 @@ import CompanyInfo from "@/Components/Company/CompanyInof";
 import CompanyActions from "@/Components/Company/CompanyActions";
 
 export default function Show({ company }) {
+  console.log(company);
   return (
     <div className="max-w-7xl mx-auto py-12 px-6">
       <div className="bg-white rounded-[12px] p-6 border">
@@ -49,9 +50,15 @@ export default function Show({ company }) {
             </div>
           )}
         </div>
+        </div>
+    </div>
+  );
+}
+
+Show.layout = (page) => <AppLayout title="企業詳細">{page}</AppLayout>;
 
 
-        <div className="mt-12">
+        {/* <div className="mt-12">
           <h3 className="flex items-center text-xl font-bold">
             <span>その他のファイル</span>
           </h3>
@@ -78,10 +85,9 @@ export default function Show({ company }) {
                     </a>
                   </div>
                 ))}
-            </div>
-          )}
-
-          {/* 画像ファイル */}
+            </div> */}
+          
+{/* 
           {company.files.some(f => f.filename.match(/\.(jpe?g|png|gif)$/i)) && (
             <>
               <h3 className="text-xl font-bold mt-8">画像ファイル</h3>
@@ -109,12 +115,4 @@ export default function Show({ company }) {
                     </div>
                   ))}
               </div>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-Show.layout = (page) => <AppLayout title="企業詳細">{page}</AppLayout>;
+            </> */}

@@ -1,4 +1,3 @@
-// resources/js/Pages/EntrySheet/Create.jsx
 import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
@@ -41,7 +40,6 @@ export default function Create({ industries, company: selectedCompany, presetTit
         )}
 
         <form onSubmit={handleSubmit}>
-          {/* 企業選択 */}
           <div className="mb-4">
             <label className="block font-bold mb-2">企業</label>
             {selectedCompany ? (

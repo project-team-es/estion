@@ -1,6 +1,6 @@
 // resources/js/Components/CompanyInfo.jsx
 import React from "react";
-import copyToClipboard from "@/Utils/copyToClipboard";
+import { copyToClipboard } from "@/Utils/copyToClipboard";
 
 export default function CompanyInfo({ company }) {
   return (

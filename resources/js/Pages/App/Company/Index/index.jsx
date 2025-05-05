@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { usePage } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
-import CompanyList from "./components/CompanyList";
-import CompanyActionButtons from "./components/CompanyActionButtons";
+import CompanyList from "./CompanyList";
+import CompanyActionButtons from "./CompanyActionButtons";
 
 export default function Company() {
     const { companies } = usePage().props;
