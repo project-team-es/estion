@@ -20,7 +20,7 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
                     </main>
                     {entrysheets && (
                         <EntrySheetList
-                            className="w-1/6 p-4 fixed top-10 right-6 md:right-10 lg:right-16 md:h-screen md:flex md:flex-col md:justify-between z-10 relative"
+                            className="w-1/6 p-4 fixed right-10 md:right-10 lg:right-16 md:h-screen md:flex md:flex-col md:justify-between z-10 relative"
                             entrysheets={entrysheets}
                         />
                     )}

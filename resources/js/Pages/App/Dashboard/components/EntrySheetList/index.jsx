@@ -4,7 +4,7 @@ import { router } from "@inertiajs/react";
 export default function EntrySheetList({ entrysheets }) {
     console.log(entrysheets);
     return (
-        <div className="w-1/6 p-4 fixed top-10 right-6 md:right-10 lg:right-16 {/* top-16 を top-10 に変更 */}
+        <div className="w-1/6 p-4 fixed top-10 right-6 md:right-10 lg:right-16 
                         md:h-screen md:flex md:flex-col md:justify-between z-10 relative">
             <p className="text-center font-bold mb-4">締切間近</p>
 
@@ -35,7 +35,7 @@ export default function EntrySheetList({ entrysheets }) {
                                     : "未設定"}
                             </p>
                             <p className="text-m font-semibold truncate text-center">
-                                {entrysheet.company?.name}：{entrysheet.title}
+                            {entrysheet.title}
                             </p>
                         </div>
                     ))}
