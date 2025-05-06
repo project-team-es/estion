@@ -1,5 +1,6 @@
 import AppLayout from "@/Layouts/AppLayout";
 import { useForm, Link } from "@inertiajs/react";
+import { icons } from "@/Utils/icons";
 
 export default function Edit({ entrysheet, presetTitles, companies, errors }) {
     const { data, setData, put, processing } = useForm({
@@ -127,9 +128,8 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                                     <Link
                                         href={route("entrysheet.show", entrysheet.id)}
                                         className="bg-gray-500 text-white px-4 py-2 rounded-[12px] hover:bg-gray-400"
-                                    >
-                                        キャンセル
-                                    </Link>
+                                        dangerouslySetInnerHTML={{ __html: icons.undo }}
+                                        />
                                     <button
                                         type="submit"
                                         className="bg-blue-600 text-white px-6 py-2 rounded-[12px] hover:bg-blue-500"
@@ -145,8 +145,9 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                                 <button
                                     onClick={handleDelete}
                                     className="bg-red-600 text-white px-6 py-2 rounded-[12px] hover:bg-red-500"
+
                                 >
-                                    削除
+                                           <span dangerouslySetInnerHTML={{ __html: icons.trash }} /> 
                                 </button>
                             </div>
                         </div>

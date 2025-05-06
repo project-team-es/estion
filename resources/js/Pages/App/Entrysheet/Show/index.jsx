@@ -10,7 +10,6 @@ export default function Show() {
     answers: {}, 
   });
 
-  // 初期データセット
   useEffect(() => {
     const initialAnswers = {};
     entrysheet.contents.forEach((content) => {
@@ -33,7 +32,6 @@ export default function Show() {
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div className="bg-white overflow-hidden rounded-[12px] border">
           <div className="p-8 text-gray-900">
-            {/* ヘッダー */}
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center space-x-3">
                 <h2 className="text-2xl font-bold">{entrysheet.company.name}</h2>
@@ -130,9 +128,9 @@ export default function Show() {
                 <button
                   type="submit"
                   disabled={processing}
-                  className="bg-green-500 text-white px-6 py-3 rounded-[12px] hover:bg-green-600 disabled:opacity-50"
+                  className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-green-200 mt-6"
                 >
-                  保存
+                  <span dangerouslySetInnerHTML={{ __html: icons.save }} /> 
                 </button>
               </div>
             </form>

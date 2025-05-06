@@ -147,7 +147,7 @@ export default function Edit({ company, industries }) {
                             />
                         </div>
 
-                        {/* 更新ボタン */}
+
                         <div className="text-right">
                             <button
                                 type="submit"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import { useForm, Link, router } from "@inertiajs/react";
+import { icons } from "@/Utils/icons"; // icons オブジェクトをインポート
 
 export default function Edit({ content, errors }) {
     const { data, setData, put, processing } = useForm({
@@ -32,7 +33,7 @@ export default function Edit({ content, errors }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden rounded-[12px] border">
-                        <div className="p-8 text-gray-900">
+                        <div className="p-8 text-gray-900 relative"> {/* relative を追加 */}
                             <h1 className="text-2xl font-bold mb-6">質問と回答を編集</h1>
 
                             {Object.keys(errors).length > 0 && (
@@ -97,7 +98,6 @@ export default function Edit({ content, errors }) {
                                     </p>
                                 </div>
 
-                                {/* 更新ボタン */}
                                 <div className="text-right">
                                     <button
                                         type="submit"
@@ -109,16 +109,13 @@ export default function Edit({ content, errors }) {
                                 </div>
                             </form>
 
-                            <div className="flex justify-end space-x-4 mt-4">
-                                <button
-                                    onClick={handleGoBack}
-                                    className="p-3 bg-gray-500 text-white rounded-full hover:bg-gray-400 transition"
-                                >
-                                    {/* ここにアイコンを表示する場合は、props で渡すか、直接インポートします */}
-                                    {/* 例: <span dangerouslySetInnerHTML={{ __html: icons.undo }} /> */}
-                                    戻る
-                                </button>
-                            </div>
+
+                            <button
+                                onClick={handleGoBack}
+                                className="fixed bottom-4 left-4 flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200"
+                            >
+                                <span dangerouslySetInnerHTML={{ __html: icons.undo }} className="w-5 h-5" />
+                            </button>
                         </div>
                     </div>
                 </div>
