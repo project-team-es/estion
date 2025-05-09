@@ -43,6 +43,9 @@ export default function UserDropdown() {
                     <Link href="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         設定
                     </Link>
+                    <Link href={route('bookmark.create')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        ブックマーク
+                    </Link>
                     <Link href="/logout" method="post" as="button" className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none">
                         ログアウト
                     </Link>

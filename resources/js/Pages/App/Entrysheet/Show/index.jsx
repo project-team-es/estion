@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { icons } from "@/Utils/icons";
+import formatDate from "@/Utils/formatDate";
 
 export default function Show() {
   const { entrysheet } = usePage().props;
@@ -54,10 +55,9 @@ export default function Show() {
             </div>
 
             <p className="mt-2">
-              <strong>締切日:</strong> {entrysheet.deadline ?? "未設定"}
+              <strong>締切日:</strong> {entrysheet.deadline ? formatDate(entrysheet.deadline) : "未設定"}
             </p>
 
-            {/* フォーム開始 */}
             <form onSubmit={handleSubmit}>
               <ul className="mt-4 space-y-4" id="contents-list">
                 {entrysheet.contents.length === 0 ? (

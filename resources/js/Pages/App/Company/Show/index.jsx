@@ -4,6 +4,7 @@ import AddEsMiniButton from "@/Components/AddEsMiniButton";
 import { router } from "@inertiajs/react";
 import CompanyInfo from "./CompanyInof";
 import CompanyActions from "./CompanyActions";
+import formatDate from "@/Utils/formatDate";
 
 export default function Show({ company }) {
   return (
@@ -42,7 +43,7 @@ export default function Show({ company }) {
                 >
                   <h3 className="text-lg font-semibold">{entrysheet.title}</h3>
                   <p className="text-sm text-gray-600">
-                    締切: {entrysheet.deadline ?? "未設定"}
+                  締切: {entrysheet.deadline ? formatDate(entrysheet.deadline) : "未設定"}
                   </p>
                 </div>
               ))}

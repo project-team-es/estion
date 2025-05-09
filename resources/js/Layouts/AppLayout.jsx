@@ -1,11 +1,11 @@
 import React from "react";
-import NavBar from "@/Pages/App/components/NavBar"; 
+import NavBar from "@/Pages/App/components/NavBar";
+import { Head } from '@inertiajs/react'; // ← これを追加
+
 export default function AppLayout({ children, title }) {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 pt-20">
-      <head>
-        <title>{title ?? "estion"}</title>
-      </head>
+      <Head title={title ?? "estion"} /> 
 
       <NavBar />
 

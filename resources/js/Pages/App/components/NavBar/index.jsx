@@ -6,7 +6,6 @@ import Bookmark from "./Bookmark";
 
 export default function NavBar() {
     const { bookmarks } = usePage().props;
-
     return (
         <nav className="bg-white fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-[95%] mx-auto z-50 rounded-[12px] px-6 py-3 shadow">
             <div className="flex justify-between items-center">

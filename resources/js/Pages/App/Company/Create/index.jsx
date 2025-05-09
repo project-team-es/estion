@@ -3,7 +3,6 @@ import AppLayout from "@/Layouts/AppLayout";
 import { useForm, Head } from "@inertiajs/react";
 
 const CreateCompany = ({ industries }) => {
-    console.log('industries:', industries);
     const { data, setData, post, processing, errors } = useForm({
         name: '',
         industry_id: '',

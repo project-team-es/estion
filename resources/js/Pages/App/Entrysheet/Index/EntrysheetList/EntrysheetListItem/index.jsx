@@ -1,6 +1,7 @@
 import React from "react";
 import { router } from "@inertiajs/react";
 import { icons } from "@/Utils/icons";
+import formatDate from "@/Utils/formatDate";
 
 export default function EntrysheetListItem({ entrysheet, onDelete }) {
     return (
@@ -25,7 +26,7 @@ export default function EntrysheetListItem({ entrysheet, onDelete }) {
             </p>
             {entrysheet.deadline && (
                 <p className="text-sm text-gray-600">
-                    締切: {entrysheet.deadline}
+                    締切: {entrysheet.deadline ? formatDate(entrysheet.deadline) : "未設定"}
                 </p>
             )}
         </div>
