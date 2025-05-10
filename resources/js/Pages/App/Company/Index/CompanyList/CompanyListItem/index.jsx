@@ -6,7 +6,7 @@ export default function CompanyListItem({ company, onCompanyClick, onCompanyRigh
     return (
         <div
             key={company.id}
-            className="p-4 border rounded-[12px] cursor-pointer relative transition-all duration-300 hover:shadow-lg group" // group クラスを追加
+            className="p-4 border rounded-[12px] cursor-pointer relative transition-transform duration-200 hover:scale-105 group"
             onClick={() => onCompanyClick(company.id)}
             onContextMenu={(e) => onCompanyRightClick(e, company.id)}
         >

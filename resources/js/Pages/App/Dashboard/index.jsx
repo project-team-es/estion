@@ -11,7 +11,7 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
             <div className="min-h-screen bg-gray-100">
                 <div className="flex">
                     <IndustryList
-                        className="w-1/6 p-4 fixed top-10 left-6 md:left-10 lg:left-16 md:h-screen md:flex md:flex-col md:justify-between z-10 relative"
+                        className="w-1/5 p-4 fixed top-10 left-6 md:left-10 lg:left-16 md:h-screen md:flex md:flex-col md:justify-between z-10 relative"
                         industries={industries}
                         industriesWithCompanies={industriesWithCompanies}
                     />
@@ -20,7 +20,7 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
                     </main>
                     {entrysheets && (
                         <EntrySheetList
-                            className="w-1/6 p-4 fixed right-10 md:right-10 lg:right-16 md:h-screen md:flex md:flex-col md:justify-between z-10 relative"
+                            className="w-1/5 p-4 fixed right-10 md:right-10 lg:right-16 md:h-screen md:flex md:flex-col md:justify-between z-10 relative"
                             entrysheets={entrysheets}
                         />
                     )}

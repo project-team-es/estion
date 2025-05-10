@@ -13,7 +13,7 @@ export default function ContentList({ contents }) {
                 {contents.map((content) => (
                     <li
                         key={content.id}
-                        className="bg-white p-4 rounded-[12px] shadow-sm border relative cursor-pointer transition hover:shadow-md"
+                        className="bg-white p-4 rounded-[12px] border relative cursor-pointer transition-transform duration-200 hover:scale-105 group"
                         onClick={() => router.visit(`/entrysheet/${content.entrysheet.id}`)}
                         onContextMenu={(e) => {
                             e.preventDefault();

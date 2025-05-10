@@ -2,9 +2,10 @@ export default function IndustryListItem({ industry, onMouseEnter, onMouseLeave 
     return (
         <div
             key={industry.id}
-            className="bg-white p-2 rounded-[12px] shadow-sm border relative cursor-pointer transition hover:shadow-md"
+            className="bg-white p-2 rounded-[12px] border relative cursor-pointer transition-transform duration-200 hover:scale-105 group"
             style={{
                 minHeight: "60px",
+                width: "200px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center"
