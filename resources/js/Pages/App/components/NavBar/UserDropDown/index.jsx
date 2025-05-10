@@ -40,9 +40,6 @@ export default function UserDropdown() {
                     <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         プロフィール
                     </Link>
-                    <Link href="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        設定
-                    </Link>
                     <Link href={route('bookmark.create')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         ブックマーク
                     </Link>
