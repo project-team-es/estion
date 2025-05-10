@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "@/Pages/App/components/NavBar";
-import { Head } from '@inertiajs/react'; // ← これを追加
+import { Head } from '@inertiajs/react';
 
 export default function AppLayout({ children, title }) {
   return (
