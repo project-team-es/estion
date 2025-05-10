@@ -45,8 +45,8 @@ export default function DeleteUserForm({ className = '' }) {
     };
 
     return (
-        <section className={`space-y-4 ${className}`}> {/* space-y を調整 */}
-            <header className="mb-4"> {/* header に mb-4 を追加 */}
+        <section className={`space-y-4 ${className}`}> 
+            <header className="mb-4">
 
 
                 <p className="mt-1 text-sm text-gray-600">
