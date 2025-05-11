@@ -25,7 +25,7 @@ class Entrysheet extends Model
      * 企業（Company）とのリレーション
      */
     public function company(): BelongsTo {
-        return $this->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(Company::class);
     }
 
     /**
