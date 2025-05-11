@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { icons } from "@/Utils/icons";
@@ -6,10 +6,8 @@ import formatDate from "@/Utils/formatDate";
 
 export default function Show() {
   const { entrysheet } = usePage().props;
-
-  const { data, setData, patch, processing } = useForm({
-    answers: {}, 
-  });
+  const { data, setData, patch, processing } = useForm({ answers: {} });
+  const [copiedContentId, setCopiedContentId] = useState(null);
 
   useEffect(() => {
     const initialAnswers = {};
@@ -17,10 +15,18 @@ export default function Show() {
       initialAnswers[content.id] = content.answer || "";
     });
     setData("answers", initialAnswers);
-  }, []);
+  }, [entrysheet.contents]);
 
-  const handleChange = (id, value) => {
+  const handleAnswerChange = (id, value) => {
     setData("answers", { ...data.answers, [id]: value });
+  };
+
+  const handleCopyToClipboard = (text, contentId) => {
+    navigator.clipboard.writeText(text);
+    setCopiedContentId(contentId);
+    setTimeout(() => {
+      setCopiedContentId(null);
+    }, 1500); 
   };
 
   const handleSubmit = (e) => {
@@ -81,20 +87,30 @@ export default function Show() {
                             dangerouslySetInnerHTML={{ __html: icons.edit_mini }}
                           />
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard.writeText(data.answers[content.id]);
-                            alert("コピーしました");
-                          }}
-                          className="text-gray-700 p-2 rounded-full hover:bg-gray-200"
-                          dangerouslySetInnerHTML={{ __html: icons.copy }}
-                        />
+                        <div className="relative">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleCopyToClipboard(data.answers[content.id], content.id)
+                            }
+                            className={`p-1 rounded-full focus:outline-none ${
+                              copiedContentId === content.id
+                                ? 'text-gray-500'
+                                : 'text-gray-700 hover:bg-gray-200'
+                            }`}
+                          >
+                            {copiedContentId === content.id ? (
+                              <span>copied!</span>
+                            ) : (
+                              <span dangerouslySetInnerHTML={{ __html: icons.copy }} />
+                            )}
+                          </button>
+                        </div>
                       </div>
 
                       <textarea
                         value={data.answers[content.id] || ""}
-                        onChange={(e) => handleChange(content.id, e.target.value)}
+                        onChange={(e) => handleAnswerChange(content.id, e.target.value)}
                         className="w-full border-gray-300 rounded-[12px] mt-2 p-2"
                         rows={1}
                       />
@@ -128,18 +144,20 @@ export default function Show() {
                 <button
                   type="submit"
                   disabled={processing}
-                  className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-green-200 mt-6"
+                  className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-green-200 mt-6 focus:outline-none"
                 >
-                  <span dangerouslySetInnerHTML={{ __html: icons.save }} /> 
+                  <span dangerouslySetInnerHTML={{ __html: icons.save }} />
                 </button>
               </div>
             </form>
 
-            <Link
-              href={route("entrysheet")}
-              className="flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200 mt-6"
-              dangerouslySetInnerHTML={{ __html: icons.undo }}
-            />
+            <div className="mt-6">
+              <Link
+                href={route("entrysheet")}
+                className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200 focus:outline-none"
+                dangerouslySetInnerHTML={{ __html: icons.undo }}
+              />
+            </div>
           </div>
         </div>
       </div>
