@@ -21,7 +21,7 @@ class CompanyController extends Controller implements HasMiddleware
 {
     public function index(Request $request): Response
     {
-        $companies = Company::where('user_id', Auth::id())->get();
+        $companies = Company::where('user_id', Auth::id())->with('industry')->get();
         $industries = Industry::all();
 
         return Inertia::render('App/Company/Index/index', [
