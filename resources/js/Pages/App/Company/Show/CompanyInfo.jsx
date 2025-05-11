@@ -29,10 +29,6 @@ export default function CompanyInfo({ company }) {
           ID: {company.loginid ?? "-----"}
         </span>
       </div>
-
-      <span className="px-3 py-1 text-gray-900 font-semibold rounded-full border">
-        {company.industry?.name ?? "-----"}
-      </span>
     </div>
   );
 }

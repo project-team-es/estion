@@ -2,7 +2,7 @@ import React from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import AddEsMiniButton from "@/Components/AddEsMiniButton";
 import { router } from "@inertiajs/react";
-import CompanyInfo from "./CompanyInof";
+import CompanyInfo from "./CompanyInfo";
 import CompanyActions from "./CompanyActions";
 import formatDate from "@/Utils/formatDate";
 
@@ -10,13 +10,22 @@ export default function Show({ company }) {
   return (
     <div className="max-w-7xl mx-auto py-12 px-6">
       <div className="bg-white rounded-[12px] p-6 border">
-      <div className="flex justify-between items-start mb-6">
-        <h2 className="text-2xl font-bold">{company.name}</h2>
-      <div className="flex flex-wrap items-start gap-4">
-        <CompanyInfo company={company} />
-        <CompanyActions companyId={company.id} />
-      </div>
-    </div>
+        <div className="flex justify-between items-start mb-6">
+          <div className="flex items-center space-x-4">
+              {/* 企業名 */}
+              <h2 className="text-2xl font-bold whitespace-nowrap">{company.name}</h2>
+
+              {/* 業界名 */}
+              <span className="px-3 py-1 text-gray-900 font-semibold rounded-full border whitespace-nowrap">
+                  {company.industry?.name || "-----"}
+              </span>
+          </div>
+      
+          <div className="flex flex-wrap items-start gap-4">
+            <CompanyInfo company={company} />
+            <CompanyActions companyId={company.id} />
+          </div>
+        </div>
         <div className="mt-6">
           <h3 className="flex items-center text-xl font-bold space-x-2">
             <span>エントリーシート一覧</span>
@@ -50,7 +59,7 @@ export default function Show({ company }) {
             </div>
           )}
         </div>
-        </div>
+      </div>
     </div>
   );
 }
