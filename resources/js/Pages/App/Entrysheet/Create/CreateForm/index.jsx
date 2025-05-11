@@ -27,7 +27,7 @@ export default function CreateForm({ industries, company: selectedCompany, prese
   };
 
   return (
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-4xl mx-auto px-4 pt-10">
         <h1 className="text-2xl font-bold mb-6">エントリーシートを作成</h1>
 
         {Object.keys(errors).length > 0 && (
