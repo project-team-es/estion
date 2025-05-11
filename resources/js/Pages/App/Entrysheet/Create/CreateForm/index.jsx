@@ -25,8 +25,8 @@ export default function CreateForm({ industries, company: selectedCompany, prese
   };
 
   return (
-      <div className="max-w-4xl mx-auto px-4 pt-10">
-        <h1 className="text-2xl font-bold mb-6">エントリーシートを作成</h1>
+      <div className="max-w-4xl mx-auto py-12 px-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">エントリーシートを作成</h2>
 
         {Object.keys(errors).length > 0 && (
           <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-[12px]">
@@ -38,9 +38,9 @@ export default function CreateForm({ industries, company: selectedCompany, prese
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="bg-white rounded-[12px] p-6 border">
           <div className="mb-4">
-            <label className="block font-bold mb-2">企業</label>
+            <label className="block text-gray-700 font-bold mb-2">企業</label>
             {selectedCompany ? (
               <>
                 <p className="p-2 bg-gray-100 border rounded-[12px]">{selectedCompany.name}</p>
@@ -51,7 +51,7 @@ export default function CreateForm({ industries, company: selectedCompany, prese
                 name="company_id"
                 value={data.company_id}
                 onChange={(e) => setData("company_id", e.target.value)}
-                className="border-gray-300 rounded-[12px]"
+                className="w-full border-gray-300 rounded-[12px] px-4 py-2"
                 required
               >
                 <option value="">企業を選択してください</option>
@@ -66,16 +66,17 @@ export default function CreateForm({ industries, company: selectedCompany, prese
                 ))}
               </select>
             )}
+            {errors.company_id && <div className="text-red-500 text-sm">{errors.company_id}</div>}
           </div>
 
           {/* タイトル選択 */}
           <div className="mb-4">
-            <label className="block font-bold mb-2">タイトル</label>
+            <label className="block text-gray-700 font-bold mb-2">タイトル</label>
             <select
               name="title"
               value={data.title}
               onChange={(e) => setData("title", e.target.value)}
-              className="border-gray-300 rounded-[12px]"
+              className="w-full border-gray-300 rounded-[12px] px-4 py-2"
               required
             >
               <option value="">タイトルを選択</option>
@@ -85,23 +86,25 @@ export default function CreateForm({ industries, company: selectedCompany, prese
                 </option>
               ))}
             </select>
+            {errors.title && <div className="text-red-500 text-sm">{errors.title}</div>}
           </div>
 
           {/* 締切日 */}
           <div className="mb-4">
-            <label className="block font-bold mb-2">締切日</label>
+            <label className="block text-gray-700 font-bold mb-2">締切日</label>
             <input
               type="date"
               name="deadline"
               value={data.deadline}
               onChange={(e) => setData("deadline", e.target.value)}
-              className="border-gray-300 rounded-[12px] w-full"
+              className="w-full border-gray-300 rounded-[12px] px-4 py-2"
             />
+            {errors.deadline && <div className="text-red-500 text-sm">{errors.deadline}</div>}
           </div>
 
           {/* 質問エリア */}
           <div className="mb-4">
-            <label className="block font-bold mb-2">質問</label>
+            <label className="block text-gray-700 font-bold mb-2">質問</label>
             {data.questions.map((q, i) => (
               <div className="flex items-center mb-2" key={i}>
                 <input
@@ -112,7 +115,7 @@ export default function CreateForm({ industries, company: selectedCompany, prese
                     updated[i] = e.target.value;
                     setData("questions", updated);
                   }}
-                  className="border-gray-300 rounded-[12px] w-full"
+                  className="w-full border-gray-300 rounded-[12px] px-4 py-2"
                   required
                 />
                 {i > 0 && (
@@ -133,12 +136,13 @@ export default function CreateForm({ industries, company: selectedCompany, prese
             >
               + 質問を追加
             </button>
+            {errors.questions && <div className="text-red-500 text-sm">{errors.questions}</div>}
           </div>
 
           <div className="text-right">
             <button
               type="submit"
-              className="bg-blue-600 text-white px-6 py-3 rounded-[12px]"
+              className="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500"
               disabled={processing}
             >
               {processing ? "登録中..." : "登録"}
