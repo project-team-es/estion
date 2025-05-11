@@ -2,6 +2,7 @@ import React from "react";
 import { router } from "@inertiajs/react";
 
 export default function EntrySheetList({ entrysheets }) {
+    console.log(entrysheets);
     return (
         <div className="w-1/5 p-4 fixed top-10 right-6 md:right-10 lg:right-16 
                         md:h-screen md:flex md:flex-col md:justify-between z-10 relative">
@@ -33,9 +34,15 @@ export default function EntrySheetList({ entrysheets }) {
                                           weekday: "short",
                                       })
                                     : "未設定"}
-                            </p>                    
+                            </p>
+
+                            {/* 会社名の表示 */}
                             <p className="text-center text-sm text-gray-500 font-semibold truncate">
-                            {entrysheet.title}
+                                
+                            </p>
+
+                            <p className="text-center text-sm text-gray-500 font-semibold truncate">
+                            {entrysheet.company?.name || "No Company"}: {entrysheet.title}
                             </p>
                         </div>
                     ))}

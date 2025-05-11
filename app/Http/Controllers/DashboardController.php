@@ -22,6 +22,7 @@ class DashboardController extends Controller
         // 締切間近ES取得
         // 締切間近ES取得（過去の日付を除外）
         $entrysheets = $user->entrysheet()
+        ->with('company')
         ->where('deadline', '>=', now()) // 現在の日時より未来のもののみ取得
         ->orderByRaw('ISNULL(deadline), deadline ASC')
         ->get();
