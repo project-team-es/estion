@@ -3,8 +3,6 @@ import { useForm } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
 
 export default function CreateForm({ industries, company: selectedCompany, presetTitles }) {
-    // console.log(company);
-    console.log(selectedCompany);
   const { data, setData, post, processing, errors } = useForm({
     company_id: selectedCompany?.id ?? "",
     title: "",
