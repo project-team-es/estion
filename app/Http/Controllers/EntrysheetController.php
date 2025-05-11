@@ -87,7 +87,7 @@ class EntrysheetController extends Controller implements HasMiddleware
             abort(404, '企業が見つかりません');
         }
 
-        return Inertia::render('App/Entrysheet/Create/index', [
+        return Inertia::render('App/Entrysheet/Create/CreateWithCompany', [
             'company' => $company,
             'presetTitles' => $presetTitles,
         ]);

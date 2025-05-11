@@ -3,7 +3,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import CreateForm from "./CreateForm";
 import { Head, Link } from "@inertiajs/react";
 
-export default function Create({ industries, company: selectedCompany, presetTitles }) {
+export default function Create({ industries, companies: selectedCompanies, presetTitles }) {
     const hasCompanies = industries.some(industry => industry.companies && industry.companies.length > 0);
 
     return (
@@ -22,7 +22,7 @@ export default function Create({ industries, company: selectedCompany, presetTit
                     </div>
                 </div>
             ) : (
-                <CreateForm industries={industries} company={selectedCompany} presetTitles={presetTitles} />
+                <CreateForm industries={industries} companies={selectedCompanies} presetTitles={presetTitles} />
             )}
         </AppLayout>
     );
