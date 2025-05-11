@@ -1,17 +1,23 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
 
 export default function Bookmark({ bookmarks }) {
     return (
-        <>
+        <div className="flex space-x-6 text-sm font-medium text-gray-600">
             {bookmarks && bookmarks.length > 0 && (
-                <span className="text-gray-400 ml-3">|</span>
+                <span className="text-gray-600 font-medium">|</span>
             )}
             {bookmarks && bookmarks.length > 0 && bookmarks.slice(0, 3).map(bookmark => (
                 <React.Fragment key={bookmark.id}>
-                    <a href={bookmark.url} className="block py-1 hover:text-gray-900 text-sm" target="_blank">{bookmark.name}</a>
+                    <a
+                        href={bookmark.url}
+                        className="hover:text-gray-900"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {bookmark.name}
+                    </a>
                 </React.Fragment>
             ))}
-        </>
+        </div>
     );
 }
