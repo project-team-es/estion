@@ -117,36 +117,6 @@ export default function Edit({ company, industries }) {
                             />
                         </div>
 
-                        {/* ステータス */}
-                        <div className="mb-4">
-                            <label htmlFor="status" className="block text-gray-700 font-bold mb-2">
-                                ステータス (任意)
-                            </label>
-                            <input
-                                type="text"
-                                name="status"
-                                id="status"
-                                value={data.status}
-                                onChange={handleChange}
-                                className="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2"
-                            />
-                        </div>
-
-                        {/* 選考フロー */}
-                        <div className="mb-4">
-                            <label htmlFor="process" className="block text-gray-700 font-bold mb-2">
-                                選考フロー (任意)
-                            </label>
-                            <input
-                                type="text"
-                                name="process"
-                                id="process"
-                                value={data.process}
-                                onChange={handleChange}
-                                className="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-4 py-2"
-                            />
-                        </div>
-
 
                         <div className="text-right">
                             <button
