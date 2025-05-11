@@ -9,7 +9,7 @@ use Gemini\Laravel\Facades\Gemini;
 use App\Models\Content;
 use App\Models\Entrysheet;
 use App\Models\Analysis;
-
+use Inertia\Inertia;
 use Illuminate\Support\Str;
 
 class GeminiController extends Controller implements HasMiddleware
@@ -111,7 +111,10 @@ class GeminiController extends Controller implements HasMiddleware
     
     public function showExpectedES(EntrySheet $entrysheet, Content $content)
     {
-        return view('interview.expected_es', compact('entrysheet', 'content'));
+        return Inertia::render('App/Interview/ExpectedEs/index', [
+            'entrysheet' => $entrysheet,
+            'content' => $content,
+        ]);
     }
 
     public function showExpectedAnalysis(Analysis $analysis)
