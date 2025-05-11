@@ -10,10 +10,6 @@ class IndustrySeeder extends Seeder
 {
     public function run()
     {
-
-        // 既存のデータを削除
-        Industry::whereIn('name', ['Web系', 'SIer'])->delete();
-
         $industries = [
             'IT・通信',
             'コンサル・シンクタンク',
