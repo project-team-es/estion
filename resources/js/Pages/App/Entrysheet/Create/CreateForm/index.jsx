@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef} from "react";
 import { useForm } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
 
@@ -9,6 +9,17 @@ export default function CreateForm({ industries, company: selectedCompany, prese
     deadline: "",
     questions: [""],
   });
+
+  const dateInputRef = useRef(null);
+  const handleDeadlineInputClick = () => {
+  if (dateInputRef.current) {
+    try {
+      dateInputRef.current.showPicker();
+    } catch (error) {
+      console.error("カレンダーの表示に失敗しました:", error);
+    }
+  }
+};
 
   const addQuestion = () => {
     setData("questions", [...data.questions, ""]);
@@ -93,11 +104,13 @@ export default function CreateForm({ industries, company: selectedCompany, prese
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">締切日</label>
             <input
+              ref={dateInputRef}
               type="date"
               name="deadline"
               value={data.deadline}
               onChange={(e) => setData("deadline", e.target.value)}
-              className="w-full border-gray-300 rounded-[12px] px-4 py-2"
+              onClick={handleDeadlineInputClick}
+              className="w-full border-gray-300 rounded-[12px] px-4 py-2 cursor-pointer"
             />
             {errors.deadline && <div className="text-red-500 text-sm">{errors.deadline}</div>}
           </div>
