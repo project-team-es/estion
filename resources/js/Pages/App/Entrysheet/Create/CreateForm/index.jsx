@@ -1,6 +1,7 @@
 import React, { useState, useRef} from "react";
 import { useForm } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
+import { icons } from "@/Utils/icons";
 
 export default function CreateForm({ industries, company: selectedCompany, presetTitles }) {
   const { data, setData, post, processing, errors } = useForm({
@@ -137,19 +138,28 @@ export default function CreateForm({ industries, company: selectedCompany, prese
                     onClick={() => removeQuestion(i)}
                     className="ml-2 text-red-500 hover:text-red-700"
                   >
-                    −
+                    <span
+                      dangerouslySetInnerHTML={{ __html: icons.minus }} 
+                      className="h-5 w-5"
+                    />
                   </button>
                 )}
               </div>
             ))}
-            <button
-              type="button"
-              onClick={addQuestion}
-              className="text-blue-500 hover:underline mt-2"
-            >
-              + 質問を追加
-            </button>
-            {errors.questions && <div className="text-red-500 text-sm">{errors.questions}</div>}
+            <div className="flex justify-center mt-4">
+              <button
+                type="button"
+                onClick={addQuestion}
+                className="text-blue-500 hover:underline mt-2"
+              >
+                <span
+                  dangerouslySetInnerHTML={{ __html: icons.plus }} 
+                  className="mr-1 h-5 w-5"
+                />
+              </button>
+              {errors.questions && <div className="text-red-500 text-sm">{errors.questions}</div>}
+            </div>
+            
           </div>
 
           <div className="text-right">
