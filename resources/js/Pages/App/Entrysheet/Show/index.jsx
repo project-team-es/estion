@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { icons } from "@/Utils/icons";
@@ -9,6 +9,10 @@ export default function Show() {
   const { data, setData, patch, processing } = useForm({ answers: {} });
   const [copiedContentId, setCopiedContentId] = useState(null);
 
+  const [contextMenu, setContextMenu] = useState(null); // 右クリックの表示状態と情報を保持
+  const contextMenuRef = useRef(null); // DOM要素への参照を保持
+  const { delete: deleteContent, processing: deletingContent } = useForm(); // コンテンツ削除用のuseForm
+
   useEffect(() => {
     const initialAnswers = {};
     entrysheet.contents.forEach((content) => {
@@ -16,6 +20,23 @@ export default function Show() {
     });
     setData("answers", initialAnswers);
   }, [entrysheet.contents]);
+
+  // メニュー外クリックでメニューを閉じるためのuseEffect
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
+        setContextMenu(null);
+      }
+    };
+    if (contextMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("contextmenu", handleClickOutside, true);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("contextmenu", handleClickOutside, true);
+    };
+  }, [contextMenu]); 
 
   const handleAnswerChange = (id, value) => {
     setData("answers", { ...data.answers, [id]: value });
@@ -32,6 +53,35 @@ export default function Show() {
   const handleSubmit = (e) => {
     e.preventDefault();
     patch(route("content.bulkUpdate", entrysheet.id));
+  };
+
+    // 右クリックイベント
+  const handleContextMenu = (event, contentId) => {
+    event.preventDefault(); // ブラウザのデフォルトの右クリックメニューが表示されるのを防ぐ
+    setContextMenu({
+      x: event.clientX,
+      y: event.clientY,
+      contentId: contentId,
+    });
+  };
+
+    // コンテンツ削除を実行するハンドラ関数
+  const handleDeleteContent = (contentId) => {
+    if (window.confirm("この質問を削除してもよろしいですか？")) {
+      deleteContent(route("content.destroy", { entrysheet: entrysheet.id, content: contentId }), {
+        preserveScroll: true,
+        onSuccess: () => {
+          setContextMenu(null);
+        },
+        onError: (errors) => {
+          console.error("削除に失敗しました:", errors);
+          alert("削除に失敗しました。");
+          setContextMenu(null);
+        },
+      });
+    } else {
+      setContextMenu(null);
+    }
   };
 
   return (
@@ -72,8 +122,9 @@ export default function Show() {
                   entrysheet.contents.map((content) => (
                     <li
                       key={content.id}
-                      className="p-4 border rounded-[12px]"
+                      className="p-4 border rounded-[12px] "
                       data-content-id={content.id}
+                      onContextMenu={(e) => handleContextMenu(e, content.id)}
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center">
@@ -150,6 +201,31 @@ export default function Show() {
                 </button>
               </div>
             </form>
+
+            {/* 右クリック削除ボタンのレンダリング */}
+            {contextMenu && (
+              <div
+                ref={contextMenuRef}
+                style={{
+                  top: `${contextMenu.y}px`,
+                  left: `${contextMenu.x}px`,
+                  position: 'fixed',
+                  zIndex: 50,
+                }}
+                className="bg-white border border-gray-300 rounded-[12px] shadow-lg py-1"           
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => handleDeleteContent(contextMenu.contentId)}
+                  disabled={deletingContent}
+                  className="flex items-center w-full text-left px-4 py-2 text-sm text-gray-500 hover:text-red-500 disabled:opacity-50 disabled:cursor-not-allowed group"
+                >
+                  <span
+                    dangerouslySetInnerHTML={{ __html: icons.trash }}
+                  />
+                </button>
+              </div>
+            )}
 
             <div className="mt-6">
               <Link
