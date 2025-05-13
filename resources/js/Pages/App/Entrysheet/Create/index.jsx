@@ -7,7 +7,7 @@ export default function Create({ industries, companies: selectedCompanies, prese
     const hasCompanies = industries.some(industry => industry.companies && industry.companies.length > 0);
 
     return (
-        <AppLayout>
+        <AppLayout title="ES作成">
             {!hasCompanies ? (
                 <div className="py-12">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

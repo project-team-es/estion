@@ -24,7 +24,7 @@ export default function BookmarkCreate({ bookmarks }) {
     };
 
     return (
-        <AppLayout>
+        <AppLayout title="ブックマーク登録">
             {/* 追加フォームを囲む div で幅を調整 */}
             <div className="mx-auto max-w-3xl mb-8 bg-white overflow-hidden rounded-[12px] border p-8 mt-10">
                 <h2 className="text-2xl font-bold mb-6">お気に入りURLを追加</h2>
