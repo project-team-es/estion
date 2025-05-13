@@ -79,25 +79,6 @@ export default function Edit({ content, errors }) {
                                     />
                                 </div>
 
-                                {/* 回答 */}
-                                <div className="mb-4">
-                                    <label htmlFor="answer" className="block text-gray-700 font-bold mb-2">
-                                        回答
-                                    </label>
-                                    <textarea
-                                        name="answer"
-                                        id="answer"
-                                        rows="4"
-                                        value={data.answer}
-                                        onChange={handleChange}
-                                        className="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3"
-                                        required
-                                    />
-                                    <p id="charCount" className="text-gray-600 mt-2">
-                                        現在の文字数: {charCount}
-                                    </p>
-                                </div>
-
                                 <div className="text-right">
                                     <button
                                         type="submit"
