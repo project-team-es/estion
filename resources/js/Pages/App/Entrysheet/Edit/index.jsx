@@ -1,3 +1,4 @@
+import React, { useState, useRef } from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import { useForm, Link } from "@inertiajs/react";
 import { icons } from "@/Utils/icons";
@@ -9,6 +10,17 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
         deadline: entrysheet.deadline ? entrysheet.deadline.substring(0, 10) : "",
         company_id: entrysheet.company_id,
     });
+    const dateInputRef = useRef(null);
+    const handleDeadlineInputClick = () => {
+        if (dateInputRef.current) {
+            try {
+            dateInputRef.current.showPicker();
+            } catch (error) {
+            console.error("カレンダーの表示に失敗しました:", error);
+            }
+        }
+    };
+
 
     const handleChange = (event) => {
         setData(event.target.name, event.target.value);
@@ -93,12 +105,14 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                                     </label>
                                     <div className="relative flex items-center border border-gray-300 rounded-[12px]">
                                         <input
+                                            ref={dateInputRef}
                                             type="date"
                                             name="deadline"
                                             id="deadline"
                                             value={data.deadline}
                                             onChange={handleChange}
-                                            className="pl-4 pr-4 py-2 w-full rounded-[12px] appearance-none"
+                                            onClick={handleDeadlineInputClick}
+                                            className="pl-4 pr-4 py-2 w-full rounded-[12px] appearance-none cursor-pointer"
                                         />
                                     </div>
                                 </div>
