@@ -5,23 +5,21 @@ import { icons } from "@/Utils/icons";
 import formatDate from "@/Utils/formatDate";
 
 export default function Show() {
-  const { entrysheet } = usePage().props;
+  const { entrysheet, errors } = usePage().props;
   const { data, setData, patch, processing } = useForm({ answers: {} });
   const [copiedContentId, setCopiedContentId] = useState(null);
-
-  const [contextMenu, setContextMenu] = useState(null); // 右クリックの表示状態と情報を保持
-  const contextMenuRef = useRef(null); // DOM要素への参照を保持
-  const { delete: deleteContent, processing: deletingContent } = useForm(); // コンテンツ削除用のuseForm
+  const [contextMenu, setContextMenu] = useState(null);
+  const contextMenuRef = useRef(null);
+  const { delete: deleteContent, processing: deletingContent } = useForm();
 
   useEffect(() => {
     const initialAnswers = {};
     entrysheet.contents.forEach((content) => {
-      initialAnswers[content.id] = content.answer || "";
+      initialAnswers[content.id] = content.answer || ""; 
     });
     setData("answers", initialAnswers);
   }, [entrysheet.contents]);
 
-  // メニュー外クリックでメニューを閉じるためのuseEffect
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
@@ -36,7 +34,7 @@ export default function Show() {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("contextmenu", handleClickOutside, true);
     };
-  }, [contextMenu]); 
+  }, [contextMenu]);
 
   const handleAnswerChange = (id, value) => {
     setData("answers", { ...data.answers, [id]: value });
@@ -47,32 +45,24 @@ export default function Show() {
     setCopiedContentId(contentId);
     setTimeout(() => {
       setCopiedContentId(null);
-    }, 1500); 
+    }, 1500);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    patch(route("content.bulkUpdate", entrysheet.id));
+    patch(route("content.bulkUpdate", entrysheet.id), { answers: data.answers });
   };
 
-    // 右クリックイベント
   const handleContextMenu = (event, contentId) => {
-    event.preventDefault(); // ブラウザのデフォルトの右クリックメニューが表示されるのを防ぐ
-    setContextMenu({
-      x: event.clientX,
-      y: event.clientY,
-      contentId: contentId,
-    });
+    event.preventDefault();
+    setContextMenu({ x: event.clientX, y: event.clientY, contentId: contentId });
   };
 
-    // コンテンツ削除を実行するハンドラ関数
   const handleDeleteContent = (contentId) => {
     if (window.confirm("この質問を削除してもよろしいですか？")) {
       deleteContent(route("content.destroy", { entrysheet: entrysheet.id, content: contentId }), {
         preserveScroll: true,
-        onSuccess: () => {
-          setContextMenu(null);
-        },
+        onSuccess: () => setContextMenu(null),
         onError: (errors) => {
           console.error("削除に失敗しました:", errors);
           alert("削除に失敗しました。");
@@ -128,7 +118,12 @@ export default function Show() {
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center">
-                          <p className="font-bold">{content.question}</p>
+                          <p className="font-bold mr-3">{content.question}</p>
+                          {entrysheet.contents.find(c => c.id === content.id)?.character_limit !== null && (
+                            <p className="text-xs text-gray-600 mr-1 pt-1">
+                              {entrysheet.contents.find(c => c.id === content.id)?.character_limit}文字以内
+                            </p>
+                          )}
                           <Link
                             href={route("content.edit", {
                               entrysheet: entrysheet.id,
@@ -141,13 +136,9 @@ export default function Show() {
                         <div className="relative">
                           <button
                             type="button"
-                            onClick={() =>
-                              handleCopyToClipboard(data.answers[content.id], content.id)
-                            }
+                            onClick={() => handleCopyToClipboard(data.answers[content.id], content.id)}
                             className={`p-1 rounded-full focus:outline-none ${
-                              copiedContentId === content.id
-                                ? 'text-gray-500'
-                                : 'text-gray-700 hover:bg-gray-200'
+                              copiedContentId === content.id ? "text-gray-500" : "text-gray-700 hover:bg-gray-200"
                             }`}
                           >
                             {copiedContentId === content.id ? (
@@ -162,9 +153,14 @@ export default function Show() {
                       <textarea
                         value={data.answers[content.id] || ""}
                         onChange={(e) => handleAnswerChange(content.id, e.target.value)}
-                        className="w-full border-gray-300 rounded-[12px] mt-2 p-2"
+                        className={`w-full border-gray-300 rounded-[12px] mt-2 p-2 ${
+                          errors[`answers.${content.id}`] ? 'border-red-500' : ''
+                        }`}
                         rows={1}
                       />
+                      {errors[`answers.${content.id}`] && (
+                        <p className="text-red-500 text-sm mt-1">{errors[`answers.${content.id}`]}</p>
+                      )}
 
                       <div className="flex items-center justify-between mt-1">
                         <p className="text-xs text-gray-600">
@@ -201,25 +197,19 @@ export default function Show() {
                 <button
                   type="submit"
                   disabled={processing}
-                  className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-green-200 mt-6 focus:outline-none"
+                  className="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
-                  <span dangerouslySetInnerHTML={{ __html: icons.save }} />
+                  保存
                 </button>
               </div>
 
             </form>
 
-            {/* 右クリック削除ボタンのレンダリング */}
             {contextMenu && (
               <div
                 ref={contextMenuRef}
-                style={{
-                  top: `${contextMenu.y}px`,
-                  left: `${contextMenu.x}px`,
-                  position: 'fixed',
-                  zIndex: 50,
-                }}
-                className="bg-white border border-gray-300 rounded-[12px] shadow-lg py-1"           
+                style={{ top: `${contextMenu.y}px`, left: `${contextMenu.x}px`, position: 'fixed', zIndex: 50 }}
+                className="bg-white border border-gray-300 rounded-[12px] shadow-lg py-1"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
@@ -227,9 +217,7 @@ export default function Show() {
                   disabled={deletingContent}
                   className="flex items-center w-full text-left px-4 py-2 text-sm text-gray-500 hover:text-red-500 disabled:opacity-50 disabled:cursor-not-allowed group"
                 >
-                  <span
-                    dangerouslySetInnerHTML={{ __html: icons.trash }}
-                  />
+                  <span dangerouslySetInnerHTML={{ __html: icons.trash }} />
                 </button>
               </div>
             )}
