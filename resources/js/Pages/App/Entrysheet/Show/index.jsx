@@ -191,7 +191,13 @@ export default function Show() {
                 )}
               </ul>
 
-              <div className="mt-6 text-right">
+              {/* 戻るボタンと保存ボタンを水平に揃える */}
+              <div className="mt-6 flex items-center justify-between">
+                <Link
+                  href={route("entrysheet")}
+                  className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200 focus:outline-none"
+                  dangerouslySetInnerHTML={{ __html: icons.undo }}
+                />
                 <button
                   type="submit"
                   disabled={processing}
@@ -200,6 +206,7 @@ export default function Show() {
                   <span dangerouslySetInnerHTML={{ __html: icons.save }} />
                 </button>
               </div>
+
             </form>
 
             {/* 右クリック削除ボタンのレンダリング */}
@@ -227,13 +234,7 @@ export default function Show() {
               </div>
             )}
 
-            <div className="mt-6">
-              <Link
-                href={route("entrysheet")}
-                className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200 focus:outline-none"
-                dangerouslySetInnerHTML={{ __html: icons.undo }}
-              />
-            </div>
+            
           </div>
         </div>
       </div>
