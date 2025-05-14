@@ -11,6 +11,9 @@
         @viteReactRefresh
         @vite(['resources/js/app.jsx'])
         @inertiaHead
+
+        <!--  タブバーのアイコンを設定 -->
+        <link rel="icon" type="image/svg+xml" href="{{ asset('image/estion_logo.svg') }}">
     </head>
     <body class="font-sans antialiased">
         @inertia
