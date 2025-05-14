@@ -19,9 +19,13 @@ export default function ContentList({ contents }) {
                             e.preventDefault();
                         }}
                     >
-                        <p className="text-sm text-gray-500 font-bold mb-2">
-                            {content.entrysheet.company?.name || "企業情報なし"}
-                        </p>
+                        <div className="flex items-baseline space-x-2 mb-2">
+                            <p className="text-sm text-gray-500 font-bold">
+                                {content.entrysheet.company?.name || "企業情報なし"}
+                            </p>
+                            <p className="text-xs text-gray-500 font-bold">{content.entrysheet.title}</p>
+                        </div>
+
                         <p className="text-base font-semibold text-gray-800 truncate">{content.question}</p>
                         <p className="text-sm text-gray-500">{content.answer}</p>
                     </li>
