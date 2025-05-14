@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreContentRequest;
-use App\Http\Requests\UpdateContentRequest;
+use App\Http\Requests\BulkUpdateContentRequest;
+use App\Http\Requests\UpdateContentQuestionRequest;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
 use App\Models\Content;
@@ -29,14 +30,14 @@ class ContentController extends Controller implements HasMiddleware
 
         return redirect()->route('entrysheet.show', $entrysheet->id)->with('success', '質問と回答が追加されました！');
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Entrysheet $entrysheet, Content $content)
     {
         return Inertia::render('App/Entrysheet/Content/Edit/index', [
-            'entrysheet' => $entrysheet, 
+            'entrysheet' => $entrysheet,
             'content' => $content,
         ]);
     }
@@ -45,32 +46,28 @@ class ContentController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateContentRequest $request, Entrysheet $entrysheet, Content $content)
-    {
-        $content->update([
-            'question' => $request->question,
-            'answer' => $request->answer,
-            'character_limit' => $request->character_limit,
-        ]);
-        return redirect()->route('entrysheet.show', ['entrysheet' => $content->entrysheet_id])->with('success', '質問と回答が更新されました！');
-    }
-
+public function update(UpdateContentQuestionRequest $request, Entrysheet $entrysheet, Content $content)
+{
+    $content->update([
+        'question' => $request->question,
+        'character_limit' => $request->character_limit,
+    ]);
+    return redirect()->route('entrysheet.show', ['entrysheet' => $content->entrysheet_id])->with('success', '質問と文字数制限が更新されました！');
+}
     /**
      * 保存ボタン押下時に各コンテンツを保存
      */
-    public function bulkUpdate(Request $request, Entrysheet $entrysheet)
-    {
-        // 既存のコンテンツの回答を更新する
-        if ($request->has('answers')) {
-            $existingAnswers = $request->input('answers', []);
-            foreach ($existingAnswers as $contentId => $answer) {
-                // $entrysheet に紐づく内容か確認
-                $content = $entrysheet->contents()->find($contentId);
-                if ($content) {
-                    $content->update(['answer' => $answer]);
-                }
+public function bulkUpdate(BulkUpdateContentRequest $request, Entrysheet $entrysheet)
+{
+    if ($request->has('answers')) {
+        $existingAnswers = $request->input('answers', []);
+        foreach ($existingAnswers as $contentId => $answer) {
+            $content = $entrysheet->contents()->find($contentId);
+            if ($content && is_string($answer)) {
+                $content->update(['answer' => $answer]);
             }
         }
+    }
 
         // カンマ区切りの文字列を配列に変換
         $deletedIds = $request->input('deleted_ids');
@@ -84,7 +81,7 @@ class ContentController extends Controller implements HasMiddleware
         if ($request->has('new_questions') && $request->has('new_answers')) {
             $newQuestions = $request->input('new_questions', []);
             $newAnswers   = $request->input('new_answers', []);
-            
+
             // 各新規設問をループで処理
             foreach ($newQuestions as $index => $question) {
                 // 質問が空の場合はスキップ（必要に応じてバリデーションも追加）
@@ -93,7 +90,7 @@ class ContentController extends Controller implements HasMiddleware
                 }
                 // 対応する回答が存在しなければ、空文字とする
                 $answer = isset($newAnswers[$index]) ? $newAnswers[$index] : '';
-                
+
                 // $entrysheet に紐づく新規コンテンツとして作成
                 $entrysheet->contents()->create([
                     'question' => $question,
@@ -116,7 +113,7 @@ class ContentController extends Controller implements HasMiddleware
         $content->delete();
         return redirect()->route('entrysheet.show', ['entrysheet' => $entrysheet->id])->with('success', '質問と回答が削除されました！');
     }
-    
+
     public static function middleware(): array
     {
         return [

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import AppLayout from "@/Layouts/AppLayout";
-import { useForm, Link, router } from "@inertiajs/react";
-import { icons } from "@/Utils/icons"; // icons オブジェクトをインポート
-
-export default function Edit({ content, errors }) {
+import { useForm, Link, router, usePage } from "@inertiajs/react";
+import { icons } from "@/Utils/icons";
+export default function Edit({ content }) {
+    const { errors } = usePage().props;
     const { data, setData, put, processing } = useForm({
         question: content.question,
         character_limit: content.character_limit || "",
-        answer: content.answer,
     });
 
     const [charCount, setCharCount] = useState(content.answer ? content.answer.length : 0);
@@ -33,18 +32,10 @@ export default function Edit({ content, errors }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden rounded-[12px] border">
-                        <div className="p-8 text-gray-900 relative"> {/* relative を追加 */}
-                            <h1 className="text-2xl font-bold mb-6">質問と回答を編集</h1>
+                        <div className="p-8 text-gray-900 relative"> 
+                            <h1 className="text-2xl font-bold mb-6">質問内容と文字数を編集</h1>
 
-                            {Object.keys(errors).length > 0 && (
-                                <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-[12px]">
-                                    <ul>
-                                        {Object.values(errors).map((error, index) => (
-                                            <li key={index}>{error}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
+                            {/* 全体のエラーリスト表示を削除 */}
 
                             {/* 編集フォーム */}
                             <form onSubmit={handleSubmit}>
@@ -59,9 +50,10 @@ export default function Edit({ content, errors }) {
                                         id="question"
                                         value={data.question}
                                         onChange={handleChange}
-                                        className="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3"
+                                        className={`w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3 ${errors.question ? 'border-red-500' : ''}`}
                                         required
                                     />
+                                    {errors.question && <p className="mt-2 text-sm text-red-600">{errors.question}</p>}
                                 </div>
 
                                 {/* 文字数制限 */}
@@ -75,8 +67,9 @@ export default function Edit({ content, errors }) {
                                         id="character_limit"
                                         value={data.character_limit}
                                         onChange={handleChange}
-                                        className="w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3"
+                                        className={`w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3 ${errors.character_limit ? 'border-red-500' : ''}`}
                                     />
+                                    {errors.character_limit && <p className="mt-2 text-sm text-red-600">{errors.character_limit}</p>}
                                 </div>
 
                                 <div className="text-right">
