@@ -43,7 +43,7 @@ export default function Show() {
       setSaveButtonText("Saved!");
       setTimeout(() => {
         setSaveButtonText("保存");
-      }, 2000); // 2秒後に「保存」に戻す
+      }, 2000);
     } else {
       setSaveButtonText("保存");
     }
