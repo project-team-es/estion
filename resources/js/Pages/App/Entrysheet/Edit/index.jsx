@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import AppLayout from "@/Layouts/AppLayout";
-import { useForm, Link } from "@inertiajs/react";
+import { useForm, Link, router } from "@inertiajs/react";
 import { icons } from "@/Utils/icons";
 
 export default function Edit({ entrysheet, presetTitles, companies, errors }) {
@@ -43,7 +43,15 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden rounded-[12px] border">
                         <div className="px-8 py-6 text-gray-900">
-                            <h2 className="text-2xl font-bold mb-6">エントリーシートを編集</h2>
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-2xl font-bold">エントリーシートを編集</h2>
+                                <button
+                                    onClick={handleDelete}
+                                    className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-red-200 focus:outline-none"
+                                >
+                                    <span dangerouslySetInnerHTML={{ __html: icons.trash }} />
+                                </button>
+                            </div>
 
                             {Object.keys(errors).length > 0 && (
                                 <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-[12px]">
@@ -55,10 +63,8 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                                 </div>
                             )}
 
-                            {/* 更新フォーム */}
                             <form onSubmit={handleSubmit}>
-                                {/* タイトル */}
-                                <div className="mb-5">
+                                <div className="mb-5 mt-6">
                                     <label htmlFor="title" className="block text-gray-700 font-bold mb-2">
                                         タイトル
                                     </label>
@@ -79,7 +85,6 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                                     </select>
                                 </div>
 
-                                {/* ステータス */}
                                 <div className="mb-5">
                                     <label htmlFor="status" className="block text-gray-700 font-bold mb-2">
                                         ステータス
@@ -98,12 +103,11 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                                     </select>
                                 </div>
 
-                                {/* 締切日 */}
                                 <div className="mb-4">
                                     <label htmlFor="deadline" className="block text-gray-700 font-bold mb-2">
                                         締切日
                                     </label>
-                                    <div className="relative flex items-center border border-gray-300 rounded-[12px]">
+                                    <div className="relative flex items-center rounded-[12px]">
                                         <input
                                             ref={dateInputRef}
                                             type="date"
@@ -112,12 +116,11 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                                             value={data.deadline}
                                             onChange={handleChange}
                                             onClick={handleDeadlineInputClick}
-                                            className="pl-4 pr-4 py-2 w-full rounded-[12px] appearance-none cursor-pointer"
+                                            className="pl-4 pr-4 py-2 w-full border-gray-300 rounded-[12px] appearance-none cursor-pointer"
                                         />
                                     </div>
                                 </div>
 
-                                {/* 企業 */}
                                 <div className="mb-5">
                                     <label htmlFor="company_id" className="block text-gray-700 font-bold mb-2">
                                         企業
@@ -137,13 +140,12 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                                     </select>
                                 </div>
 
-                                {/* 更新ボタン */}
-                                <div className="flex justify-end space-x-3">
+                                <div className="flex items-center justify-between mt-6"> {/* justify-between を追加 */}
                                     <Link
                                         href={route("entrysheet.show", entrysheet.id)}
-                                        className="bg-gray-500 text-white px-4 py-2 rounded-[12px] hover:bg-gray-400"
+                                        className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200 focus:outline-none"
                                         dangerouslySetInnerHTML={{ __html: icons.undo }}
-                                        />
+                                    />
                                     <button
                                         type="submit"
                                         className="bg-blue-600 text-white px-6 py-2 rounded-[12px] hover:bg-blue-500"
@@ -153,17 +155,6 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
                                     </button>
                                 </div>
                             </form>
-
-                            {/* 削除ボタン */}
-                            <div className="mt-6">
-                                <button
-                                    onClick={handleDelete}
-                                    className="bg-red-600 text-white px-6 py-2 rounded-[12px] hover:bg-red-500"
-
-                                >
-                                           <span dangerouslySetInnerHTML={{ __html: icons.trash }} /> 
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
