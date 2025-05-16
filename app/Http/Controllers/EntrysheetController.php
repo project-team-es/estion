@@ -177,17 +177,20 @@ class EntrysheetController extends Controller implements HasMiddleware
      * Remove the specified resource from storage.
      */
     public function destroy(Entrysheet $entrysheet)
-    {
-        // ユーザー権限の確認
-        if ($entrysheet->user_id !== Auth::id()) {
-            return response()->json(['error' => '削除権限がありません'], 403);
-        }
-
-        try {
-            $entrysheet->delete(); // ソフトデリート（物理削除したい場合は `forceDelete()`）
-        } catch (\Exception $e) {
-        }
+{
+    // ユーザー権限の確認
+    if ($entrysheet->user_id !== Auth::id()) {
+        return response()->json(['error' => '削除権限がありません'], 403);
     }
+
+    try {
+        $entrysheet->delete(); // ソフトデリート（物理削除したい場合は `forceDelete()`）
+        return redirect()->route('entrysheet')->with('success', 'エントリーシートを削除しました。');
+    } catch (\Exception $e) {
+        return back()->withErrors(['error' => 'エントリーシートの削除に失敗しました。']);
+    }
+}
+    
     public function generatePDF($id)
     {
         $entrysheet = EntrySheet::with('contents')->findOrFail($id);
