@@ -18,7 +18,7 @@ export default function EntrysheetListItem({ entrysheet, onDelete }) {
                         onDelete(entrysheet.id);
                     }}
                     className="hidden group-hover:flex text-gray-500 w-7 h-7 p-0 rounded-full transition-all duration-300 items-center justify-center hover:text-red-500"
-                    dangerouslySetInnerHTML={{ __html: icons.trash }}
+                    dangerouslySetInnerHTML={{ __html: icons.trash_mini }}
                 />
             </div>
             <p className="text-sm text-gray-600 mt-1">
