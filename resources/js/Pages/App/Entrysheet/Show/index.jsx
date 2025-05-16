@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef} from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import { Link, useForm, usePage } from "@inertiajs/react";
+import TextareaAutosize from 'react-textarea-autosize';
 import { icons } from "@/Utils/icons";
 import formatDate from "@/Utils/formatDate";
 
@@ -150,13 +151,13 @@ export default function Show() {
                         </div>
                       </div>
 
-                      <textarea
+                      <TextareaAutosize
                         value={data.answers[content.id] || ""}
                         onChange={(e) => handleAnswerChange(content.id, e.target.value)}
                         className={`w-full border-gray-300 rounded-[12px] mt-2 p-2 ${
                           errors[`answers.${content.id}`] ? 'border-red-500' : ''
                         }`}
-                        rows={1}
+                        minRows={1}
                       />
                       {errors[`answers.${content.id}`] && (
                         <p className="text-red-500 text-sm mt-1">{errors[`answers.${content.id}`]}</p>
