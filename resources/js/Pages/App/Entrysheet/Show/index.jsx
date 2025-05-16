@@ -7,16 +7,17 @@ import formatDate from "@/Utils/formatDate";
 
 export default function Show() {
   const { entrysheet, errors } = usePage().props;
-  const { data, setData, patch, processing } = useForm({ answers: {} });
+  const { data, setData, patch, processing, recentlySuccessful } = useForm({ answers: {} });
   const [copiedContentId, setCopiedContentId] = useState(null);
   const [contextMenu, setContextMenu] = useState(null);
   const contextMenuRef = useRef(null);
   const { delete: deleteContent, processing: deletingContent } = useForm();
+  const [saveButtonText, setSaveButtonText] = useState("保存");
 
   useEffect(() => {
     const initialAnswers = {};
     entrysheet.contents.forEach((content) => {
-      initialAnswers[content.id] = content.answer || ""; 
+      initialAnswers[content.id] = content.answer || "";
     });
     setData("answers", initialAnswers);
   }, [entrysheet.contents]);
@@ -36,6 +37,17 @@ export default function Show() {
       document.removeEventListener("contextmenu", handleClickOutside, true);
     };
   }, [contextMenu]);
+
+  useEffect(() => {
+    if (recentlySuccessful) {
+      setSaveButtonText("Saved!");
+      setTimeout(() => {
+        setSaveButtonText("保存");
+      }, 2000); // 2秒後に「保存」に戻す
+    } else {
+      setSaveButtonText("保存");
+    }
+  }, [recentlySuccessful]);
 
   const handleAnswerChange = (id, value) => {
     setData("answers", { ...data.answers, [id]: value });
@@ -198,9 +210,9 @@ export default function Show() {
                 <button
                   type="submit"
                   disabled={processing}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-200"
                 >
-                  保存
+                  {saveButtonText}
                 </button>
               </div>
 
@@ -223,7 +235,7 @@ export default function Show() {
               </div>
             )}
 
-            
+
           </div>
         </div>
       </div>
