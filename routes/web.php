@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
@@ -8,10 +8,12 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Guest/index', [
-        // 'canLogin' => Route::has('login'),
-        // 'canRegister' => Route::has('register'),
     ]);
 });
+
+// OAuth認証
+Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
 // web.php
 Route::get('/dashboard', [DashboardController::class, 'index'])
