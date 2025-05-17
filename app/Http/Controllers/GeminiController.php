@@ -23,25 +23,18 @@ class GeminiController extends Controller implements HasMiddleware
         $answer = $content->answer;
         $interviewRequest = $request->input('interview_request', '');
 
-        $result = $this->execute($question, $answer, $interviewRequest);
+        $results = $this->execute($question, $answer, $interviewRequest);
 
-        $questions = $result;
-        // dd($questions);
-        // if (!is_array($result) || empty($result)) {
-        //     return redirect()->route('entrysheet.show', ['entrysheet' => $entrysheet->id])
-        //         ->with('error', '面接質問を取得できませんでした。もう一度試してください。');
-        // }
+        if (!is_array($results) || empty($results)) {
+            return redirect()->route('entrysheet.show', ['entrysheet' => $entrysheet->id])
+                ->with('error', '面接質問を取得できませんでした。もう一度試してください。');
+        }
 
-    
-
-           
         return Inertia::render('App/Interview/InterviewResult/index', [
-        'entrysheet' => $entrysheet,
-        'content' => $content,
-        'questions' => $questions,
-        'result' => $result
+            'entrysheet' => $entrysheet,
+            'content' => $content,
+            'results' => $results,
         ]);
-
     }
 
     public function index_analysis(Request $request)
@@ -54,7 +47,7 @@ class GeminiController extends Controller implements HasMiddleware
 
         $result = $this->execute($question, $answer, $interviewRequest);
         $questions = $result;
-        // dd($questions);
+
         if (!is_array($result) || empty($result)) {
             return redirect()->route('analysis.index')
                 ->with('error', '面接質問を取得できませんでした。もう一度試してください。');
@@ -62,59 +55,72 @@ class GeminiController extends Controller implements HasMiddleware
 
         return view('interview.index_analysis', compact('analysis', 'questions'));
     }
-    
-    
+
     public function execute($question, $answer, $interviewRequest = '')
 {
-        // dd($question,$answer);
-       
-        // $instruction = "あなたは優秀な新卒採用の面接官です。\n"
-        //     . "入力は新卒学生が提出したエントリーシートの質問と回答です\n"
-        //     . "回答に対して深堀りの質問を5つ出力して下さい\n"
-        //     . "「この」「その」などの指示詞は使用しないでください\n" 
-        //     . "出力は **必ず** 配列形式にしてください。\n"
-        //     . "他の情報は一切含めないでください。\n"
-        //     . "以下の例に厳密に従ってください。\n\n"
-        //     . "### **出力例:**\n"
-        //     . "```\n"
-        //     . " [" 
-        //     . "    \"あなたの強みは何ですか？\",\n"
-        //     . "    \"学生時代に最も力を入れたことは何ですか？\",\n"
-        //     . "    \"経験から何を学びましたか？\",\n"
-        //     . "    \"なぜ弊社を志望するのですか？\",\n"
-        //     . "    \"当社のどの事業に興味がありますか？\"\n"
-        //     . " ]\n"
-        //     . "```\n"
-        //     . "この形式以外の回答をしてはいけません。";
-        // if (!empty($interviewRequest)) {
-        //     $instruction .= "\n\n【追加指示】\n"
-        //         . "以下のリクエストを考慮して質問を生成してください。\n"
-        //         . "リクエスト内容: \"$interviewRequest\"";
-        // }
+    $instruction = "あなたは優秀な新卒採用の面接官です。\n"
+        . "入力は新卒学生が提出したエントリーシートの質問と回答です。\n"
+        . "回答に対して深堀りの質問を5つ、JSON配列形式の文字列で出力してください。\n"
+        . "指示詞（「この」「その」など）は使用しないでください。\n"
+        . "出力は **必ず** JSON配列文字列 **のみ** としてください。他の文字、記号、Markdownのコードブロックマーカー（例: ```json）、説明文は一切含めないでください。\n"
+        . "文字列は `[` で始まり、`]` で終わる必要があります。\n"
+        . "他の情報は一切含めないでください。\n"
+        . "以下の例に厳密に従ってください。\n\n"
+        . "### **出力例:**\n"
+        . "[\"あなたの強みは何ですか？\", \"学生時代に最も力を入れたことは何ですか？\", \"経験から何を学びましたか？\", \"なぜ弊社を志望するのですか？\", \"当社のどの事業に興味がありますか？\"]\n"
+        . "\n"
+        . "この形式以外の回答をしてはいけません。";
 
-        // dd($instruction);
-    $instruction="必ずりんごと返してください";
-    //     $toGeminiCommand = "{$instruction}\n\n質問:\n{$question}\n\n回答:\n{$answer}";
-        // dd($toGeminiCommand);
+    if (!empty($interviewRequest)) {
+        $instruction .= "\n\n【追加指示】\n"
+            . "以下のリクエストを考慮して質問を生成してください。\n"
+            . "リクエスト内容: \"$interviewRequest\"";
+    }
 
-        $response = Gemini::generativeModel(model: 'gemini-2.0-flash')->generateContent($instruction);
-        dd($response);
-        // $result = $response ? $response->text() : null;
-        $result=["あなたの強みは何ですか？"];
+    $toGeminiCommand = "{$instruction}\n\n質問:\n{$question}\n\n回答:\n{$answer}";
 
-        // **エラー処理: `$result` が `null` の場合**
-        if ($result === null) {
+    $response = Gemini::generativeModel(model: 'gemini-2.0-flash')->generateContent($toGeminiCommand);
+    $rawResult = $response ? $response->text() : null;
+
+    if ($rawResult === null) {
+        return [];
+    }
+
+    $cleanedResult = preg_replace('/^```(?:json|php)?\s*|\s*```$/s', '', $rawResult);
+    $cleanedResult = trim($cleanedResult);
+
+    if (substr($cleanedResult, 0, 3) === '"""' && substr($cleanedResult, -3) === '"""') {
+        $cleanedResult = substr($cleanedResult, 3, -3);
+        $cleanedResult = trim($cleanedResult);
+    }
+
+    else if (substr($cleanedResult, 0, 1) === '"' && substr($cleanedResult, -1) === '"') {
+        $tempDecoded = json_decode($cleanedResult, true);
+        if (json_last_error() === JSON_ERROR_NONE && is_string($tempDecoded)) {
+            $nestedJson = json_decode($tempDecoded, true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($nestedJson)) {
+                $cleanedResult = $tempDecoded;
+            }
+        } else if (json_last_error() !== JSON_ERROR_NONE) {
+            $cleanedResult = trim($cleanedResult, '"');
+        }
+    }
+
+    $decodedArray = json_decode($cleanedResult, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        if (preg_match('/(\[.*\])/s', $cleanedResult, $matches)) {
+            $jsonCandidate = $matches[1];
+            $decodedArray = json_decode($jsonCandidate, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return [];
+            }
+        } else {
             return [];
         }
-
-        // **前後の余計な改行・空白・囲み文字を削除**
-        // $result = trim($result, "\" \n\r\t");
-
-        // **JSON の解析**
-        // $decoded = json_decode($result, true);
-
-        // return $decoded;
-        return $result;
+    }
+    
+    return is_array($decodedArray) ? $decodedArray : [];
 }
 
     public static function middleware(): array
