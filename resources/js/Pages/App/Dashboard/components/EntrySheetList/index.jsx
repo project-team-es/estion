@@ -10,7 +10,7 @@ export default function EntrySheetList({ entrysheets }) {
             {entrysheets.length === 0 ? (
                 <p className="text-gray-600">登録されたエントリーシートがありません。</p>
             ) : (
-                <div className="space-y-2 flex-1 overflow-y-auto flex flex-col items-center">
+                <div className="space-y-2 flex-1 overflow-y-auto flex flex-col items-center pt-2">
                     {entrysheets.map((entrysheet) => (
                         <div
                             key={entrysheet.id}

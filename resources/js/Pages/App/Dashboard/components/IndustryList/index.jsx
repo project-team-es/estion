@@ -30,14 +30,14 @@ export default function IndustryList({ industries, industriesWithCompanies }) {
     const companiesInSelectedIndustry = selectedIndustry ? industriesWithCompanies[selectedIndustry.id] || [] : [];
 
     return (
-        <div className="w-1/5 p-4 fixed top-10 left-6 md:left-10 lg:left-16
+        <div className="w-1/5 p-4 fixed top-10 left-6 md:left-10 lg:left-16 
                         md:h-screen md:flex md:flex-col md:justify-between z-10 relative">
             <p className="text-center font-semibold text-gray-900 mb-4">業界</p>
 
             {industries.length === 0 ? (
                 <p className="text-gray-600">登録された業界がありません。</p>
             ) : (
-                <div className="space-y-2 flex-1 overflow-y-auto flex flex-col items-center">
+                <div className="space-y-2 flex-1 overflow-y-auto flex flex-col items-center pt-2">
                     {industries.map((industry) => (
                         <IndustryListItem
                             key={industry.id}

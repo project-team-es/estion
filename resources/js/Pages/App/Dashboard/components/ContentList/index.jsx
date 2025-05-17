@@ -8,7 +8,7 @@ export default function ContentList({ contents }) {
 
     return (
         <div className="p-4 rounded-[12px] relative max-w-3xl mx-auto pt-4">
-            <p className="text-center font-bold mb-4">最近の更新</p>
+            <p className="text-center font-bold mb-4 pt-2">最近の更新</p>
             <ul className="space-y-3">
                 {contents.map((content) => (
                     <li
