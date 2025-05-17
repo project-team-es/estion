@@ -7,7 +7,7 @@ export default function CompanyActionButtons() {
         <div className="flex justify-between items-center mb-4">
             <Link
                 href="/company/create"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-[12px]"
+                className="bg-blue-500 text-white hover:scale-105 font-semibold py-2 px-4 rounded-[12px]"
                 
             >
                 <AddCompanyicon/>
