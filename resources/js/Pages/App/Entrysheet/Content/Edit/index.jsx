@@ -72,7 +72,15 @@ export default function Edit({ content }) {
                                     {errors.character_limit && <p className="mt-2 text-sm text-red-600">{errors.character_limit}</p>}
                                 </div>
 
-                                <div className="text-right">
+                                <div className="flex items-center justify-between mt-6">
+                                    
+                                    <button
+                                        onClick={handleGoBack}
+                                        className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200 focus:outline-none"
+                                    >
+                                        <span dangerouslySetInnerHTML={{ __html: icons.undo }} className="w-5 h-5" />
+                                    </button>
+
                                     <button
                                         type="submit"
                                         className="bg-blue-600 text-white px-4 py-2 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -82,14 +90,6 @@ export default function Edit({ content }) {
                                     </button>
                                 </div>
                             </form>
-
-
-                            <button
-                                onClick={handleGoBack}
-                                className="fixed bottom-4 left-4 flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200"
-                            >
-                                <span dangerouslySetInnerHTML={{ __html: icons.undo }} className="w-5 h-5" />
-                            </button>
                         </div>
                     </div>
                 </div>
