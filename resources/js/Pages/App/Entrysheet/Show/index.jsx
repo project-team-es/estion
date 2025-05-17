@@ -12,8 +12,9 @@ export default function Show() {
   const [copiedNewItemId, setCopiedNewItemId] = useState(null);
   const [contextMenu, setContextMenu] = useState(null);
   const contextMenuRef = useRef(null);
+  const [saveButtonText, setSaveButtonText] = useState("保存");
 
-  const { data, setData, patch, processing, errors: formErrors, reset } = useForm({
+  const { data, setData, patch, processing, errors: formErrors, recentlySuccessful, reset } = useForm({
     answers: {},
     new_questions: [],
     new_answers: [],
@@ -70,6 +71,16 @@ export default function Show() {
       new_answers: [...prevData.new_answers, '']
     }));
   };
+    useEffect(() => {
+    if (recentlySuccessful) {
+      setSaveButtonText("Saved!");
+      setTimeout(() => {
+        setSaveButtonText("保存");
+      }, 2000);
+    } else {
+      setSaveButtonText("保存");
+    }
+  }, [recentlySuccessful]);
 
   const handleRemoveNewContent = (tempIdToRemove) => {
     const itemIndexToRemove = newContents.findIndex(item => item.id === tempIdToRemove);
@@ -333,9 +344,9 @@ export default function Show() {
                 <button
                   type="submit"
                   disabled={processing}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-75"
+                  className="bg-blue-600 text-white px-6 py-3 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-200"
                 >
-                  {processing ? '保存中...' : '保存'}
+                  {saveButtonText}
                 </button>
               </div>
             </form>
