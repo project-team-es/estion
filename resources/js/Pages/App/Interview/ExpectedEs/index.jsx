@@ -11,7 +11,7 @@ export default function ExpectedEs({ entrysheet, content }) {
 
   const submit = (e) => {
     e.preventDefault();
-    post(route("interview.start"));
+    post(route("interview.start"), data); 
   };
 
   return (
@@ -31,7 +31,7 @@ export default function ExpectedEs({ entrysheet, content }) {
               <strong>回答:</strong> {content?.answer}
             </p>
           </div>
-          
+
           <form method="POST" onSubmit={submit}>
             <input type="hidden" name="entrysheet_id" value={data.entrysheet_id} />
             <input type="hidden" name="content_id" value={data.content_id} />
@@ -64,14 +64,6 @@ export default function ExpectedEs({ entrysheet, content }) {
               )}
             </div>
           </form>
-
-          <div className="mt-4 text-center">
-            <Link
-              href={route("entrysheet.show", { entrysheet: entrysheet?.id })}
-              className="flex items-center justify-center w-10 h-10 text-gray-500 rounded-full transition-colors duration-200 hover:bg-gray-200 hover:cursor-pointer"
-            >
-            </Link>
-          </div>
         </div>
       </div>
     </AppLayout>

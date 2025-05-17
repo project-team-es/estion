@@ -18,7 +18,7 @@ export default function CompanyListItem({ company, onCompanyClick, onCompanyRigh
                         onDelete(company.id);
                     }}
                     className="text-gray-500 w-7 h-7 p-0 rounded-full flex items-center justify-center hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" // opacity 制御を追加
-                    dangerouslySetInnerHTML={{ __html: icons.trash }}
+                    dangerouslySetInnerHTML={{ __html: icons.trash_mini }}
                 />
             </div>
             <p className="text-sm text-gray-600">{company.industry?.name ?? "業界なし"}</p>
