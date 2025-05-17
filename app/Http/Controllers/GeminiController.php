@@ -84,7 +84,7 @@ class GeminiController extends Controller implements HasMiddleware
 
         $toGeminiCommand = "{$instruction}\n\n質問:\n{$question}\n\n回答:\n{$answer}";
 
-        $response = Gemini::geminiPro()->generateContent($toGeminiCommand);
+        $response = Gemini::generativeModel("gemini-1.5-flash")->generateContent($toGeminiCommand);
         $result = $response ? $response->text() : null;
 
         // **エラー処理: `$result` が `null` の場合**
