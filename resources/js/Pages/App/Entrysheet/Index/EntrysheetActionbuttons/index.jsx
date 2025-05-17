@@ -7,7 +7,7 @@ export default function EntrysheetActionButtons({ setShowFilter }) {
         <div className="flex justify-between items-center mb-4">
             <Link
                 href={route("entrysheet.create")}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[12px]"
+                className="bg-blue-500 hover:scale-105 text-white font-bold py-2 px-4 rounded-[12px]"
                 dangerouslySetInnerHTML={{ __html: icons.add_es }}
             />
 
