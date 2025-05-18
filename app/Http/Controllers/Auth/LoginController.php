@@ -71,17 +71,16 @@ class LoginController extends Controller
         }
 
         // Google カレンダー API の認証情報を取得
-        /*
+        
         $client = new Google_Client();
         $client->setClientId(env('GOOGLE_CLIENT_ID'));
         $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
         $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
         $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
         $client->setAccessToken($googleUser->token);
-        */
 
         // アクセストークンをセッションに保存
-        // session(['google_access_token' => $googleUser->token]);
+        session(['google_access_token' => $googleUser->token]);
 
         // ホームページへリダイレクト
         return redirect()->route('dashboard');
