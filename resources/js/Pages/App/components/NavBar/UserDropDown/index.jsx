@@ -43,7 +43,7 @@ export default function UserDropdown() {
                     <Link href={route('bookmark.create')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         ブックマーク
                     </Link>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeQcD0EeHOGR-ocMeus0LsNx_dBwq2pqQjYl4qUopi3ShRwTw/viewform?usp=dialog" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" target="_blank">
+                    <a href="https://docs.google.com/forms/d/1sZsxsi5FqdiS35YW2CVzQ4CANyljnbjt2K9urmRomHE/edit?pli=1" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" target="_blank">
                         お問い合わせ
                     </a>
                     <Link href="/logout" method="post" as="button" className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none">
