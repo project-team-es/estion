@@ -25,11 +25,6 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
                         />
                     )}
                 </div>
-                <div className="mt-4">
-                    <Link href={route('logout')} method="post" as="button" type="button">
-                        ログアウト
-                    </Link>
-                </div>
             </div>
         </AppLayout>
     );
