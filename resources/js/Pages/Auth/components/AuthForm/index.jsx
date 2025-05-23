@@ -2,7 +2,7 @@ import React from "react";
 import AuthInput from "@/Components/Auth/AuthInput";
 import AuthButton from "@/Components/Auth/AuthButton";
 
-export default function AuthForm({ title, formData, setData, onSubmit, buttonText }) {
+export default function AuthForm({ title, formData, setData, onSubmit, buttonText, errors }) {
     return (
         <form onSubmit={onSubmit}>
             <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
@@ -14,6 +14,7 @@ export default function AuthForm({ title, formData, setData, onSubmit, buttonTex
                     type="email"
                     value={formData.email}
                     onChange={(e) => setData("email", e.target.value)}
+                    error={errors.email}
                 />
 
                 <AuthInput
@@ -22,6 +23,7 @@ export default function AuthForm({ title, formData, setData, onSubmit, buttonTex
                     type="password"
                     value={formData.password}
                     onChange={(e) => setData("password", e.target.value)}
+                    error={errors.password}
                 />
 
                 <div className="mt-6">
