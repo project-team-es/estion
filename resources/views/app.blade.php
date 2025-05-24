@@ -9,7 +9,7 @@
         <!-- Scripts -->
         @routes
         @viteReactRefresh
-        @vite(['resources/js/app.jsx'])
+        @vite(['resources/js/app.jsx', 'resources/css/app.css'])
         @inertiaHead
 
         <!--  タブバーのアイコンを設定 -->
