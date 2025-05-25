@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import route from 'ziggy-js';
 
 export default function ExpectedEs({ entrysheet, content }) {
   const { data, setData, post, processing, errors, reset } = useForm({
