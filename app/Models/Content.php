@@ -21,6 +21,6 @@ class Content extends Model
      * エントリーシート（EntrySheet）とのリレーション
      */
     public function entrysheet(): BelongsTo {
-        return $this->belongsTo(EntrySheet::class);
+        return $this->belongsTo(EntrySheet::class, 'entry_sheet_id');
     }
 }

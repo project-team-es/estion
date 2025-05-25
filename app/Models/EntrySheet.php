@@ -39,6 +39,6 @@ class EntrySheet extends Model
      * コンテンツ（Content）とのリレーション
      */
     public function contents(): HasMany {
-        return $this->hasMany(Content::class);
+        return $this->hasMany(Content::class, 'entry_sheet_id');
     }
 }
