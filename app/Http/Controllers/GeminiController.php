@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Gemini\Laravel\Facades\Gemini;
 
 use App\Models\Content;
-use App\Models\Entrysheet;
+use App\Models\EntrySheet;
 use App\Models\Analysis;
 use Inertia\Inertia;
 use Illuminate\Support\Str;

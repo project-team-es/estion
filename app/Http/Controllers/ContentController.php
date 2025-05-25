@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateContentQuestionRequest;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
 use App\Models\Content;
-use App\Models\Entrysheet;
+use App\Models\EntrySheet;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,7 @@ class ContentController extends Controller implements HasMiddleware
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreContentRequest $request, Entrysheet $entrysheet)
+    public function store(StoreContentRequest $request, EntrySheet $entrysheet)
     {
         Content::create([
             'question' => $request->question,
@@ -34,7 +34,7 @@ class ContentController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Entrysheet $entrysheet, Content $content)
+    public function edit(EntrySheet $entrysheet, Content $content)
     {
         return Inertia::render('App/Entrysheet/Content/Edit/index', [
             'entrysheet' => $entrysheet,
@@ -46,7 +46,7 @@ class ContentController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-public function update(UpdateContentQuestionRequest $request, Entrysheet $entrysheet, Content $content)
+public function update(UpdateContentQuestionRequest $request, EntrySheet $entrysheet, Content $content)
 {
     $content->update([
         'question' => $request->question,
@@ -57,7 +57,7 @@ public function update(UpdateContentQuestionRequest $request, Entrysheet $entrys
     /**
      * 保存ボタン押下時に各コンテンツを保存
      */
-public function bulkUpdate(BulkUpdateContentRequest $request, Entrysheet $entrysheet)
+public function bulkUpdate(BulkUpdateContentRequest $request, EntrySheet $entrysheet)
 {
     if ($request->has('answers')) {
         $existingAnswers = $request->input('answers', []);
@@ -108,7 +108,7 @@ public function bulkUpdate(BulkUpdateContentRequest $request, Entrysheet $entrys
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Entrysheet $entrysheet, Content $content)
+    public function destroy(EntrySheet $entrysheet, Content $content)
     {
         $content->delete();
         return redirect()->route('entrysheet.show', ['entrysheet' => $entrysheet->id])->with('success', '質問と回答が削除されました！');
