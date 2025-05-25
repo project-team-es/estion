@@ -12,7 +12,6 @@ class EntrySheet extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'entrysheets';
     protected $fillable = [
         'title',
         'status',

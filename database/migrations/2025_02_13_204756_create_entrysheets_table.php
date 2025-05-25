@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entrysheets', function (Blueprint $table) {
+        Schema::create('entry_sheets', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->enum('status', ['下書き', '提出済み', '書類通過', '書類落ち']);

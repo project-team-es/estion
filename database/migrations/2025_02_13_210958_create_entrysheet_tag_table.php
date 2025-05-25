@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entrysheet_tag', function (Blueprint $table) {
+        Schema::create('entry_sheet_tag', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('entrysheet_id');
+            $table->unsignedBigInteger('entry_sheet_id');
             $table->unsignedBigInteger('tag_id');
             $table->timestamps();
 
             // 外部キー制約
-            $table->foreign('entrysheet_id')->references('id')->on('entrysheets')->onDelete('cascade');
+            $table->foreign('entry_sheet_id')->references('id')->on('entry_sheets')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 
             // 同じエントリーシートに同じタグを重複して登録できないようにする
-            $table->unique(['entrysheet_id', 'tag_id']);
+            $table->unique(['entry_sheet_id', 'tag_id']);
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('entrysheet_tag');
+        Schema::dropIfExists('entry_sheet_tag');
     }
 };
