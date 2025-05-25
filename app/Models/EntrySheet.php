@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class EntrySheets extends Model
+class EntrySheet extends Model
 {
     use HasFactory, SoftDeletes;
 
