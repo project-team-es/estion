@@ -107,7 +107,7 @@ class EntrysheetController extends Controller implements HasMiddleware
         // 質問を保存
         foreach ($request->questions as $question) {
             Content::create([
-                'entrysheet_id' => $entrysheet->id,
+                'entry_sheet_id' => $entrysheet->id,
                 'question' => $question,
             ]);
         }

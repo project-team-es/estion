@@ -24,7 +24,7 @@ class ContentController extends Controller implements HasMiddleware
         Content::create([
             'question' => $request->question,
             'answer' => $request->answer,
-            'entrysheet_id' => $entrysheet->id,
+            'entry_sheet_id' => $entrysheet->id,
             'character_limit' => $request->character_limit,
         ]);
 
