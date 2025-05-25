@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEntrysheetRequest;
 use App\Http\Requests\UpdateEntrysheetRequest;
 
-use App\Models\Entrysheet;
+use App\Models\EntrySheet;
 use App\Models\Company;
 use App\Models\Industry;
 use App\Models\Content;
@@ -29,7 +29,7 @@ use Google_Service_Calendar_EventDateTime;
 class EntrysheetController extends Controller implements HasMiddleware
 {
     public function index(Request $request): Response{
-        $entrysheets = Entrysheet::where('user_id', Auth::id())->with('company')->get();
+        $entrysheets = EntrySheet::where('user_id', Auth::id())->with('company')->get();
 
         return Inertia::render('App/Entrysheet/Index/index', [
             'entrysheets' => $entrysheets,
@@ -97,7 +97,7 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function store(StoreEntrysheetRequest $request)
     {
-        $entrysheet = Entrysheet::create([
+        $entrysheet = EntrySheet::create([
             'title' => $request->title,
             'deadline' => $request->deadline,
             'company_id' => $request->company_id,
@@ -123,7 +123,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(Entrysheet $entrysheet): Response
+    public function show(EntrySheet $entrysheet): Response
     {
         $entrysheet->load(['company', 'contents']); // company も必要
 
@@ -135,7 +135,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Entrysheet $entrysheet)
+    public function edit(EntrySheet $entrysheet)
     {
         $companies = Company::where('user_id', Auth::id())->get();
         $presetTitles = [
@@ -160,7 +160,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEntrysheetRequest $request, Entrysheet $entrysheet)
+    public function update(UpdateEntrysheetRequest $request, EntrySheet $entrysheet)
     {
         $entrysheet->update([
             'title' => $request->title,
@@ -176,7 +176,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Entrysheet $entrysheet)
+    public function destroy(EntrySheet $entrysheet)
 {
     // ユーザー権限の確認
     if ($entrysheet->user_id !== Auth::id()) {
@@ -193,7 +193,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     
     public function generatePDF($id)
     {
-        $entrysheet = Entrysheet::with('contents')->findOrFail($id);
+        $entrysheet = EntrySheet::with('contents')->findOrFail($id);
         $pdfView = ViewClass::make('entrysheet.pdf', compact('entrysheet'))->render();
 
         $mpdf = new Mpdf([
@@ -211,7 +211,7 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function search(Request $request)
     {
-        $query = Entrysheet::where('user_id', Auth::id());
+        $query = EntrySheet::where('user_id', Auth::id());
 
         // 企業名で検索
         if ($request->filled('search')) {

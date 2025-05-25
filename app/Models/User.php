@@ -73,6 +73,6 @@ class User extends Authenticatable
     }
 
     public function entrysheet(): HasMany{
-        return $this->hasMany(Entrysheet::class);
+        return $this->hasMany(EntrySheet::class);
     }
 }
