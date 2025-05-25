@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEntrysheetRequest;
 use App\Http\Requests\UpdateEntrysheetRequest;
 
-use App\Models\Entrysheet;
+use App\Models\EntrySheet;
 use App\Models\Company;
 use App\Models\Industry;
 use App\Models\Content;
@@ -29,7 +29,7 @@ use Google_Service_Calendar_EventDateTime;
 class EntrysheetController extends Controller implements HasMiddleware
 {
     public function index(Request $request): Response{
-        $entrysheets = Entrysheet::where('user_id', Auth::id())->with('company')->get();
+        $entrysheets = EntrySheet::where('user_id', Auth::id())->with('company')->get();
 
         return Inertia::render('App/Entrysheet/Index/index', [
             'entrysheets' => $entrysheets,
@@ -97,7 +97,7 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function store(StoreEntrysheetRequest $request)
     {
-        $entrysheet = Entrysheet::create([
+        $entrysheet = EntrySheet::create([
             'title' => $request->title,
             'deadline' => $request->deadline,
             'company_id' => $request->company_id,
@@ -123,7 +123,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(Entrysheet $entrysheet): Response
+    public function show(EntrySheet $entrysheet): Response
     {
         $entrysheet->load(['company', 'contents']); // company も必要
 
