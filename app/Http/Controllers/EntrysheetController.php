@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEntrysheetRequest;
 use App\Http\Requests\UpdateEntrysheetRequest;
 
-use App\Models\EntrySheet;
+use App\Models\Entrysheet;
 use App\Models\Company;
 use App\Models\Industry;
 use App\Models\Content;
@@ -29,7 +29,7 @@ use Google_Service_Calendar_EventDateTime;
 class EntrysheetController extends Controller implements HasMiddleware
 {
     public function index(Request $request): Response{
-        $entrysheets = EntrySheet::where('user_id', Auth::id())->with('company')->get();
+        $entrysheets = Entrysheet::where('user_id', Auth::id())->with('company')->get();
 
         return Inertia::render('App/Entrysheet/Index/index', [
             'entrysheets' => $entrysheets,
@@ -97,7 +97,7 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function store(StoreEntrysheetRequest $request)
     {
-        $entrysheet = EntrySheet::create([
+        $entrysheet = Entrysheet::create([
             'title' => $request->title,
             'deadline' => $request->deadline,
             'company_id' => $request->company_id,
@@ -123,7 +123,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(EntrySheet $entrysheet): Response
+    public function show(Entrysheet $entrysheet): Response
     {
         $entrysheet->load(['company', 'contents']); // company も必要
 
@@ -193,7 +193,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     
     public function generatePDF($id)
     {
-        $entrysheet = EntrySheet::with('contents')->findOrFail($id);
+        $entrysheet = Entrysheet::with('contents')->findOrFail($id);
         $pdfView = ViewClass::make('entrysheet.pdf', compact('entrysheet'))->render();
 
         $mpdf = new Mpdf([
@@ -211,7 +211,7 @@ class EntrysheetController extends Controller implements HasMiddleware
      */
     public function search(Request $request)
     {
-        $query = EntrySheet::where('user_id', Auth::id());
+        $query = Entrysheet::where('user_id', Auth::id());
 
         // 企業名で検索
         if ($request->filled('search')) {
