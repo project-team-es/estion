@@ -4,7 +4,8 @@
 「estion.」は、エントリーシート（ES）の管理を効率化するためのWebアプリケーションです。<br>
 就職活動で複数の企業に応募する際の **応募企業とエントリーシートの管理** をサポートし、効率的な就職活動を実現します。
 
-<a href="https://estion-b4c8e1835841.herokuapp.com/" target="_blank" rel="noopener noreferrer">**estion.**</a>
+[アプリはこちら](https://estion-b4c8e1835841.herokuapp.com/)
+&nbsp;
 
 [デモ動画を見る](https://github.com/geekcamp-estion/estion/issues/27#issue-2863702863)
 &nbsp;
