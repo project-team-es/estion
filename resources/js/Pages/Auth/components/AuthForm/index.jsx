@@ -1,6 +1,6 @@
 import React from "react";
-import AuthInput from "@/Components/Auth/AuthInput";
-import AuthButton from "@/Components/Auth/AuthButton";
+import AuthInput from "../AuthInput";
+import AuthButton from "../AuthButton";
 
 export default function AuthForm({ title, formData, setData, onSubmit, buttonText, errors }) {
     return (

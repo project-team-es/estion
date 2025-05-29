@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('entrysheet_id');
+            $table->unsignedBigInteger('entry_sheet_id');
             $table->string('question');
             $table->text('answer');
             $table->integer('order')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('entrysheet_id')->references('id')->on('entrysheets')->onDelete('cascade');
+            $table->foreign('entry_sheet_id')->references('id')->on('entry_sheets')->onDelete('cascade');
         });
     }
 

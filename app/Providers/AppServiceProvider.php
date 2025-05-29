@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        
     }
 
     /**
@@ -27,5 +28,9 @@ class AppServiceProvider extends ServiceProvider
         Inertia::share('bookmarks', function () {
             return Auth::check() ? Auth::user()->bookmark()->get() : [];
         });
+
+        if (config('app.env') === 'production' || (config('app.env') === 'local' && config('app.debug'))) {
+            URL::forceScheme('https');
+        }
     }
 }

@@ -4,7 +4,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function ExpectedEs({ entrysheet, content }) {
   const { data, setData, post, processing, errors, reset } = useForm({
-    entrysheet_id: entrysheet?.id ?? "",
+    entry_sheet_id: entrysheet?.id ?? "",
     content_id: content?.id ?? "",
     interview_request: "",
   });
@@ -33,7 +33,7 @@ export default function ExpectedEs({ entrysheet, content }) {
           </div>
 
           <form method="POST" onSubmit={submit}>
-            <input type="hidden" name="entrysheet_id" value={data.entrysheet_id} />
+            <input type="hidden" name="entry_sheet_id" value={data.entry_sheet_id} />
             <input type="hidden" name="content_id" value={data.content_id} />
 
             <div className="mt-6">

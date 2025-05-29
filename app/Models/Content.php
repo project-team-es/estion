@@ -11,7 +11,7 @@ class Content extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['entrysheet_id', 'question', 'answer', 'character_limit'];
+    protected $fillable = ['entry_sheet_id', 'question', 'answer', 'character_limit'];
     
     protected $casts = [
         'answer' => 'string', // NULL を許容
@@ -21,6 +21,6 @@ class Content extends Model
      * エントリーシート（EntrySheet）とのリレーション
      */
     public function entrysheet(): BelongsTo {
-        return $this->belongsTo(EntrySheet::class);
+        return $this->belongsTo(EntrySheet::class, 'entry_sheet_id');
     }
 }
