@@ -28,9 +28,5 @@ class AppServiceProvider extends ServiceProvider
         Inertia::share('bookmarks', function () {
             return Auth::check() ? Auth::user()->bookmark()->get() : [];
         });
-
-        if (config('app.env') === 'production' || (config('app.env') === 'local' && config('app.debug'))) {
-            URL::forceScheme('https');
-        }
     }
 }
