@@ -1,4 +1,5 @@
 <?php
+error_log("Request entered public/index.php at " . date("Y-m-d H:i:s"));
 
 use Illuminate\Http\Request;
 

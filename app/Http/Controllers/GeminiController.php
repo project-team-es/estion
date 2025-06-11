@@ -16,6 +16,8 @@ class GeminiController extends Controller implements HasMiddleware
 {
     public function index(Request $request)
     {
+        \Log::info("GeminiController index method reached for /interview/start route with request: " . json_encode($request->all()));
+        
         $entrysheet = EntrySheet::findOrFail($request->input('entrysheet_id'));
         $content = Content::findOrFail($request->input('content_id'));
 
