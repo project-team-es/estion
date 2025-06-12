@@ -21,8 +21,4 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-<<<<<<< HEAD
 Procfile
-=======
-Procfile
->>>>>>> b6367f9 (delete: test.php)
