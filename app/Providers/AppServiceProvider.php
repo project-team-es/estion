@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
             return Auth::check() ? Auth::user()->bookmark()->get() : [];
         });
 
-        if (config('app.env') === 'production' || (config('app.env') === 'local' && config('app.debug'))) {
+        if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
     }
