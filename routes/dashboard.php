@@ -1,6 +1,6 @@
 <?php
-use App\Http\Controllers\GeminiController;
 
+use App\Http\Controllers\GeminiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\BookmarkController;

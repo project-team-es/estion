@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, usePage } from "@inertiajs/react";
 import NavLinks from "./NavLinks";
-import UserDropdown from "./UserDropdown";
+import UserDropDown from "./UserDropDown";
 import Bookmark from "./Bookmark";
 
 export default function NavBar() {
@@ -16,7 +16,7 @@ export default function NavBar() {
                     <Bookmark bookmarks={bookmarks} />        
                 </div>
 
-                <UserDropdown />
+                <UserDropDown />
             </div>
         </nav>
     );

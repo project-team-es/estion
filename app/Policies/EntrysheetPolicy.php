@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Entrysheet;
+use App\Models\EntrySheet;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class EntrysheetPolicy
+class EntrySheetPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class EntrysheetPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Entrysheet $entrysheet): bool
+    public function view(User $user, EntrySheet $entrysheet): bool
     {
         return $user->id === $entrysheet->user_id;
     }
@@ -35,7 +35,7 @@ class EntrysheetPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Entrysheet $entrysheet): bool
+    public function update(User $user, EntrySheet $entrysheet): bool
     {
         return $user->id === $entrysheet->user_id;
     }
@@ -43,7 +43,7 @@ class EntrysheetPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Entrysheet $entrysheet): bool
+    public function delete(User $user, EntrySheet $entrysheet): bool
     {
         return $user->id === $entrysheet->user_id;
     }
@@ -51,7 +51,7 @@ class EntrysheetPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Entrysheet $entrysheet): bool
+    public function restore(User $user, EntrySheet $entrysheet): bool
     {
         return $user->id === $entrysheet->user_id;
     }
@@ -59,7 +59,7 @@ class EntrysheetPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Entrysheet $entrysheet): bool
+    public function forceDelete(User $user, EntrySheet $entrysheet): bool
     {
         return false;
     }
