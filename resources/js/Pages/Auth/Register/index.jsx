@@ -27,11 +27,13 @@ export default function Register() {
                 <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">新規登録</h2>
 
                 {/* Google OAuth */}
+                {/*
                 <div className="flex justify-center mb-6">
                     <a href={route("auth.google")} className="hover:scale-110 transition">
                         <img src="/image/auth/google_sign_up.png" alt="Google ロゴ" width="150" height="50" />
                     </a>
                 </div>
+                */}
 
                 <form onSubmit={handleSubmit}>
                     <AuthInput
