@@ -18,18 +18,21 @@ export default function Login() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-            <div className="absolute top-6 left-8 text-4xl font-bold text-black">             
+            <a href="/" className="absolute top-6 left-8 text-4xl font-bold text-black">
                 estion.
-            </div>
+            </a>
+            
             <Head title="ログイン" />
 
             <div className="w-full max-w-lg mt-6 px-8 py-8 bg-white border rounded-[12px]">
                 <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">ログイン</h2>
+                {/*
                 <div className="flex justify-center mb-6">
                     <a href={route("auth.google")} className="hover:scale-110 transition">
                         <img src="/image/auth/google_icon.png" alt="Google ログイン" width="40" height="40" />
                     </a>
-                </div> 
+                </div>
+                */}
 
                 <form onSubmit={handleSubmit}>
                     <AuthInput
@@ -66,6 +69,6 @@ export default function Login() {
                     </div>
                 </form>
             </div>
-       </div>
+        </div>
     );
 }
