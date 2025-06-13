@@ -11,7 +11,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 // ②Pagesフォルダ内のjsxファイルをページコンポーネントとして動的に読み込む
 // ③elをにAppをリアクトでレンダリング
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => `${title} | estion.`,
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.jsx`,

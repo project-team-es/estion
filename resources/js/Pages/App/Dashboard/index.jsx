@@ -6,7 +6,7 @@ import AppLayout from "@/Layouts/AppLayout";
 
 export default function Dashboard({ industries, contents, entrysheets, industriesWithCompanies }) {
     return (
-        <AppLayout title="Home">
+        <AppLayout title="ホーム">
             <div className="min-h-screen">
                 <div className="flex">
                     <IndustryList
