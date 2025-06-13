@@ -375,4 +375,4 @@ export default function Show() {
   );
 }
 
-Show.layout = (page) => <AppLayout title="エントリーシート詳細">{page}</AppLayout>;
+Show.layout = (page) => <AppLayout title="ES詳細">{page}</AppLayout>;

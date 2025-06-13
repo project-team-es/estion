@@ -2,6 +2,7 @@ import React, { useState, useRef} from "react";
 import { useForm } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
 import { icons } from "@/Utils/icons";
+import { Head } from "@inertiajs/react";
 
 export default function CreateForm({ industries, company: selectedCompany, presetTitles }) {
   const { data, setData, post, processing, errors } = useForm({
@@ -37,7 +38,9 @@ export default function CreateForm({ industries, company: selectedCompany, prese
   };
 
   return (
+    
       <div className="max-w-4xl mx-auto py-12 px-6">
+        <Head title="ES作成" />
         <h2 className="text-2xl font-bold text-gray-800 mb-6">エントリーシートを作成</h2>
 
         {Object.keys(errors).length > 0 && (

@@ -18,11 +18,10 @@ export default function Login() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+            <Head title="ログイン" />
             <a href="/" className="absolute top-6 left-8 text-4xl font-bold text-black">
                 estion.
             </a>
-            
-            <Head title="ログイン" />
 
             <div className="w-full max-w-lg mt-6 px-8 py-8 bg-white border rounded-[12px]">
                 <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">ログイン</h2>
