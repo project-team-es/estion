@@ -38,7 +38,7 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
     };
 
     return (
-        <AppLayout title="エントリーシートを編集">
+        <AppLayout title="ESを編集">
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden rounded-[12px] border">
