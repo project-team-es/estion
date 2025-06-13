@@ -18,9 +18,9 @@ export default function Register() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-            <div className="absolute top-6 left-8 text-4xl font-bold text-black">
+            <a href="/" className="absolute top-6 left-8 text-4xl font-bold text-black">
                 estion.
-            </div>
+            </a>
             <Head title="新規登録" />
 
             <div className="w-full max-w-lg mt-6 px-8 py-8 bg-white border rounded-[12px]">
