@@ -127,10 +127,12 @@ class CompanyController extends Controller implements HasMiddleware
         try {
             // もし `deleted_at` カラムがある場合は `forceDelete()` で物理削除
             $company->forceDelete();
-
             DB::commit();
+            return redirect()->route('company')->with('message', '企業情報が削除されました。');
+
         } catch (\Exception $e) {
             DB::rollBack();
+            return redirect()->back()->with('error', '企業の削除に失敗しました。');
         }
     }
 
