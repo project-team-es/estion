@@ -11,12 +11,13 @@ use App\Models\EntrySheet;
 use App\Models\Analysis;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class GeminiController extends Controller implements HasMiddleware
 {
     public function index(Request $request)
-    {
-        $entrysheet = EntrySheet::findOrFail($request->input('entrysheet_id'));
+    {        
+        $entrysheet = EntrySheet::findOrFail($request->input('entry_sheet_id'));
         $content = Content::findOrFail($request->input('content_id'));
 
         $question = $content->question;
@@ -143,7 +144,5 @@ class GeminiController extends Controller implements HasMiddleware
     {
         return view('interview.expected_analysis', compact('analysis'));
     }
-
-
 
 }
