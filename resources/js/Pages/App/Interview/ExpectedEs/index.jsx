@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import TextareaAutosize from 'react-textarea-autosize';
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
@@ -40,15 +40,15 @@ export default function ExpectedEs({ entrysheet, content }) {
               <label htmlFor="interview_request" className="block text-lg font-semibold">
                 面接リクエスト
               </label>
-              <textarea
+              <TextareaAutosize
                 id="interview_request"
                 name="interview_request"
-                rows="1"
+                minRows={1}
                 className="w-full border-gray-300 rounded-lg mt-2 p-2"
                 placeholder="例: キャリアプランと絡めて質問してほしい"
                 value={data.interview_request}
                 onChange={(e) => setData("interview_request", e.target.value)}
-              ></textarea>
+              />
             </div>
 
             <div className="mt-6 text-center">
