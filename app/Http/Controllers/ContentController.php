@@ -52,7 +52,7 @@ public function update(UpdateContentQuestionRequest $request, EntrySheet $entrys
         'question' => $request->question,
         'character_limit' => $request->character_limit,
     ]);
-    return redirect()->route('entrysheet.show', ['entrysheet' => $content->entrysheet_id])->with('success', '質問と文字数制限が更新されました！');
+    return redirect()->route('entrysheet.show', $entrysheet)->with('success', '質問と文字数制限が更新されました！');
 }
     /**
      * 保存ボタン押下時に各コンテンツを保存

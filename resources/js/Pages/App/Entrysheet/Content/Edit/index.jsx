@@ -20,7 +20,7 @@ export default function Edit({ content }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route("content.update", { entrysheet: content.entrysheet_id, content: content.id }));
+        put(route("content.update", { entrysheet: content.entry_sheet_id, content: content.id }));
     };
 
     const handleGoBack = () => {
