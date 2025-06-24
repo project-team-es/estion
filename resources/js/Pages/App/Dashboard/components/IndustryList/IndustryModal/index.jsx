@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link } from "@inertiajs/react";
-
+import { Link } from '@inertiajs/react';
 export default function IndustryModal({ industry, companies, onClose, onCopyToClipboard, onMouseEnter, onMouseLeave }) {
     const modalRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [copiedCompanyId, setCopiedCompanyId] = useState(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -26,6 +26,14 @@ export default function IndustryModal({ industry, companies, onClose, onCopyToCl
         setIsVisible(!!industry && !!companies);
     }, [industry, companies]);
 
+    const handleCopyToClipboard = (loginId, companyId) => {
+        onCopyToClipboard(loginId);
+        setCopiedCompanyId(companyId);
+        setTimeout(() => {
+            setCopiedCompanyId(null);
+        }, 2000);
+    };
+
     if (!industry || !companies) {
         return null;
     }
@@ -35,7 +43,7 @@ export default function IndustryModal({ industry, companies, onClose, onCopyToCl
             id="industry-modal-container"
             className={`fixed top-[15%] left-[21%] p-2 flex items-start z-50 cursor-default
                         transition-opacity duration-300 ease-in-out
-                        ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
+                        ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
             ref={modalRef}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
@@ -47,24 +55,27 @@ export default function IndustryModal({ industry, companies, onClose, onCopyToCl
 
                 <button
                     className="text-center absolute top-4 right-4 bg-gray-800 text-white px-3 py-1 rounded-[12px] text-sm hover:bg-gray-600"
-                    onClick={() => setIsVisible(false)}
+                    onClick={() => {
+                        setIsVisible(false);
+                        setTimeout(() => onClose(), 300);
+                    }}
                 >
                     閉じる
                 </button>
 
                 <div>
-                    <ul className="text-sm space-y-2 w-3/4 md:w-1/2 mx-auto ml-4">
-                        <li className="px-4 py-2 rounded-[12px] flex items-center justify-start w-full">
-                            <div className="w-1/3 text-center flex-grow-0 flex-shrink-0">
+                    <ul className="text-sm space-y-2 w-full mx-auto">
+                        <li className="px-4 py-2 rounded-[12px] flex items-center justify-between w-full">
+                            <div className="w-1/4 text-center flex-grow-0 flex-shrink-0">
                                 <span className="text-gray-900">企業名</span>
                             </div>
-                            <div className="w-1/3 text-center flex-grow-0 flex-shrink-0">
+                            <div className="w-1/4 text-center flex-grow-0 flex-shrink-0">
                                 <span className="text-gray-900">採用HP</span>
                             </div>
-                            <div className="w-1/3 text-center flex-grow-0 flex-shrink-0">
+                            <div className="w-1/4 text-center flex-grow-0 flex-shrink-0">
                                 <span className="text-gray-900">MyPage</span>
                             </div>
-                            <div className="w-1/3 text-center flex-grow-0 flex-shrink-0 text-gray-900">
+                            <div className="w-1/4 text-center flex-grow-0 flex-shrink-0 text-gray-900">
                                 <span className="text-gray-900">ID</span>
                             </div>
                         </li>
@@ -73,10 +84,10 @@ export default function IndustryModal({ industry, companies, onClose, onCopyToCl
 
                 <div id="industry-modal-content" className="overflow-y-auto max-h-[60vh]">
                     {companies && companies.length > 0 ? (
-                        <ul className="text-sm space-y-2 w-3/4 md:w-1/2 mx-auto ml-4">
+                        <ul className="text-sm space-y-1 w-full mx-auto">
                             {companies.map(company => (
-                                <li key={company.id} className="px-4 py-2 rounded-[12px] flex items-center justify-start w-full">
-                                    <div className="w-1/3 text-center flex-grow-0 flex-shrink-0">
+                                <li key={company.id} className="px-4 py-1 rounded-[12px] flex items-center justify-between w-full relative">
+                                    <div className="w-1/4 text-center flex-grow-0 flex-shrink-0">
                                         {company.show ? (
                                             <Link href={company.show} className="text-blue-500 hover:text-blue-900">{company.name}</Link>
                                         ) : (
@@ -84,14 +95,14 @@ export default function IndustryModal({ industry, companies, onClose, onCopyToCl
                                         )}
                                     </div>
 
-                                    <div className="w-1/3 text-center flex-grow-0 flex-shrink-0">
+                                    <div className="w-1/4 text-center flex-grow-0 flex-shrink-0">
                                         {company.homepage ? (
                                             <a href={company.homepage} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-900">採用HP</a>
                                         ) : (
                                             <span className="text-gray-900">------</span>
                                         )}
                                     </div>
-                                    <div className="w-1/3 text-center flex-grow-0 flex-shrink-0">
+                                    <div className="w-1/4 text-center flex-grow-0 flex-shrink-0">
                                         {company.mypage ? (
                                             <a href={company.mypage} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-900">Mypage</a>
                                         ) : (
@@ -99,10 +110,14 @@ export default function IndustryModal({ industry, companies, onClose, onCopyToCl
                                         )}
                                     </div>
                                     <div
-                                        className="px-3 py-1 text-sm text-center text-gray-900 rounded-full border transition-transform duration-200 hover:scale-105 text-nowrap cursor-pointer"
-                                        onClick={() => onCopyToClipboard(company.loginid || '')}
+                                        className="w-1/4 px-3 py-1 text-sm text-center text-gray-900 rounded-full border transition-transform duration-200 hover:scale-105 text-nowrap cursor-pointer flex items-center justify-center min-w-[80px]"
+                                        onClick={() => handleCopyToClipboard(company.loginid || '', company.id)}
                                     >
-                                        {company.loginid || '------------'}
+                                        {copiedCompanyId === company.id ? (
+                                            <span className="text-green-600 font-semibold transition-opacity duration-300 opacity-100">Copied!</span>
+                                        ) : (
+                                            <span>{company.loginid || '------------'}</span>
+                                        )}
                                     </div>
                                 </li>
                             ))}
