@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import AppLayout from "@/Layouts/AppLayout";
 import { Link } from '@inertiajs/react';
+import { icons } from "@/Utils/icons";
 
 export default function InterviewResult({ entrysheet, content, results }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -142,10 +143,9 @@ export default function InterviewResult({ entrysheet, content, results }) {
                 <div className="mt-6 text-left">
                     <Link
                         href={route('entrysheet.show', entrysheet.id)}
-                        className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-[12px] hover:bg-gray-600 transition duration-300 inline-block ml-0 sm:ml-0"
-                    >
-                        終了
-                    </Link>
+                        className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200 focus:outline-none transition-colors duration-200"
+                        dangerouslySetInnerHTML={{ __html: icons.undo }}
+                    />
                 </div>
             )}
           </div>
