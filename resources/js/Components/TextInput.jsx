@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
 export default forwardRef(function TextInput(
-    { type = 'text', className = '', isFocused = false, ...props },
+    { type = 'text', className = '', isFocused = false, error = false, ...props },
     ref,
 ) {
     const localRef = useRef(null);
@@ -21,7 +21,8 @@ export default forwardRef(function TextInput(
             {...props}
             type={type}
             className={
-                'rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ' +
+                `block w-full rounded-md px-4 py-2 focus:ring-blue-500 focus:border-blue-500 ` +
+                (error ? 'border-red-500 ' : '') +
                 className
             }
             ref={localRef}

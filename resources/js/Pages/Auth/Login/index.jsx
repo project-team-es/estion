@@ -55,6 +55,15 @@ export default function Login() {
                     <div className="mt-6 space-y-3">
                         <AuthButton text="ログイン" disabled={processing} />
 
+                        <div className="pt-1 flex justify-center">
+                            <Link
+                                href={route("password.request")}
+                                className="text-center text-sm text-[#252525] hover:text-gray-900 transition font-bold"
+                            >
+                                パスワードを忘れた方はこちら
+                            </Link>
+                        </div>
+
                         <div className="border-t border-[#909090] opacity-50 my-3"></div>
 
                         <div className="pt-6 flex justify-center">
