@@ -43,6 +43,7 @@ class DashboardController extends Controller
                     ->get()
                     ->map(function ($company) {
                         return [
+                            'id' => $company->id,
                             'name' => $company->name,
                             'homepage' => $company->homepage,
                             'mypage' => $company->mypage,
