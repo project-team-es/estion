@@ -23,11 +23,11 @@ class DashboardController extends Controller
         // 締切間近ES取得（過去の日付を除外）
         $entrysheets = $user->entrysheet()
         ->with('company')
-        ->where('deadline', '>=', now()) // 現在の日時より未来のもののみ取得
+        ->where('deadline', '>=', now())
         ->orderByRaw('ISNULL(deadline), deadline ASC')
         ->get();
         
-        $contents = Content::with('entrysheet.company') // ここでEager Loading
+        $contents = Content::with('entrysheet.company')
         ->whereHas('entrysheet', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })
@@ -39,7 +39,7 @@ class DashboardController extends Controller
         $industriesWithCompanies = $industries->mapWithKeys(function ($industry) use ($user) {
             return [
                 $industry->id => $industry->companies()
-                    ->where('user_id', $user->id) // ログインユーザーの企業に限定
+                    ->where('user_id', $user->id)
                     ->get()
                     ->map(function ($company) {
                         return [
