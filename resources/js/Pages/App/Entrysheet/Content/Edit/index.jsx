@@ -1,99 +1,102 @@
-import React, { useState, useEffect } from "react";
-import AppLayout from "@/Layouts/AppLayout";
-import { useForm, Link, router, usePage } from "@inertiajs/react";
-import { icons } from "@/Utils/icons";
+import React, { useState, useEffect } from 'react';
+import AppLayout from '@/Layouts/AppLayout';
+import { useForm, Link, router, usePage } from '@inertiajs/react';
+import { icons } from '@/Utils/icons';
 export default function Edit({ content }) {
-    const { errors } = usePage().props;
-    const { data, setData, put, processing } = useForm({
-        question: content.question,
-        character_limit: content.character_limit || "",
-    });
+  const { errors } = usePage().props;
+  const { data, setData, put, processing } = useForm({
+    question: content.question,
+    character_limit: content.character_limit || '',
+  });
 
-    const [charCount, setCharCount] = useState(content.answer ? content.answer.length : 0);
+  const [charCount, setCharCount] = useState(content.answer ? content.answer.length : 0);
 
-    const handleChange = (event) => {
-        setData(event.target.name, event.target.value);
-        if (event.target.name === 'answer') {
-            setCharCount(event.target.value.length);
-        }
-    };
+  const handleChange = (event) => {
+    setData(event.target.name, event.target.value);
+    if (event.target.name === 'answer') {
+      setCharCount(event.target.value.length);
+    }
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        put(route("content.update", { entrysheet: content.entry_sheet_id, content: content.id }));
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    put(route('content.update', { entrysheet: content.entry_sheet_id, content: content.id }));
+  };
 
-    const handleGoBack = () => {
-        window.history.back();
-    };
+  const handleGoBack = () => {
+    window.history.back();
+  };
 
-    return (
-        <AppLayout title="質問と回答の編集">
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden rounded-[12px] border">
-                        <div className="p-8 text-gray-900 relative"> 
-                            <h1 className="text-2xl font-bold mb-6">質問内容と文字数を編集</h1>
+  return (
+    <AppLayout title="質問と回答の編集">
+      <div className="py-12">
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-[12px] border bg-white">
+            <div className="relative p-8 text-gray-900">
+              <h1 className="mb-6 text-2xl font-bold">質問内容と文字数を編集</h1>
 
-                            {/* 全体のエラーリスト表示を削除 */}
+              {/* 全体のエラーリスト表示を削除 */}
 
-                            {/* 編集フォーム */}
-                            <form onSubmit={handleSubmit}>
-                                {/* 質問 */}
-                                <div className="mb-4">
-                                    <label htmlFor="question" className="block text-gray-700 font-bold mb-2">
-                                        質問
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="question"
-                                        id="question"
-                                        value={data.question}
-                                        onChange={handleChange}
-                                        className={`w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3 ${errors.question ? 'border-red-500' : ''}`}
-                                        required
-                                    />
-                                    {errors.question && <p className="mt-2 text-sm text-red-600">{errors.question}</p>}
-                                </div>
-
-                                {/* 文字数制限 */}
-                                <div className="mb-4">
-                                    <label htmlFor="character_limit" className="block text-gray-700 font-bold mb-2">
-                                        文字数制限 (任意)
-                                    </label>
-                                    <input
-                                        type="number"
-                                        name="character_limit"
-                                        id="character_limit"
-                                        value={data.character_limit}
-                                        onChange={handleChange}
-                                        className={`w-full border-gray-300 rounded-[12px] focus:ring-blue-500 focus:border-blue-500 px-6 py-3 ${errors.character_limit ? 'border-red-500' : ''}`}
-                                    />
-                                    {errors.character_limit && <p className="mt-2 text-sm text-red-600">{errors.character_limit}</p>}
-                                </div>
-
-                                <div className="flex items-center justify-between mt-6">
-                                    
-                                    <button
-                                        onClick={handleGoBack}
-                                        className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200 focus:outline-none"
-                                    >
-                                        <span dangerouslySetInnerHTML={{ __html: icons.undo }} className="w-5 h-5" />
-                                    </button>
-
-                                    <button
-                                        type="submit"
-                                        className="bg-blue-600 text-white px-4 py-2 rounded-[12px] hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                        disabled={processing}
-                                    >
-                                        更新
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+              {/* 編集フォーム */}
+              <form onSubmit={handleSubmit}>
+                {/* 質問 */}
+                <div className="mb-4">
+                  <label htmlFor="question" className="mb-2 block font-bold text-gray-700">
+                    質問
+                  </label>
+                  <input
+                    type="text"
+                    name="question"
+                    id="question"
+                    value={data.question}
+                    onChange={handleChange}
+                    className={`w-full rounded-[12px] border-gray-300 px-6 py-3 focus:border-blue-500 focus:ring-blue-500 ${errors.question ? 'border-red-500' : ''}`}
+                    required
+                  />
+                  {errors.question && (
+                    <p className="mt-2 text-sm text-red-600">{errors.question}</p>
+                  )}
                 </div>
+
+                {/* 文字数制限 */}
+                <div className="mb-4">
+                  <label htmlFor="character_limit" className="mb-2 block font-bold text-gray-700">
+                    文字数制限 (任意)
+                  </label>
+                  <input
+                    type="number"
+                    name="character_limit"
+                    id="character_limit"
+                    value={data.character_limit}
+                    onChange={handleChange}
+                    className={`w-full rounded-[12px] border-gray-300 px-6 py-3 focus:border-blue-500 focus:ring-blue-500 ${errors.character_limit ? 'border-red-500' : ''}`}
+                  />
+                  {errors.character_limit && (
+                    <p className="mt-2 text-sm text-red-600">{errors.character_limit}</p>
+                  )}
+                </div>
+
+                <div className="mt-6 flex items-center justify-between">
+                  <button
+                    onClick={handleGoBack}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-500 hover:bg-gray-200 focus:outline-none"
+                  >
+                    <span dangerouslySetInnerHTML={{ __html: icons.undo }} className="h-5 w-5" />
+                  </button>
+
+                  <button
+                    type="submit"
+                    className="rounded-[12px] bg-blue-600 px-4 py-2 text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    disabled={processing}
+                  >
+                    更新
+                  </button>
+                </div>
+              </form>
             </div>
-        </AppLayout>
-    );
+          </div>
+        </div>
+      </div>
+    </AppLayout>
+  );
 }

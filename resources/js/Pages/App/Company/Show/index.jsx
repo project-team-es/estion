@@ -1,58 +1,54 @@
-import React from "react";
-import AppLayout from "@/Layouts/AppLayout";
-import AddEsMiniButton from "@/Components/AddEsMiniButton";
-import { router } from "@inertiajs/react";
-import CompanyInfo from "./CompanyInfo";
-import CompanyActions from "./CompanyActions";
-import formatDate from "@/Utils/formatDate";
+import React from 'react';
+import AppLayout from '@/Layouts/AppLayout';
+import AddEsMiniButton from '@/Components/AddEsMiniButton';
+import { router } from '@inertiajs/react';
+import CompanyInfo from './CompanyInfo';
+import CompanyActions from './CompanyActions';
+import formatDate from '@/Utils/formatDate';
 
 export default function Show({ company }) {
   return (
-    <div className="max-w-7xl mx-auto py-12 px-6">
-      <div className="bg-white rounded-[12px] p-6 border">
-        <div className="flex justify-between items-start mb-6">
+    <div className="mx-auto max-w-7xl px-6 py-12">
+      <div className="rounded-[12px] border bg-white p-6">
+        <div className="mb-6 flex items-start justify-between">
           <div className="flex items-center space-x-4">
-              {/* 企業名 */}
-              <h2 className="text-2xl font-bold whitespace-nowrap">{company.name}</h2>
+            {/* 企業名 */}
+            <h2 className="whitespace-nowrap text-2xl font-bold">{company.name}</h2>
 
-              {/* 業界名 */}
-              <span className="px-3 py-1 text-gray-900 font-semibold rounded-full border whitespace-nowrap">
-                  {company.industry?.name || "-----"}
-              </span>
+            {/* 業界名 */}
+            <span className="whitespace-nowrap rounded-full border px-3 py-1 font-semibold text-gray-900">
+              {company.industry?.name || '-----'}
+            </span>
           </div>
-      
+
           <div className="flex flex-wrap items-start gap-4">
             <CompanyInfo company={company} />
             <CompanyActions companyId={company.id} />
           </div>
         </div>
         <div className="mt-6">
-          <h3 className="flex items-center text-xl font-bold space-x-2">
+          <h3 className="flex items-center space-x-2 text-xl font-bold">
             <span>エントリーシート一覧</span>
             <AddEsMiniButton
-              href={route("entrysheet.create.with.company", {
+              href={route('entrysheet.create.with.company', {
                 company_id: company.id,
               })}
             />
           </h3>
 
           {company.entrysheets.length === 0 ? (
-            <p className="text-gray-600 mt-4">
-              この企業のエントリーシートは登録されていません。
-            </p>
+            <p className="mt-4 text-gray-600">この企業のエントリーシートは登録されていません。</p>
           ) : (
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {company.entrysheets.map((entrysheet) => (
                 <div
                   key={entrysheet.id}
-                  className="p-4 bg-white border rounded-[12px] hover:bg-gray-100 cursor-pointer"
-                  onClick={() =>
-                    router.visit(route("entrysheet.show", entrysheet.id))
-                  }
+                  className="cursor-pointer rounded-[12px] border bg-white p-4 hover:bg-gray-100"
+                  onClick={() => router.visit(route('entrysheet.show', entrysheet.id))}
                 >
                   <h3 className="text-lg font-semibold">{entrysheet.title}</h3>
                   <p className="text-sm text-gray-600">
-                  締切: {entrysheet.deadline ? formatDate(entrysheet.deadline) : "未設定"}
+                    締切: {entrysheet.deadline ? formatDate(entrysheet.deadline) : '未設定'}
                   </p>
                 </div>
               ))}
@@ -66,8 +62,8 @@ export default function Show({ company }) {
 
 Show.layout = (page) => <AppLayout title="企業詳細">{page}</AppLayout>;
 
-
-        {/* <div className="mt-12">
+{
+  /* <div className="mt-12">
           <h3 className="flex items-center text-xl font-bold">
             <span>その他のファイル</span>
           </h3>
@@ -94,9 +90,11 @@ Show.layout = (page) => <AppLayout title="企業詳細">{page}</AppLayout>;
                     </a>
                   </div>
                 ))}
-            </div> */}
-          
-{/* 
+            </div> */
+}
+
+{
+  /* 
           {company.files.some(f => f.filename.match(/\.(jpe?g|png|gif)$/i)) && (
             <>
               <h3 className="text-xl font-bold mt-8">画像ファイル</h3>
@@ -124,4 +122,5 @@ Show.layout = (page) => <AppLayout title="企業詳細">{page}</AppLayout>;
                     </div>
                   ))}
               </div>
-            </> */}
+            </> */
+}
