@@ -1,26 +1,26 @@
-import React from "react";
-import Logo from "@/Pages/Guest/components/NavBar/Logo";
-import NavLinks from "@/Pages/Guest/components/NavBar/NavLinks";
-import MobileMenu from "@/Pages/Guest/components/NavBar/MobileMenu";
-import MenuToggle from "@/Pages/Guest/components/NavBar/MenuToggle";
+import React from 'react';
+import Logo from '@/Pages/Guest/components/NavBar/Logo';
+import NavLinks from '@/Pages/Guest/components/NavBar/NavLinks';
+import MobileMenu from '@/Pages/Guest/components/NavBar/MobileMenu';
+import MenuToggle from '@/Pages/Guest/components/NavBar/MenuToggle';
+import { useState } from 'react';
 
-export default function NavBar() {
-    return (
-        <nav className="fixed top-0 left-0 w-full bg-opacity-90 py-4 z-50">
-            <div className="w-full px-2 sm:px-12 py-3 flex justify-between items-center">
+export default function NavBar({ isMenuOpen, toggleMenu }) {
+  return (
+    <nav className="fixed z-50 w-full py-2 md:py-4">
+      <div className="flex w-full items-center justify-between px-2 py-3 md:px-12">
+        <Logo />
 
-                <Logo />
+        <div className="hidden sm:flex">
+          <NavLinks isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        </div>
 
-                <div className="hidden md:flex">
-                    <NavLinks />
-                </div>
+        <div className="sm:hidden">
+          <MenuToggle isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        </div>
+      </div>
 
-                <div className="md:hidden">
-                    <MenuToggle />
-                </div>
-            </div>
-
-            <MobileMenu />
-        </nav>
-    );
+      <MobileMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+    </nav>
+  );
 }
