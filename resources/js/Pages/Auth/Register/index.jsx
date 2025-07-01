@@ -17,15 +17,13 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
-      <a href="/" className="absolute left-8 top-6 text-4xl font-bold text-black">
+    <div className="flex min-h-screen flex-col items-center overflow-auto bg-gray-100 px-4 py-12 sm:py-16 md:py-14">
+      <a href="/" className="absolute left-8 top-6 z-10 text-4xl font-bold text-black">
         estion.
       </a>
       <Head title="新規登録" />
-
-      <div className="mt-6 w-full max-w-lg rounded-[12px] border bg-white px-8 py-8">
+      <div className="md:mt-13 mt-[25%] w-full max-w-[90%] rounded-[12px] border bg-white px-5 py-8 sm:mt-12 sm:max-w-[70%] md:max-w-lg">
         <h2 className="mb-4 text-center text-2xl font-bold text-gray-800">新規登録</h2>
-
         {/* Google OAuth */}
         {/*
                 <div className="flex justify-center mb-6">
@@ -34,7 +32,6 @@ export default function Register() {
                     </a>
                 </div>
                 */}
-
         <form onSubmit={handleSubmit}>
           <AuthInput
             id="name"
@@ -75,9 +72,9 @@ export default function Register() {
           <div className="mt-6 space-y-3">
             <AuthButton text="登録" disabled={processing} />
 
-            <div className="my-3 border-t border-[#909090] opacity-50"></div>
+            <div className="mt-5 border-t border-[#909090] opacity-50"></div>
 
-            <div className="flex justify-center pt-6">
+            <div className="flex justify-center pt-5">
               <Link
                 href={route('login')}
                 className="text-center text-sm font-bold text-[#252525] transition hover:text-gray-900"
