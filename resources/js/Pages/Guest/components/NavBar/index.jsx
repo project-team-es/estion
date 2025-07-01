@@ -3,23 +3,24 @@ import Logo from '@/Pages/Guest/components/NavBar/Logo';
 import NavLinks from '@/Pages/Guest/components/NavBar/NavLinks';
 import MobileMenu from '@/Pages/Guest/components/NavBar/MobileMenu';
 import MenuToggle from '@/Pages/Guest/components/NavBar/MenuToggle';
+import { useState } from 'react';
 
-export default function NavBar() {
+export default function NavBar({ isMenuOpen, toggleMenu }) {
   return (
-    <nav className="fixed left-0 top-0 z-50 w-full bg-opacity-90 py-4">
-      <div className="flex w-full items-center justify-between px-2 py-3 sm:px-12">
+    <nav className="fixed z-50 w-full py-2 md:py-4">
+      <div className="flex w-full items-center justify-between px-2 py-3 md:px-12">
         <Logo />
 
-        <div className="hidden md:flex">
-          <NavLinks />
+        <div className="hidden sm:flex">
+          <NavLinks isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         </div>
 
-        <div className="md:hidden">
-          <MenuToggle />
+        <div className="sm:hidden">
+          <MenuToggle isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         </div>
       </div>
 
-      <MobileMenu />
+      <MobileMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
     </nav>
   );
 }
