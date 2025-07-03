@@ -13,13 +13,12 @@ use Inertia\Response;
 
 
 use App\Http\Requests\StoreCompanyRequest;
-use App\Http\Requests\UpdateCompanyRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller implements HasMiddleware
 {
-    public function index(Request $request): Response
+    public function index()
     {
         $companies = Company::where('user_id', Auth::id())->with('industry')->get();
         $industries = Industry::all();
@@ -118,14 +117,12 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function destroy(Company $company)
     {
-        // ユーザーがこの企業を削除できるか確認
         if ($company->user_id !== Auth::id()) {
             abort(403, '権限がありません');
         }
 
         DB::beginTransaction();
         try {
-            // もし `deleted_at` カラムがある場合は `forceDelete()` で物理削除
             $company->forceDelete();
             DB::commit();
             return redirect()->route('company')->with('message', '企業情報が削除されました。');
