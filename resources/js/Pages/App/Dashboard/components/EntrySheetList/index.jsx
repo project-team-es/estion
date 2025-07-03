@@ -1,15 +1,18 @@
-import React from 'react';
 import { router } from '@inertiajs/react';
 
 export default function EntrySheetList({ entrysheets }) {
   return (
-    <div className="fixed relative right-6 top-10 z-10 w-1/5 p-4 md:right-10 md:flex md:h-screen md:flex-col md:justify-between lg:right-16">
+    <div className="z-10 mr-[4%] flex h-screen w-1/5 flex-col">
       <p className="mb-4 text-center font-bold">締切間近</p>
 
       {entrysheets.length === 0 ? (
-        <p className="text-gray-600">登録されたエントリーシートがありません。</p>
+        <p className="text-gray-600">
+          登録されたエントリーシート
+          <br />
+          がありません。
+        </p>
       ) : (
-        <div className="flex flex-1 flex-col items-center space-y-2 overflow-y-auto pt-2">
+        <div className="flex flex-col items-center">
           {entrysheets.map((entrysheet) => (
             <div
               key={entrysheet.id}

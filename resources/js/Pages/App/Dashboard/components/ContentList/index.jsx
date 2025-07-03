@@ -1,14 +1,13 @@
-import React from 'react';
 import { router } from '@inertiajs/react';
 
 export default function ContentList({ contents }) {
   return (
-    <div className="relative mx-auto max-w-3xl rounded-[12px] p-4 pt-4">
-      <p className="mb-4 pt-2 text-center font-bold">最近の更新</p>
+    <div className="mx-auto h-screen max-w-3xl bg-red-200">
+      <p className="mb-4 text-center font-bold">最近の更新</p>
       {contents.length === 0 ? (
         <p className="text-center text-gray-600">まだコンテンツがありません。</p>
       ) : (
-        <ul className="space-y-3">
+        <ul className>
           {contents.map((content) => (
             <li
               key={content.id}

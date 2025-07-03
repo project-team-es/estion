@@ -32,13 +32,13 @@ export default function IndustryList({ industries, industriesWithCompanies }) {
     : [];
 
   return (
-    <div className="fixed relative left-6 top-10 z-10 w-1/5 p-4 md:left-10 md:flex md:h-screen md:flex-col md:justify-between lg:left-16">
+    <div className="z-10 ml-[4%] flex w-1/5 flex-col justify-between">
       <p className="mb-4 text-center font-semibold text-gray-900">業界</p>
 
       {industries.length === 0 ? (
         <p className="text-gray-600">登録された業界がありません。</p>
       ) : (
-        <div className="flex flex-1 flex-col items-center space-y-2 overflow-y-auto pt-2">
+        <div className="flex flex-1 flex-col items-center space-y-2">
           {industries.map((industry) => (
             <IndustryListItem
               key={industry.id}
