@@ -6,11 +6,7 @@ export default function EntrySheetList({ entrysheets }) {
       <p className="mb-4 text-center font-bold">締切間近</p>
 
       {entrysheets.length === 0 ? (
-        <p className="text-gray-600">
-          登録されたエントリーシート
-          <br />
-          がありません。
-        </p>
+        <p className="text-center text-gray-600">登録されたエントリーシート がありません。</p>
       ) : (
         <div className="flex flex-col items-center">
           {entrysheets.map((entrysheet) => (
