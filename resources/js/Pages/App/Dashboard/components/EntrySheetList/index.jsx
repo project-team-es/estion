@@ -12,7 +12,7 @@ export default function EntrySheetList({ entrysheets }) {
           {entrysheets.map((entrysheet) => (
             <div
               key={entrysheet.id}
-              className="group cursor-pointer rounded-[12px] border bg-white p-2 transition-transform duration-200 hover:scale-105"
+              className="group m-1 cursor-pointer rounded-[12px] border bg-white transition-transform duration-200 hover:scale-105"
               style={{
                 minHeight: '60px',
                 display: 'flex',

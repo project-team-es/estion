@@ -20,13 +20,13 @@ export default function MobileMenu({ isMenuOpen, toggleMenu }) {
         </svg>
       </button>
       <div className="mt-14 flex flex-col items-start px-5 text-left text-[20px] font-semibold">
-        <Link
-          href="/contact"
+        <a
+          href="https://docs.google.com/forms/d/1sZsxsi5FqdiS35YW2CVzQ4CANyljnbjt2K9urmRomHE/edit?pli=1"
           onClick={toggleMenu}
           className="w-full py-5 text-black transition hover:text-gray-600"
         >
           お問い合わせ
-        </Link>
+        </a>
         <Link
           href="/login"
           onClick={toggleMenu}
