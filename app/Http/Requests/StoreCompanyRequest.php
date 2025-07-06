@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class StoreCompanyRequest extends FormRequest
 {
@@ -22,13 +24,26 @@ class StoreCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('companies')->where(function ($query) {
+                    return $query->where('user_id', Auth::id());
+                }),
+            ],
             'homepage' => 'nullable|url|max:255',
             'mypage' => 'nullable|url|max:255',
             'loginid' => 'nullable|string|max:50',
             'status' => 'nullable|string|max:255',
             'process' => 'nullable|string|max:255',
             'industry_id' => 'required|exists:industries,id',
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'name.unique' => 'この名前の企業は既に登録されています。',
         ];
     }
 }

@@ -8,104 +8,91 @@ import { useForm } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 
 export default function DeleteUserForm({ className = '' }) {
-    const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
-    const passwordInput = useRef();
+  const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
+  const passwordInput = useRef();
 
-    const {
-        data,
-        setData,
-        delete: destroy,
-        processing,
-        reset,
-        errors,
-        clearErrors,
-    } = useForm({
-        password: '',
+  const {
+    data,
+    setData,
+    delete: destroy,
+    processing,
+    reset,
+    errors,
+    clearErrors,
+  } = useForm({
+    password: '',
+  });
+
+  const confirmUserDeletion = () => {
+    setConfirmingUserDeletion(true);
+  };
+
+  const deleteUser = (e) => {
+    e.preventDefault();
+
+    destroy(route('profile.destroy'), {
+      preserveScroll: true,
+      onSuccess: () => closeModal(),
+      onError: () => passwordInput.current.focus(),
+      onFinish: () => reset(),
     });
+  };
 
-    const confirmUserDeletion = () => {
-        setConfirmingUserDeletion(true);
-    };
+  const closeModal = () => {
+    setConfirmingUserDeletion(false);
+    clearErrors();
+    reset();
+  };
 
-    const deleteUser = (e) => {
-        e.preventDefault();
+  return (
+    <section className={`space-y-4 ${className}`}>
+      <header className="mb-4">
+        <p className="mt-1 text-sm text-gray-600">
+          アカウントを削除すると、すべてのリソースとデータは完全に削除されます。アカウントを削除する前に、保持したいデータや情報をダウンロードしてください。
+        </p>
+      </header>
 
-        destroy(route('profile.destroy'), {
-            preserveScroll: true,
-            onSuccess: () => closeModal(),
-            onError: () => passwordInput.current.focus(),
-            onFinish: () => reset(),
-        });
-    };
+      <DangerButton onClick={confirmUserDeletion}>アカウント削除</DangerButton>
 
-    const closeModal = () => {
-        setConfirmingUserDeletion(false);
-        clearErrors();
-        reset();
-    };
+      <Modal show={confirmingUserDeletion} onClose={closeModal}>
+        <form onSubmit={deleteUser} className="p-6">
+          <h2 className="text-lg font-medium text-gray-900">本当にアカウントを削除しますか？</h2>
 
-    return (
-        <section className={`space-y-4 ${className}`}> 
-            <header className="mb-4">
+          <p className="mt-1 text-sm text-gray-600">
+            アカウントを削除すると、すべてのリソースとデータは完全に削除されます。アカウントを完全に削除することを確認するために、パスワードを入力してください。
+          </p>
 
+          <div className="mt-6">
+            <InputLabel
+              htmlFor="password"
+              value="パスワード"
+              className="mb-2 block font-bold text-gray-700"
+            />
 
-                <p className="mt-1 text-sm text-gray-600">
-                    アカウントを削除すると、すべてのリソースとデータは完全に削除されます。アカウントを削除する前に、保持したいデータや情報をダウンロードしてください。
-                </p>
-            </header>
+            <TextInput
+              id="password"
+              type="password"
+              name="password"
+              ref={passwordInput}
+              value={data.password}
+              onChange={(e) => setData('password', e.target.value)}
+              className="mt-1 block w-3/4 rounded-[12px] border border-gray-300 p-3 focus:border-blue-500 focus:ring-blue-500"
+              isFocused
+              placeholder="パスワード"
+            />
 
-            <DangerButton onClick={confirmUserDeletion}>
-                アカウント削除
+            <InputError message={errors.password} className="mt-2" />
+          </div>
+
+          <div className="mt-6 flex justify-end gap-4">
+            <SecondaryButton onClick={closeModal}>キャンセル</SecondaryButton>
+
+            <DangerButton className="ms-3" disabled={processing}>
+              アカウント削除
             </DangerButton>
-
-            <Modal show={confirmingUserDeletion} onClose={closeModal}>
-                <form onSubmit={deleteUser} className="p-6">
-                    <h2 className="text-lg font-medium text-gray-900">
-                        本当にアカウントを削除しますか？
-                    </h2>
-
-                    <p className="mt-1 text-sm text-gray-600">
-                        アカウントを削除すると、すべてのリソースとデータは完全に削除されます。アカウントを完全に削除することを確認するために、パスワードを入力してください。
-                    </p>
-
-                    <div className="mt-6">
-                        <InputLabel
-                            htmlFor="password"
-                            value="パスワード"
-                            className="block text-gray-700 font-bold mb-2" 
-                        />
-
-                        <TextInput
-                            id="password"
-                            type="password"
-                            name="password"
-                            ref={passwordInput}
-                            value={data.password}
-                            onChange={(e) =>
-                                setData('password', e.target.value)
-                            }
-                            className="mt-1 block w-3/4 border border-gray-300 rounded-[12px] p-3 focus:ring-blue-500 focus:border-blue-500" 
-                            isFocused
-                            placeholder="パスワード" 
-                        />
-
-                        <InputError
-                            message={errors.password}
-                            className="mt-2"
-                        />
-                    </div>
-
-                    <div className="mt-6 flex justify-end gap-4">
-                        <SecondaryButton onClick={closeModal}>
-                            キャンセル
-                        </SecondaryButton>
-
-                        <DangerButton className="ms-3" disabled={processing}>
-                            アカウント削除
-                        </DangerButton>
-                    </div>
-                </form>
-            </Modal>
-        </section>
-    );
+          </div>
+        </form>
+      </Modal>
+    </section>
+  );
 }

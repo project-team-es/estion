@@ -1,34 +1,32 @@
-import React from "react";
-import { router } from "@inertiajs/react";
-import { icons } from "@/Utils/icons";
-import formatDate from "@/Utils/formatDate";
+import React from 'react';
+import { router } from '@inertiajs/react';
+import { icons } from '@/Utils/icons';
+import formatDate from '@/Utils/formatDate';
 
 export default function EntrysheetListItem({ entrysheet, onDelete }) {
-    return (
-        <div
-            key={entrysheet.id}
-            className="p-4 border rounded-[12px] cursor-pointer relative transition-transform duration-200 hover:scale-105 group"
-            onClick={() => router.visit(route("entrysheet.show", entrysheet.id))}
-        >
-            <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold">{entrysheet.title}</h3>
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onDelete(entrysheet.id);
-                    }}
-                    className="hidden group-hover:flex text-gray-500 w-7 h-7 p-0 rounded-full transition-all duration-300 items-center justify-center hover:text-red-500"
-                    dangerouslySetInnerHTML={{ __html: icons.trash_mini }}
-                />
-            </div>
-            <p className="text-sm text-gray-600 mt-1">
-                企業: {entrysheet.company?.name || ""}
-            </p>
-            {entrysheet.deadline && (
-                <p className="text-sm text-gray-600">
-                    締切: {entrysheet.deadline ? formatDate(entrysheet.deadline) : "未設定"}
-                </p>
-            )}
-        </div>
-    );
+  return (
+    <div
+      key={entrysheet.id}
+      className="group relative cursor-pointer rounded-[12px] border p-4 transition-transform duration-200 hover:scale-105"
+      onClick={() => router.visit(route('entrysheet.show', entrysheet.id))}
+    >
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold">{entrysheet.title}</h3>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(entrysheet.id);
+          }}
+          className="hidden h-7 w-7 items-center justify-center rounded-full p-0 text-gray-500 transition-all duration-300 hover:text-red-500 group-hover:flex"
+          dangerouslySetInnerHTML={{ __html: icons.trash_mini }}
+        />
+      </div>
+      <p className="mt-1 text-sm text-gray-600">企業: {entrysheet.company?.name || ''}</p>
+      {entrysheet.deadline && (
+        <p className="text-sm text-gray-600">
+          締切: {entrysheet.deadline ? formatDate(entrysheet.deadline) : '未設定'}
+        </p>
+      )}
+    </div>
+  );
 }

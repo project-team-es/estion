@@ -1,28 +1,28 @@
 import TextareaAutosize from 'react-textarea-autosize';
-import AppLayout from "@/Layouts/AppLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import AppLayout from '@/Layouts/AppLayout';
+import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function ExpectedEs({ entrysheet, content }) {
   const { data, setData, post, processing, errors, reset } = useForm({
-    entry_sheet_id: entrysheet?.id ?? "",
-    content_id: content?.id ?? "",
-    interview_request: "",
+    entry_sheet_id: entrysheet?.id ?? '',
+    content_id: content?.id ?? '',
+    interview_request: '',
   });
 
   const submit = (e) => {
     e.preventDefault();
-    post(route("interview.start"), data); 
+    post(route('interview.start'), data);
   };
 
   return (
-    <AppLayout title={entrysheet?.company?.name || "想定ES"}>
+    <AppLayout title={entrysheet?.company?.name || '想定ES'}>
       <Head>
-        <title>{entrysheet?.company?.name || "想定ES"}</title>
+        <title>{entrysheet?.company?.name || '想定ES'}</title>
       </Head>
       <div className="py-12">
-        <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-center">{entrysheet?.company?.name}</h2>
-          <div className="mt-6 p-4 border rounded-lg bg-gray-100">
+        <div className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md">
+          <h2 className="text-center text-2xl font-bold">{entrysheet?.company?.name}</h2>
+          <div className="mt-6 rounded-lg border bg-gray-100 p-4">
             <h3 className="text-xl font-semibold">想定ES</h3>
             <p className="mt-2">
               <strong>質問:</strong> {content?.question}
@@ -44,23 +44,23 @@ export default function ExpectedEs({ entrysheet, content }) {
                 id="interview_request"
                 name="interview_request"
                 minRows={1}
-                className="w-full border-gray-300 rounded-lg mt-2 p-2"
+                className="mt-2 w-full rounded-lg border-gray-300 p-2"
                 placeholder="例: キャリアプランと絡めて質問してほしい"
                 value={data.interview_request}
-                onChange={(e) => setData("interview_request", e.target.value)}
+                onChange={(e) => setData('interview_request', e.target.value)}
               />
             </div>
 
             <div className="mt-6 text-center">
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"
+                className="rounded-lg bg-blue-500 px-6 py-2 text-white transition hover:bg-blue-600"
                 disabled={processing}
               >
-                {processing ? "面接開始中..." : "面接開始"}
+                {processing ? '面接開始中...' : '面接開始'}
               </button>
               {errors.interview_request && (
-                <div className="text-red-500 mt-2">{errors.interview_request}</div>
+                <div className="mt-2 text-red-500">{errors.interview_request}</div>
               )}
             </div>
           </form>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
-import AppLayout from "@/Layouts/AppLayout";
+import React, { useState, useEffect, useCallback } from 'react';
+import AppLayout from '@/Layouts/AppLayout';
 import { Link } from '@inertiajs/react';
-import { icons } from "@/Utils/icons";
+import { icons } from '@/Utils/icons';
 
 export default function InterviewResult({ entrysheet, content, results }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,7 +13,7 @@ export default function InterviewResult({ entrysheet, content, results }) {
   const goToNextQuestion = useCallback(() => {
     // 最後の質問にまだ到達していない場合
     if (currentIndex < questions.length - 1) {
-      setCurrentIndex(prevIndex => prevIndex + 1);
+      setCurrentIndex((prevIndex) => prevIndex + 1);
     } else {
       // 最後の質問に到達した場合のみ終了メッセージを表示
       setShowEndMessage(true);
@@ -27,19 +27,20 @@ export default function InterviewResult({ entrysheet, content, results }) {
     setShowAllQuestions(false);
   };
 
+
   // 質問がない場合の表示
   if (!questions || questions.length === 0) {
     return (
       <div className="py-12">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div className="bg-white overflow-hidden sm:rounded-[12px] shadow-lg">
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="overflow-hidden bg-white shadow-lg sm:rounded-[12px]">
             <div className="p-6 text-gray-900">
-              <p className="text-lg text-center">表示する質問がありません。</p>
+              <p className="text-center text-lg">表示する質問がありません。</p>
               {entrysheet && (
                 <div className="mt-6 text-center">
                   <Link
                     href={route('entrysheet.show', entrysheet.id)}
-                    className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-[12px] hover:bg-gray-600 transition duration-300 inline-block"
+                    className="inline-block rounded-[12px] bg-gray-500 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-gray-600"
                   >
                     エントリーシートに戻る
                   </Link>
@@ -56,14 +57,18 @@ export default function InterviewResult({ entrysheet, content, results }) {
 
   return (
     <div className="py-12">
-      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div className="bg-white overflow-hidden sm:rounded-[12px] shadow-lg">
+      <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="overflow-hidden bg-white shadow-lg sm:rounded-[12px]">
           <div className="p-6 text-gray-900">
             {content && (
-              <div className="mb-6 p-4 bg-gray-100 rounded-[12px]">
+              <div className="mb-6 rounded-[12px] bg-gray-100 p-4">
                 <h3 className="text-lg font-semibold text-gray-800">元の質問と回答</h3>
-                <p className="mt-1"><strong>質問:</strong> {content.question}</p>
-                <p className="mt-1"><strong>回答:</strong> {content.answer}</p>
+                <p className="mt-1">
+                  <strong>質問:</strong> {content.question}
+                </p>
+                <p className="mt-1">
+                  <strong>回答:</strong> {content.answer}
+                </p>
               </div>
             )}
 
@@ -87,7 +92,7 @@ export default function InterviewResult({ entrysheet, content, results }) {
                       // 最後の質問の場合のボタン
                       <button
                         onClick={goToNextQuestion} // showEndMessageをtrueにするために同じ関数を呼び出し
-                        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300"
+                        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300
                       >
                         質問一覧へ →
                       </button>
@@ -124,13 +129,13 @@ export default function InterviewResult({ entrysheet, content, results }) {
             </div>
 
             {entrysheet && (
-                <div className="mt-6 text-left">
-                    <Link
-                        href={route('entrysheet.show', entrysheet.id)}
-                        className="inline-flex items-center justify-center w-10 h-10 text-gray-500 rounded-full hover:bg-gray-200 focus:outline-none transition-colors duration-200"
-                        dangerouslySetInnerHTML={{ __html: icons.undo }}
-                    />
-                </div>
+              <div className="mt-6 text-left">
+                <Link
+                  href={route('entrysheet.show', entrysheet.id)}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-500 transition-colors duration-200 hover:bg-gray-200 focus:outline-none"
+                  dangerouslySetInnerHTML={{ __html: icons.undo }}
+                />
+              </div>
             )}
           </div>
         </div>
