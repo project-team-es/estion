@@ -11,14 +11,15 @@ export default function InterviewResult({ entrysheet, content, results }) {
   const questions = results || [];
 
   const goToNextQuestion = useCallback(() => {
-    if (showAllQuestions) return;
-
+    // 最後の質問にまだ到達していない場合
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(prevIndex => prevIndex + 1);
     } else {
+      // 最後の質問に到達した場合のみ終了メッセージを表示
+      setShowEndMessage(true);
       setShowAllQuestions(true);
     }
-  }, [currentIndex, questions.length, showAllQuestions]);
+  }, [currentIndex, questions.length]); // currentIndexとquestions.lengthを依存配列に含める
 
   const handleRestart = () => {
     setCurrentIndex(0);
@@ -26,29 +27,7 @@ export default function InterviewResult({ entrysheet, content, results }) {
     setShowAllQuestions(false);
   };
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Enter") {
-        goToNextQuestion();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [goToNextQuestion]);
-
-  useEffect(() => {
-    if (showAllQuestions && questions.length > 0) {
-        const timer = setTimeout(() => {
-            setShowEndMessage(true);
-        }, 500);
-        return () => clearTimeout(timer);
-    }
-  }, [showAllQuestions, questions.length]);
-
-
+  // 質問がない場合の表示
   if (!questions || questions.length === 0) {
     return (
       <div className="py-12">
@@ -73,6 +52,8 @@ export default function InterviewResult({ entrysheet, content, results }) {
     );
   }
 
+  const currentQuestion = questions[currentIndex];
+
   return (
     <div className="py-12">
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -88,54 +69,57 @@ export default function InterviewResult({ entrysheet, content, results }) {
 
             <div className="mt-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">生成された質問</h2>
-              <div className="bg-gray-50 border border-gray-300 rounded-[12px] p-6 shadow-lg">
-                <ul className="list-none text-gray-800 space-y-4">
-                  {questions.map((question, index) => (
-                    <li
-                      key={index}
-                      className={`question-item p-4 bg-white rounded-[12px] shadow transition-all duration-500 ease-in-out
-                        ${showAllQuestions || currentIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5 h-0 p-0 m-0 overflow-hidden'}
-                        ${(!showAllQuestions && currentIndex === index) ? 'cursor-pointer hover:bg-blue-50' : ''}
-                      `}
-                      onClick={() => {if (!showAllQuestions && currentIndex === index) goToNextQuestion();}}
-                      style={{
-                        height: (showAllQuestions || currentIndex === index) ? 'auto' : '0',
-                        padding: (showAllQuestions || currentIndex === index) ? '1rem' : '0',
-                        marginBottom: (showAllQuestions || currentIndex === index) ? '1rem' : '0',
-                        visibility: (showAllQuestions || currentIndex === index) ? 'visible' : 'hidden',
-                      }}
-                    >
-                      <div className="flex justify-between items-center">
-                        <p className="text-lg">{question}</p>
-                        {(!showAllQuestions && currentIndex === index && currentIndex < questions.length -1) && (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              goToNextQuestion();
-                            }}
-                            className="next-question px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300"
-                          >
-                            次の質問へ →
-                          </button>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                  {showEndMessage && (
-                    <li
-                      className={`p-4 bg-white rounded-[12px] shadow text-gray-700 text-center text-lg transition-opacity duration-500 ease-in-out ${showEndMessage ? 'opacity-100' : 'opacity-0'}`}
-                    >
-                      質問は以上です
-                      <br />
+              <div className="bg-gray-50 border border-gray-300 rounded-[12px] p-6 shadow-lg min-h-[250px] flex flex-col justify-center items-center text-center">
+                {/* 質問または終了メッセージと質問一覧を表示 */}
+                {!showEndMessage ? (
+                  // 通常の質問表示
+                  <div className="w-full">
+                    <p className="text-lg text-gray-800 animate-fade-in">{currentQuestion}</p>
+                    {/* 最後の質問の場合もボタンを表示 */}
+                    {currentIndex < questions.length - 1 ? (
                       <button
-                        onClick={handleRestart}
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300"
+                        onClick={goToNextQuestion}
+                        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300"
                       >
-                        はじめから
+                        次の質問へ →
                       </button>
-                    </li>
-                  )}
-                </ul>
+                    ) : (
+                      // 最後の質問の場合のボタン
+                      <button
+                        onClick={goToNextQuestion} // showEndMessageをtrueにするために同じ関数を呼び出し
+                        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300"
+                      >
+                        質問一覧へ →
+                      </button>
+                    )}
+                  </div>
+                ) : (
+                  // 終了メッセージと質問一覧表示（カード形式）
+                  <div className="text-gray-700 text-center text-lg animate-fade-in w-full">
+                    <p className="mb-4">質問は以上です</p>
+                    <button
+                      onClick={handleRestart}
+                      className="mb-6 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300"
+                    >
+                      はじめから
+                    </button>
+
+                    <hr className="my-6 border-gray-300" />
+
+                    <h3 className="text-xl font-bold text-gray-900 mb-6">質問一覧</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto max-w-4xl">
+                      {questions.map((question, index) => (
+                        <div
+                          key={index}
+                          className="bg-white p-4 rounded-[12px] shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between items-start text-left"
+                        >
+                          <p className="text-sm font-semibold text-gray-600 mb-2">質問 {index + 1}</p>
+                          <p className="text-base text-gray-800 flex-grow">{question}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
