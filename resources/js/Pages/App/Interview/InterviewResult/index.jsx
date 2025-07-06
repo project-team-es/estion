@@ -92,7 +92,7 @@ export default function InterviewResult({ entrysheet, content, results }) {
                       // 最後の質問の場合のボタン
                       <button
                         onClick={goToNextQuestion} // showEndMessageをtrueにするために同じ関数を呼び出し
-                        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300
+                        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300"
                       >
                         質問一覧へ →
                       </button>
