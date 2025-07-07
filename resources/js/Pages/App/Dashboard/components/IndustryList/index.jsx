@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import IndustryListItem from './IndustryListItem';
 import IndustryModal from './IndustryModal';
 import { copyToClipboard } from '@/Utils/copyToClipboard';
 
 export default function IndustryList({ industries, industriesWithCompanies }) {
+  console.log(industriesWithCompanies);
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const leaveTimeout = useRef(null);
-  const LEAVE_DELAY = 200;
 
   const handleIndustryMouseEnter = (industry) => {
     clearTimeout(leaveTimeout.current);
@@ -16,15 +16,7 @@ export default function IndustryList({ industries, industriesWithCompanies }) {
   const handleIndustryMouseLeave = () => {
     leaveTimeout.current = setTimeout(() => {
       setSelectedIndustry(null);
-    }, LEAVE_DELAY);
-  };
-
-  const closeModal = () => {
-    setSelectedIndustry(null);
-  };
-
-  const handleCopyToClipboard = (text) => {
-    copyToClipboard(text);
+    }, 200);
   };
 
   const companiesInSelectedIndustry = selectedIndustry
@@ -40,12 +32,16 @@ export default function IndustryList({ industries, industriesWithCompanies }) {
       ) : (
         <div className="flex flex-1 flex-col items-center space-y-2">
           {industries.map((industry) => (
-            <IndustryListItem
+            <div
               key={industry.id}
-              industry={industry}
+              className="group relative flex min-h-[60px] w-[200px] cursor-pointer items-center justify-center rounded-[12px] border bg-white p-2 transition-transform duration-200 hover:scale-105"
               onMouseEnter={() => handleIndustryMouseEnter(industry)}
               onMouseLeave={handleIndustryMouseLeave}
-            />
+            >
+              <p className="truncate text-center text-sm font-semibold text-gray-500">
+                {industry.name}
+              </p>
+            </div>
           ))}
         </div>
       )}
@@ -54,13 +50,11 @@ export default function IndustryList({ industries, industriesWithCompanies }) {
         <IndustryModal
           industry={selectedIndustry}
           companies={companiesInSelectedIndustry}
-          onClose={closeModal}
-          onCopyToClipboard={handleCopyToClipboard}
           onMouseEnter={() => clearTimeout(leaveTimeout.current)}
           onMouseLeave={() => {
             leaveTimeout.current = setTimeout(() => {
               setSelectedIndustry(null);
-            }, LEAVE_DELAY);
+            }, 200);
           }}
         />
       )}
