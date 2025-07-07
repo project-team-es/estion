@@ -1,5 +1,4 @@
 import { router } from '@inertiajs/react';
-
 export default function EntrySheetList({ entrysheets }) {
   return (
     <div className="z-10 mr-[4%] flex h-screen w-1/5 flex-col">
@@ -12,15 +11,7 @@ export default function EntrySheetList({ entrysheets }) {
           {entrysheets.map((entrysheet) => (
             <div
               key={entrysheet.id}
-              className="group m-1 cursor-pointer rounded-[12px] border bg-white transition-transform duration-200 hover:scale-105"
-              style={{
-                minHeight: '60px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '200px',
-              }}
+              className="m-1 flex min-h-[60px] w-[200px] cursor-pointer flex-col items-center justify-center rounded-[12px] border bg-white transition-transform duration-200 hover:scale-105"
               onClick={() => router.visit(`/entrysheet/${entrysheet.id}`)}
             >
               <p className="text-m text-gray-600">
@@ -32,12 +23,8 @@ export default function EntrySheetList({ entrysheets }) {
                     })
                   : '未設定'}
               </p>
-
-              {/* 会社名の表示 */}
-              <p className="truncate text-center text-sm font-semibold text-gray-500"></p>
-
-              <p className="truncate text-center text-sm font-semibold text-gray-500">
-                {entrysheet.company?.name || 'No Company'}: {entrysheet.title}
+              <p className="text-center text-sm font-semibold text-gray-500">
+                {entrysheet.company.name}: {entrysheet.title}
               </p>
             </div>
           ))}

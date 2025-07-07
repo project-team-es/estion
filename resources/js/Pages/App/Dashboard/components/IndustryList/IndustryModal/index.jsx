@@ -1,13 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from '@inertiajs/react';
+import { copyToClipboard } from '@/Utils/copyToClipboard';
+
 export default function IndustryModal({
   industry,
   companies,
-  onClose,
-  onCopyToClipboard,
   onMouseEnter,
   onMouseLeave,
+  setSelectedIndustry,
 }) {
+  const closeModal = () => {
+    setSelectedIndustry(null);
+  };
   const modalRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [copiedCompanyId, setCopiedCompanyId] = useState(null);
@@ -17,24 +21,22 @@ export default function IndustryModal({
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         setIsVisible(false);
         setTimeout(() => {
-          onClose();
+          closeModal();
         }, 300);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [onClose]);
+  }, [closeModal]);
 
   useEffect(() => {
     setIsVisible(!!industry && !!companies);
   }, [industry, companies]);
 
   const handleCopyToClipboard = (loginId, companyId) => {
-    onCopyToClipboard(loginId);
+    copyToClipboard(loginId);
     setCopiedCompanyId(companyId);
     setTimeout(() => {
       setCopiedCompanyId(null);
@@ -65,7 +67,7 @@ export default function IndustryModal({
           className="absolute right-4 top-4 rounded-[12px] bg-gray-800 px-3 py-1 text-center text-sm text-white hover:bg-gray-600"
           onClick={() => {
             setIsVisible(false);
-            setTimeout(() => onClose(), 300);
+            setTimeout(() => closeModal(), 300);
           }}
         >
           閉じる
