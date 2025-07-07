@@ -7,9 +7,9 @@ export default function ContentList({ contents }) {
       {contents.length === 0 ? (
         <p className="text-center text-gray-600">まだコンテンツがありません。</p>
       ) : (
-        <ul className>
+        <div className>
           {contents.map((content) => (
-            <li
+            <div
               key={content.id}
               className="group relative mb-2 cursor-pointer rounded-[12px] border bg-white p-4 transition-transform duration-200 hover:scale-105"
               onClick={() => router.visit(`/entrysheet/${content.entrysheet.id}`)}
@@ -22,9 +22,9 @@ export default function ContentList({ contents }) {
               </p>
               <p className="truncate text-base font-semibold text-gray-800">{content.question}</p>
               <p className="text-sm text-gray-500">{content.answer}</p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
