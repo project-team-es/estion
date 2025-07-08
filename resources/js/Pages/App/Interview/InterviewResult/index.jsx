@@ -77,7 +77,6 @@ export default function InterviewResult({ entrysheet, content, results }) {
               <div className="bg-gray-50 border border-gray-300 rounded-[12px] p-6 shadow-lg min-h-[250px] flex flex-col justify-center items-center text-center">
                 {/* 質問または終了メッセージと質問一覧を表示 */}
                 {!showEndMessage ? (
-                  // 通常の質問表示
                   <div className="w-full">
                     <p className="text-lg text-gray-800 animate-fade-in">{currentQuestion}</p>
                     {/* 最後の質問の場合もボタンを表示 */}
