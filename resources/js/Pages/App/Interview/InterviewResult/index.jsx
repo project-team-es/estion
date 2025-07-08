@@ -77,7 +77,6 @@ export default function InterviewResult({ entrysheet, content, results }) {
               <div className="bg-gray-50 border border-gray-300 rounded-[12px] p-6 shadow-lg min-h-[250px] flex flex-col justify-center items-center text-center">
                 {/* 質問または終了メッセージと質問一覧を表示 */}
                 {!showEndMessage ? (
-                  // 通常の質問表示
                   <div className="w-full">
                     <p className="text-lg text-gray-800 animate-fade-in">{currentQuestion}</p>
                     {/* 最後の質問の場合もボタンを表示 */}
@@ -92,7 +91,7 @@ export default function InterviewResult({ entrysheet, content, results }) {
                       // 最後の質問の場合のボタン
                       <button
                         onClick={goToNextQuestion} // showEndMessageをtrueにするために同じ関数を呼び出し
-                        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300
+                        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600 transition duration-300"
                       >
                         質問一覧へ →
                       </button>
