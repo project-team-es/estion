@@ -28,7 +28,15 @@ export default function ForgotPassword({ status }) {
           パスワード再設定用のリンクをお送りします。
         </div>
         {status && (
-          <div className="mb-4 text-center text-sm font-medium text-blue-500">{status}</div>
+          <div className="mb-4 text-center text-sm font-medium text-blue-500">
+            {status}
+            {status === 'パスワードリセット用メールを送信しました。' && (
+              <>
+                <br />
+                メールの到着には一時間ほどかかる場合がございます。
+              </>
+            )}
+          </div>
         )}
         <form onSubmit={submit}>
           <div className="mb-4">
