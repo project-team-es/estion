@@ -4,6 +4,7 @@ import IndustryModal from './IndustryModal';
 import { copyToClipboard } from '@/Utils/copyToClipboard';
 
 export default function IndustryList({ industries, industriesWithCompanies }) {
+  console.log(industriesWithCompanies);
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const leaveTimeout = useRef(null);
 
