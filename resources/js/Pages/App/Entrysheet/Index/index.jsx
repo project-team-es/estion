@@ -21,7 +21,7 @@ export default function Entrysheet() {
     <AppLayout title="ES一覧">
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden bg-white sm:rounded-[12px]">
+          <div className="relative overflow-hidden rounded-[12px] bg-white shadow-md">
             <div className="p-6 text-gray-900">
               <EntrysheetActionButtons setShowFilter={setShowFilter} />
 

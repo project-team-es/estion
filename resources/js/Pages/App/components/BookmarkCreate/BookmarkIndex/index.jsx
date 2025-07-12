@@ -2,17 +2,13 @@ import React from 'react';
 import { Link, useForm } from '@inertiajs/react';
 
 export default function BookmarkIndex({ bookmarks }) {
-  console.log('BookmarkIndex props:', bookmarks);
-
   const { delete: destroy } = useForm({});
 
   const handleDelete = (id) => {
     if (confirm('本当にこのURLを削除しますか？')) {
       destroy(route('bookmark.destroy', { bookmark: id }), {
         preserveScroll: true,
-        onSuccess: () => {
-          console.log('URLを削除しました！');
-        },
+        onSuccess: () => {},
         onError: (errors) => {
           console.error('URLの削除に失敗しました:', errors);
         },

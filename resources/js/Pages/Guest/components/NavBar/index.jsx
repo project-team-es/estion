@@ -1,9 +1,7 @@
-import React from 'react';
 import Logo from '@/Pages/Guest/components/NavBar/Logo';
 import NavLinks from '@/Pages/Guest/components/NavBar/NavLinks';
 import MobileMenu from '@/Pages/Guest/components/NavBar/MobileMenu';
 import MenuToggle from '@/Pages/Guest/components/NavBar/MenuToggle';
-import { useState } from 'react';
 
 export default function NavBar({ isMenuOpen, toggleMenu }) {
   return (

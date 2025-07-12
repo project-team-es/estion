@@ -2,8 +2,8 @@ import { router } from '@inertiajs/react';
 
 export default function ContentList({ contents }) {
   return (
-    <div className="mx-auto h-screen max-w-3xl">
-      <p className="mb-4 text-center font-bold">最近の更新</p>
+    <div className="mx-auto max-w-3xl">
+      <p className="mb-4 mt-10 text-center font-bold md:mt-0">最近の更新</p>
       {contents.length === 0 ? (
         <p className="text-center text-gray-600">まだコンテンツがありません。</p>
       ) : (
