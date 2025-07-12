@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import NavLinks from './NavLinks';
 import UserDropDown from './UserDropDown';

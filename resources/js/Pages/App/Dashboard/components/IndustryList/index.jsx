@@ -4,7 +4,6 @@ import IndustryModal from './IndustryModal';
 import { copyToClipboard } from '@/Utils/copyToClipboard';
 
 export default function IndustryList({ industries, industriesWithCompanies }) {
-  console.log(industriesWithCompanies);
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const leaveTimeout = useRef(null);
 
@@ -24,7 +23,7 @@ export default function IndustryList({ industries, industriesWithCompanies }) {
     : [];
 
   return (
-    <div className="z-10 ml-[4%] flex w-1/5 flex-col justify-between">
+    <div className="z-10 ml-[4%] hidden w-1/5 flex-col justify-between md:flex">
       <p className="mb-4 text-center font-semibold text-gray-900">業界</p>
 
       {industries.length === 0 ? (

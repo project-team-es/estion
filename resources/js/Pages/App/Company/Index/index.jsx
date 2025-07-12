@@ -28,7 +28,7 @@ export default function Company() {
     <AppLayout title="企業一覧">
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="overflow-hidden bg-white p-6 text-gray-900 sm:rounded-[12px]">
+          <div className="overflow-hidden rounded-[12px] bg-white p-6 text-gray-900 shadow-md">
             <CompanyActionButtons />
 
             <h2 className="mt-6 text-xl font-bold">登録した企業</h2>

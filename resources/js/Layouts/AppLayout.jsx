@@ -1,15 +1,39 @@
-import React from 'react';
 import NavBar from '@/Pages/App/components/NavBar';
 import { Head } from '@inertiajs/react';
+import NavbarForSp from '@/Pages/App/components/NavBarForSp';
+import TabBarForSp from '@/Pages/App/components/TabBarForSp';
+import { useState } from 'react';
+import MobileMenu from '@/Pages/App/components/NavBarForSp/MobileMenu';
 
 export default function AppLayout({ children, title }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 text-gray-900">
-      <Head title={title ?? 'estion'} />
+    <>
+      <div className="md:hidden">
+        <NavbarForSp isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        <MobileMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      </div>
 
-      <NavBar />
+      <div className="min-h-screen bg-gray-50 text-gray-900 md:pt-20">
+        <Head title={title ?? 'estion'} />
+        <div className="hidden md:block">
+          <NavBar />
+        </div>
+        {isMenuOpen && (
+          <div
+            className="fixed inset-0 z-[45] bg-black bg-opacity-50 md:hidden"
+            onClick={toggleMenu}
+          ></div>
+        )}
 
-      <main className="mx-auto px-6">{children}</main>
-    </div>
+        <main className="mx-auto mt-10 px-6 md:mt-0">{children}</main>
+      </div>
+      <div className="md:hidden">
+        <TabBarForSp />
+      </div>
+    </>
   );
 }

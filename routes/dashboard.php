@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\GeminiController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\IndustryController;
@@ -75,5 +74,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::match(['get', 'post'], '/interview/start', [GeminiController::class, 'index'])->name('interview.start');
     Route::post('/interview', [GeminiController::class, 'execute'])->name('interview.execute');
     Route::get('/interview/{entrysheet}/{content}/expected', [GeminiController::class, 'showExpectedES'])->name('interview.expected');
+
+    //List　スマホの時の業界リストと企業モーダルページ
+    Route::get('/industry', [IndustryController::class, 'index'])->name('industry');
+
     
 });
