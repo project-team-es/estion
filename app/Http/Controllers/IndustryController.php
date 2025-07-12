@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIndustryRequest;
 use App\Http\Requests\UpdateIndustryRequest;
-
+use Inertia\Inertia;
 use App\Models\Industry;
 use App\Models\Company;
 
@@ -38,7 +38,8 @@ class IndustryController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        //
+
+        return Inertia::render('App/Industry/index');
     }
 
     /**
