@@ -1,11 +1,12 @@
 import AppLayout from '@/Layouts/AppLayout';
-export default function index() {
+import IndustryList from './IndustryList';
+
+export default function index({ industries, industriesWithCompanies }) {
   return (
     <AppLayout title="企業一覧">
-      <p className="pt-20">
-        <br />
-        ここは業界一覧ページです
-      </p>
+      <div className="pt-10">
+        <IndustryList industries={industries} industriesWithCompanies={industriesWithCompanies} />
+      </div>
     </AppLayout>
   );
 }

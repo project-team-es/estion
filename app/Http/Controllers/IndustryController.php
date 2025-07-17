@@ -38,8 +38,32 @@ class IndustryController extends Controller implements HasMiddleware
      */
     public function index()
     {
+        $user = Auth::user();
+        $industries = $user->industries()->get();
 
-        return Inertia::render('App/Industry/index');
+        $industriesWithCompanies = $industries->mapWithKeys(function ($industry) use ($user) {
+            return [
+                $industry->id => $industry->companies()
+                    ->where('user_id', $user->id)
+                    ->get()
+                    ->map(function ($company) {
+                        return [
+                             'id' => $company->id,
+                            'name' => $company->name,
+                            'homepage' => $company->homepage,
+                            'mypage' => $company->mypage,
+                            'loginid' => $company->loginid,
+                            'status' => $company->status,
+                            'show' => route('company.show', $company->id)
+                        ];
+                    })->values()->toArray()
+            ];
+        })->toArray();
+
+        return Inertia::render('App/Industry/index', [
+            'industries' => $industries,
+            'industriesWithCompanies' => $industriesWithCompanies,
+        ]);
     }
 
     /**
