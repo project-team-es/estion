@@ -26,24 +26,22 @@ export default function Company() {
 
   return (
     <AppLayout title="企業一覧">
-      <div className="py-12">
-        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-[12px] bg-white p-6 text-gray-900 shadow-md">
-            <CompanyActionButtons />
+      <div className="mx-auto py-12 max-w-7xl sm:px-6 lg:px-8">
+        <div className="overflow-hidden rounded-[12px] bg-white p-6 text-gray-900 shadow-md">
+          <CompanyActionButtons />
 
-            <h2 className="mt-6 text-xl font-bold">登録した企業</h2>
-            {companies.length === 0 ? (
-              <p className="mt-4 text-gray-600">登録された企業がありません。</p>
-            ) : (
-              <CompanyList
-                companies={companies}
-                onCompanyClick={handleCompanyClick}
-                onCompanyRightClick={handleCompanyRightClick}
-                onDelete={handleDelete}
-                selectedCompanyId={selectedCompanyId}
-              />
-            )}
-          </div>
+          <h2 className="mt-6 text-xl font-bold">登録した企業</h2>
+          {companies.length === 0 ? (
+            <p className="mt-4 text-gray-600">登録された企業がありません。</p>
+          ) : (
+            <CompanyList
+              companies={companies}
+              onCompanyClick={handleCompanyClick}
+              onCompanyRightClick={handleCompanyRightClick}
+              onDelete={handleDelete}
+              selectedCompanyId={selectedCompanyId}
+            />
+          )}
         </div>
       </div>
     </AppLayout>

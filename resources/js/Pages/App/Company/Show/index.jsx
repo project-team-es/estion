@@ -8,8 +8,8 @@ import formatDate from '@/Utils/formatDate';
 
 export default function Show({ company }) {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-12">
-      <div className="rounded-[12px] border bg-white p-6">
+    <div className="mx-auto max-w-7xl py-12">
+      <div className="rounded-[12px] border bg-white p-6 shadow-md">
         <div className="mb-6 flex items-start justify-between">
           <div className="flex items-center space-x-4">
             {/* 企業名 */}
