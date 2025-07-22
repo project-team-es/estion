@@ -16,7 +16,7 @@ export default function Show({ company }) {
             <h2 className="whitespace-nowrap text-2xl font-bold">{company.name}</h2>
 
             {/* 業界名 */}
-            <span className="whitespace-nowrap rounded-full border px-3 py-1 font-semibold text-gray-900">
+            <span className="whitespace-nowrap rounded-full border px-3 py-1 text-sm font-semibold text-gray-900">
               {company.industry?.name || '-----'}
             </span>
           </div>
