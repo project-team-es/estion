@@ -10,24 +10,28 @@ export default function Show({ company }) {
   return (
     <div className="mx-auto max-w-7xl py-12">
       <div className="rounded-[12px] border bg-white p-6 shadow-md">
-        <div className="mb-6 flex items-start justify-between">
-          <div className="flex items-center space-x-4">
+
+        {/* ここからコンテンツ */}
+        <div className="mb-6 flex flex-wrap items-start justify-between">
+          <div className="flex mb-3 items-center space-x-4">
             {/* 企業名 */}
-            <h2 className="whitespace-nowrap text-2xl font-bold">{company.name}</h2>
+            <h2 className="whitespace-nowrap text-xl md:text-2xl font-bold">{company.name}</h2>
 
             {/* 業界名 */}
-            <span className="whitespace-nowrap rounded-full border px-3 py-1 font-semibold text-gray-900">
+            <span className="whitespace-nowrap rounded-full border px-3 py-1 text-xs md:text-sm font-semibold text-gray-900">
               {company.industry?.name || '-----'}
             </span>
           </div>
 
-          <div className="flex flex-wrap items-start gap-4">
+          <div className="flex items-start gap-2">
             <CompanyInfo company={company} />
             <CompanyActions companyId={company.id} />
           </div>
         </div>
+
+
         <div className="mt-6">
-          <h3 className="flex items-center space-x-2 text-xl font-bold">
+          <h3 className="flex items-center space-x-2 text-xl md:text-2xl font-bold">
             <span>エントリーシート一覧</span>
             <AddEsMiniButton
               href={route('entrysheet.create.with.company', {
@@ -61,66 +65,3 @@ export default function Show({ company }) {
 }
 
 Show.layout = (page) => <AppLayout title="企業詳細">{page}</AppLayout>;
-
-{
-  /* <div className="mt-12">
-          <h3 className="flex items-center text-xl font-bold">
-            <span>その他のファイル</span>
-          </h3>
-
-          {company.files.filter(f => !f.filename.match(/\.(jpe?g|png|gif)$/i)).length === 0 ? (
-            <p className="text-gray-600 mt-4">
-              この企業に関連するその他のファイルは登録されていません。
-            </p>
-          ) : (
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {company.files
-                .filter(f => !f.filename.match(/\.(jpe?g|png|gif)$/i))
-                .map((file) => (
-                  <div
-                    key={file.id}
-                    className="p-4 bg-white border rounded-[12px] hover:bg-gray-100 shadow-sm"
-                  >
-                    <h4 className="text-lg font-semibold truncate">{file.filename}</h4>
-                    <a
-                      href={route("company.files.download", file.id)}
-                      className="block text-blue-500 hover:underline text-sm mt-2"
-                    >
-                      ダウンロード
-                    </a>
-                  </div>
-                ))}
-            </div> */
-}
-
-{
-  /* 
-          {company.files.some(f => f.filename.match(/\.(jpe?g|png|gif)$/i)) && (
-            <>
-              <h3 className="text-xl font-bold mt-8">画像ファイル</h3>
-              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {company.files
-                  .filter(f => f.filename.match(/\.(jpe?g|png|gif)$/i))
-                  .map((file) => (
-                    <div
-                      key={file.id}
-                      className="p-4 bg-white border rounded-[12px] hover:bg-gray-100 shadow-sm"
-                    >
-                      <a href={`/storage/${file.path}`} target="_blank" rel="noopener noreferrer">
-                        <img
-                          src={`/storage/${file.path}`}
-                          alt={file.filename}
-                          className="w-full h-48 object-cover rounded-lg mb-2"
-                        />
-                      </a>
-                      <a
-                        href={route("company.files.download", file.id)}
-                        className="block text-blue-500 hover:underline text-sm mt-2"
-                      >
-                        ダウンロード
-                      </a>
-                    </div>
-                  ))}
-              </div>
-            </> */
-}

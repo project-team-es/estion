@@ -4,7 +4,7 @@ import { copyToClipboard } from '@/Utils/copyToClipboard';
 
 export default function CompanyInfo({ company }) {
   return (
-    <div className="mb-8 flex flex-wrap items-center gap-4 text-sm">
+    <div className="mb-8 flex flex-wrap items-center gap-2 text-xs md:text-sm">
       <a
         href={company.homepage}
         target="_blank"
@@ -13,6 +13,7 @@ export default function CompanyInfo({ company }) {
       >
         企業HP
       </a>
+
       <a
         href={company.mypage}
         target="_blank"
@@ -21,12 +22,17 @@ export default function CompanyInfo({ company }) {
       >
         MyPage
       </a>
+
       <div
         className="relative flex cursor-pointer flex-col items-center"
         onClick={() => copyToClipboard(company.loginid)}
       >
-        <span className="rounded-full border px-3 py-1 font-semibold text-gray-900 transition-transform hover:scale-105">
-          ID: {company.loginid ?? '-----'}
+        <span className="rounded-full border px-3 py-1 font-semibold text-gray-900 transition-transform hover:scale-105 sm:hidden">
+          ID
+        </span>
+
+        <span className="hidden sm:inline-block rounded-full border px-3 py-1 font-semibold text-gray-900 transition-transform hover:scale-105">
+          ID: {company.loginid ?? '----'}
         </span>
       </div>
     </div>

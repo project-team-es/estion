@@ -5,7 +5,7 @@ import EditMiniIcon from '@/Components/Icons/EditMiniIcon';
 
 export default function CompanyActions({ companyId }) {
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-1">
       <a
         href={route('company.edit', companyId)}
         className="rounded-full p-2 transition hover:bg-gray-200"
