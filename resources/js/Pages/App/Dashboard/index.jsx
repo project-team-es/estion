@@ -6,13 +6,13 @@ import AppLayout from '@/Layouts/AppLayout';
 export default function Dashboard({ industries, contents, entrysheets, industriesWithCompanies }) {
   return (
     <AppLayout title="ホーム">
-      <div className="flex min-h-screen md:mt-10">
+      <div className="flex min-h-screen justify-center md:mt-10">
         <IndustryList
           className="z-10 flex h-screen w-1/5 flex-col justify-between"
           industries={industries}
           industriesWithCompanies={industriesWithCompanies}
         />
-        <main className="ml-[1%] mr-[1%] flex-grow px-4">
+        <main className="flex-grow px-4 pb-20">
           <ContentList contents={contents} />
         </main>
         {entrysheets && (
