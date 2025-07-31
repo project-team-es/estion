@@ -12,7 +12,7 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
           industries={industries}
           industriesWithCompanies={industriesWithCompanies}
         />
-        <main className="flex-grow px-4">
+        <main className="flex-grow px-4 pb-20">
           <ContentList contents={contents} />
         </main>
         {entrysheets && (
