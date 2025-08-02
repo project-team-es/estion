@@ -1,7 +1,7 @@
-export default function Footer() {
+export default function FooterForGueset() {
   return (
-    <footer className="flex flex-col items-center bg-gray-200 px-4 py-8 pb-20 text-xs text-black md:flex md:flex-row md:justify-center md:space-x-8 md:pb-8">
-      <div className="flex flex-col items-center md:flex-row md:space-x-8">
+    <footer className="flex flex-col items-center bg-gray-200 py-4 text-xs text-black md:flex md:flex-row md:justify-center md:space-x-8 md:py-8">
+      <div className="flex flex-row items-center justify-end space-x-8 pt-3 md:space-x-8">
         <p className="mb-2 md:mb-0">
           <a href={route('policy')} className="hover:underline">
             プライバシーポリシー
@@ -18,7 +18,7 @@ export default function Footer() {
           </a>
         </p>
       </div>
-      <p className="mt-2 md:mt-0">&copy; {new Date().getFullYear()} estion. All rights reserved.</p>
+      <p className="md:mt-2">&copy; {new Date().getFullYear()} estion. All rights reserved.</p>
     </footer>
   );
 }
