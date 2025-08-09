@@ -11,11 +11,11 @@ export default function CompanyActionButtons() {
       >
         <AddCompanyicon />
       </Link>
-      <button
+      {/* <button
         className="rounded-full px-4 py-2 font-bold text-gray-500 transition hover:bg-gray-300 hover:text-white"
         disabled={true}
         dangerouslySetInnerHTML={{ __html: icons.search }}
-      ></button>
+      ></button> */}
     </div>
   );
 }
