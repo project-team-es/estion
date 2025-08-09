@@ -2,12 +2,12 @@ import { router } from '@inertiajs/react';
 
 export default function ContentList({ contents }) {
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="flex flex-col items-center">
       <p className="mb-4 mt-10 text-center font-bold md:mt-0">最近の更新</p>
       {contents.length === 0 ? (
         <p className="text-center text-gray-600">まだコンテンツがありません。</p>
       ) : (
-        <div className>
+        <div className="mx-auto max-w-3xl">
           {contents.map((content) => (
             <div
               key={content.id}
