@@ -9,9 +9,6 @@ use App\Http\Controllers\EntrysheetController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\CompanyFileController;
 use App\Http\Controllers\CalendarController;
-use App\Http\Controllers\PolicyController;
-use App\Http\Controllers\AgreementController;
-use App\Http\Controllers\QaController;
 use Illuminate\Support\Facades\Route;
 
 // ログイン必須のルートをグループ化
@@ -80,10 +77,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //List　スマホの時の業界リストと企業モーダルページ
     Route::get('/industry', [IndustryController::class, 'index'])->name('industry');
-
-    Route::get('/policy', [PolicyController::class, 'index'])->name('policy');
-    Route::get('/agreement', [AgreementController::class, 'index'])->name('agreement');
-    Route::get('/qa', [QaController::class, 'index'])->name('qa');
 
     
 });
