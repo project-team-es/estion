@@ -7,7 +7,7 @@ export default function ContentList({ contents }) {
       {contents.length === 0 ? (
         <p className="text-center text-gray-600">まだコンテンツがありません。</p>
       ) : (
-        <div className="w-[90%]">
+        <div className="mx-auto max-w-3xl">
           {contents.map((content) => (
             <div
               key={content.id}
