@@ -5,6 +5,9 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\AgreementController;
+use App\Http\Controllers\QaController;
 
 Route::get('/', function () {
     return Inertia::render('Guest/index', [
@@ -26,5 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/policy', [PolicyController::class, 'index'])->name('policy');
+Route::get('/agreement', [AgreementController::class, 'index'])->name('agreement');
+Route::get('/qa', [QaController::class, 'index'])->name('qa');
 require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';
