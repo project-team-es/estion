@@ -24,13 +24,11 @@ export default function Login() {
       </a>
       <div className="mt-[30%] w-full max-w-[90%] rounded-[12px] border bg-white px-5 py-8 sm:mt-20 sm:px-8 md:mt-6 md:max-w-lg md:px-8 md:py-8">
         <h2 className="mb-4 text-center text-2xl font-bold text-gray-800">ログイン</h2>
-        {/*
-                <div className="flex justify-center mb-6">
-                    <a href={route("auth.google")} className="hover:scale-110 transition">
-                        <img src="/image/auth/google_icon.png" alt="Google ログイン" width="40" height="40" />
-                    </a>
-                </div>
-                */}
+          <div className="flex justify-center mb-6">
+              <a href={route("auth.google")} className="hover:scale-110 transition">
+                  <img src="/image/auth/google_icon.png" alt="Google ログイン" width="40" height="40" />
+              </a>
+          </div>
         <form onSubmit={handleSubmit}>
           <AuthInput
             id="email"
