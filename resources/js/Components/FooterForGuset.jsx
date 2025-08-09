@@ -12,11 +12,11 @@ export default function FooterForGueset() {
             利用規約
           </a>
         </p>
-        <p className="mb-2 md:mb-0">
+        {/* <p className="mb-2 md:mb-0">
           <a href={route('qa')} className="hover:underline">
             Q&A
           </a>
-        </p>
+        </p> */}
       </div>
       <p className="md:mt-2">&copy; {new Date().getFullYear()} estion. All rights reserved.</p>
     </footer>
