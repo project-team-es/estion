@@ -20,7 +20,7 @@ export default function ContentList({ contents }) {
               <p className="mb-2 text-sm font-bold text-gray-500">
                 {content.entrysheet.company?.name || '企業情報なし'}
               </p>
-              <p className="truncate text-base font-semibold text-gray-800">{content.question}</p>
+              <p className="text-base font-semibold text-gray-800">{content.question}</p>
               <p className="text-sm text-gray-500">{content.answer}</p>
             </div>
           ))}
