@@ -25,13 +25,11 @@ export default function Register() {
       <div className="md:mt-13 mt-[25%] w-full max-w-[90%] rounded-[12px] border bg-white px-5 py-8 sm:mt-12 sm:max-w-[70%] md:max-w-lg">
         <h2 className="mb-4 text-center text-2xl font-bold text-gray-800">新規登録</h2>
         {/* Google OAuth */}
-        {/*
-                <div className="flex justify-center mb-6">
-                    <a href={route("auth.google")} className="hover:scale-110 transition">
-                        <img src="/image/auth/google_sign_up.png" alt="Google ロゴ" width="150" height="50" />
-                    </a>
-                </div>
-                */}
+          <div className="flex justify-center mb-6">
+              <a href={route("auth.google")} className="hover:scale-110 transition">
+                  <img src="/image/auth/google_sign_up.png" alt="Google ロゴ" width="150" height="50" />
+              </a>
+          </div>
         <form onSubmit={handleSubmit}>
           <AuthInput
             id="name"
