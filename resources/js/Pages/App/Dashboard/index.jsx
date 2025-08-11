@@ -2,10 +2,15 @@ import IndustryList from '@/Pages/App/Dashboard/components/IndustryList';
 import ContentList from '@/Pages/App/Dashboard/components/ContentList';
 import EntrySheetList from '@/Pages/App/Dashboard/components/EntrySheetList';
 import AppLayout from '@/Layouts/AppLayout';
+import { Head } from '@inertiajs/react';
 
 export default function Dashboard({ industries, contents, entrysheets, industriesWithCompanies }) {
   return (
-    <AppLayout title="ホーム">
+    <AppLayout>
+      <Head>
+        <title>ダッシュボード</title>
+        <meta name="description" content="estion.のダッシュボードです。登録した企業やエントリーシートの進捗状況、就活に役立つ最新コンテンツをまとめて確認できます。" />
+      </Head>
       <div className="flex h-screen md:mt-10">
         <IndustryList
           className="z-10 flex h-screen w-1/5 flex-col justify-between"
