@@ -7,11 +7,11 @@ export default function ContentList({ contents }) {
       {contents.length === 0 ? (
         <p className="text-center text-gray-600">まだコンテンツがありません。</p>
       ) : (
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-3xl ml-5 mr-5">
           {contents.map((content) => (
             <div
               key={content.id}
-              className="group relative mb-2 cursor-pointer rounded-[12px] border bg-white p-4 transition-transform duration-200 hover:scale-105"
+              className="group relative mb-3 cursor-pointer rounded-[12px] border bg-white p-4 transition-transform duration-200 hover:scale-105"
               onClick={() => router.visit(`/entrysheet/${content.entrysheet.id}`)}
               onContextMenu={(e) => {
                 e.preventDefault();
