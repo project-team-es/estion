@@ -13,14 +13,16 @@ export default function Guest() {
     <>
       <Head>
         <title>新卒就活生向けES管理アプリ</title>
-        <meta name="description" content="新卒就活生向けのエントリーシート（ES）管理アプリ「estion.」です。「estion.」を活用して多種多様な業界・企業のESを効率的に管理しましょう！" />
+        <meta
+          name="description"
+          content="新卒就活生向けのエントリーシート（ES）管理アプリ「estion.」です。「estion.」を活用して多種多様な業界・企業のESを効率的に管理しましょう！"
+        />
       </Head>
 
       <div
         className={`flex min-h-screen flex-col bg-cover bg-center bg-no-repeat ${isMenuOpen ? 'overflow-hidden' : ''}`}
         style={{ backgroundImage: "url('/image/front/paper.png')" }}
       >
-
         <NavBar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <div
           className={`fixed inset-0 z-30 bg-black transition-opacity duration-300 ${isMenuOpen ? 'pointer-events-auto opacity-50' : 'pointer-events-none opacity-0'} `}
