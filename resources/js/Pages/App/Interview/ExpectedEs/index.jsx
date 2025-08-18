@@ -15,15 +15,19 @@ export default function ExpectedEs({ entrysheet, content }) {
   };
 
   return (
-    <AppLayout title={entrysheet?.company?.name || '想定ES'}>
+    <AppLayout>
       <Head>
-        <title>{entrysheet?.company?.name || '想定ES'}</title>
+        <title>面接内容の確認</title>
+        <meta
+          name="description"
+          content="estion.の面接内容確認ページです。設問に対してリクエストを追加し、面接に進むことができます。"
+        />
       </Head>
       <div className="py-12">
         <div className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md">
           <h2 className="text-center text-2xl font-bold">{entrysheet?.company?.name}</h2>
           <div className="mt-6 rounded-lg border bg-gray-100 p-4">
-            <h3 className="text-xl font-semibold">想定ES</h3>
+            <h3 className="text-xl font-semibold">面接内容の確認</h3>
             <p className="mt-2">
               <strong>質問:</strong> {content?.question}
             </p>
