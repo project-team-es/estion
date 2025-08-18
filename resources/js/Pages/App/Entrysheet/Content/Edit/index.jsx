@@ -28,7 +28,14 @@ export default function Edit({ content }) {
   };
 
   return (
-    <AppLayout title="質問と回答の編集">
+    <AppLayout>
+      <Head>
+        <title>設問と文字数の編集</title>
+        <meta
+          name="description"
+          content="estion.のES詳細編集ページです。登録したESの設問・文字数を編集することができます。"
+        />
+      </Head>
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-[12px] border bg-white">

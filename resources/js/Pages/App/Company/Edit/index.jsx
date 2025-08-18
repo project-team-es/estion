@@ -28,7 +28,7 @@ export default function Edit({ company, industries }) {
         <title>企業情報編集</title>
         <meta
           name="description"
-          content="estion.の企業情報編集ページです。登録した企業の情報を編集できます。"
+          content="estion.の企業情報編集ページです。登録した企業の情報を編集することができます。"
         />
       </Head>
       <div className="mx-auto max-w-4xl px-6 py-12">

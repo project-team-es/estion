@@ -4,7 +4,7 @@ import { usePage } from '@inertiajs/react';
 import EntrysheetList from './EntrysheetList';
 import EntrysheetFilterModal from './EntryseetFilterModal';
 import EntrysheetActionButtons from './EntrysheetActionbuttons';
-import { router } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 
 export default function Entrysheet() {
   const { entrysheets, filters } = usePage().props;
@@ -18,7 +18,14 @@ export default function Entrysheet() {
   };
 
   return (
-    <AppLayout title="ES一覧">
+    <AppLayout>
+      <Head>
+        <title>ES一覧</title>
+        <meta
+          name="description"
+          content="estion.のES一覧ページです。登録したエントリーシートの一覧を確認できます。"
+        />
+      </Head>
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[12px] bg-white shadow-md">
