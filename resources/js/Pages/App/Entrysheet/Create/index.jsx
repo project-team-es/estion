@@ -9,7 +9,14 @@ export default function Create({ industries, companies: selectedCompanies, prese
   );
 
   return (
-    <AppLayout title="ES作成">
+    <AppLayout>
+      <Head>
+        <title>ES作成</title>
+        <meta
+          name="description"
+          content="estion.のES作成ページです。応募企業のESを登録することができます。"
+        />
+      </Head>
       {!hasCompanies ? (
         <div className="py-12">
           <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">

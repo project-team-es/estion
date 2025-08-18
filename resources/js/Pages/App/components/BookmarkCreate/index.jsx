@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, Link } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
 import AppLayout from '@/Layouts/AppLayout';
 import BookmarkIndex from './BookmarkIndex';
@@ -24,7 +24,14 @@ export default function BookmarkCreate({ bookmarks }) {
   };
 
   return (
-    <AppLayout title="ブックマーク登録">
+    <AppLayout>
+      <Head>
+        <title>ブックマーク登録</title>
+        <meta
+          name="description"
+          content="estion.のブックマーク登録ページです。頻繁に利用するサイトURLを登録・削除することができます。"
+        />
+      </Head>
       {/* 追加フォームを囲む div で幅を調整 */}
       <div className="pt-10">
         <div className="mx-auto mb-8 max-w-3xl overflow-hidden rounded-[12px] border bg-white p-8">

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
-import { useForm, Link, router } from '@inertiajs/react';
+import { Head, useForm, Link, router } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
 
 export default function Edit({ entrysheet, presetTitles, companies, errors }) {
@@ -37,7 +37,14 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
   };
 
   return (
-    <AppLayout title="ESを編集">
+    <AppLayout>
+      <Head>
+        <title>ESを編集</title>
+        <meta
+          name="description"
+          content="estion.のES編集ページです。登録したエントリーシートの締切を修正することができます。"
+        />
+      </Head>
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-[12px] border bg-white">

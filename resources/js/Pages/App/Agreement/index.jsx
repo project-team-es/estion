@@ -6,7 +6,10 @@ export default function Agreement() {
     <>
       <Head>
         <title>利用規約</title>
-        <meta name="description" content="estion.の利用規約です。サービスのご利用にあたってのルールや、免責事項、禁止事項などについて記載しています。" />
+        <meta
+          name="description"
+          content="estion.の利用規約です。サービスのご利用にあたってのルールや、免責事項、禁止事項などについて記載しています。"
+        />
       </Head>
 
       <div className="min-h-screen bg-gray-50">
@@ -49,7 +52,9 @@ export default function Agreement() {
               </ul>
             </section>
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-semibold">第3条（ユーザーID及びパスワードの管理）</h2>
+              <h2 className="mb-4 text-2xl font-semibold">
+                第3条（ユーザーID及びパスワードの管理）
+              </h2>
               <ul className="list-inside list-disc space-y-2 pl-4">
                 <li>
                   ユーザーは，自己の責任において，本サービスのユーザーIDおよびパスワードを適切に管理するものとします。
@@ -86,7 +91,9 @@ export default function Agreement() {
                 <li>不正アクセスをし，またはこれを試みる行為</li>
                 <li>他のユーザーに関する個人情報等を収集または蓄積する行為</li>
                 <li>不正な目的を持って本サービスを利用する行為</li>
-                <li>本サービスの他のユーザーまたはその他の第三者に不利益、損害、不快感を与える行為</li>
+                <li>
+                  本サービスの他のユーザーまたはその他の第三者に不利益、損害、不快感を与える行為
+                </li>
                 <li>その他、当社が不適切と判断する行為</li>
               </ul>
             </section>

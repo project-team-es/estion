@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { usePage, router } from '@inertiajs/react';
+import { Head, usePage, router } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import CompanyList from './CompanyList';
 import CompanyActionButtons from './CompanyActionButtons';
@@ -25,8 +25,15 @@ export default function Company() {
   };
 
   return (
-    <AppLayout title="企業一覧">
-      <div className="mx-auto py-12 max-w-7xl sm:px-6 lg:px-8">
+    <AppLayout>
+      <Head>
+        <title>企業一覧</title>
+        <meta
+          name="description"
+          content="estion.の企業一覧ページです。登録した企業をまとめて確認できます。"
+        />
+      </Head>
+      <div className="mx-auto max-w-7xl py-12 sm:px-6 lg:px-8">
         <div className="overflow-hidden rounded-[12px] bg-white p-6 text-gray-900 shadow-md">
           <CompanyActionButtons />
 

@@ -6,7 +6,10 @@ export default function Policy() {
     <>
       <Head>
         <title>プライバシーポリシー</title>
-        <meta name="description" content="estion.のプライバシーポリシーです。本サービスにおける個人情報の取得、利用、管理についてご説明しています。" />
+        <meta
+          name="description"
+          content="estion.のプライバシーポリシーです。本サービスにおける個人情報の取得、利用、管理についてご説明しています。"
+        />
       </Head>
 
       <div className="min-h-screen bg-gray-50">

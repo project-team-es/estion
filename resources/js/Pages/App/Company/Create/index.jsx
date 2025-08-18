@@ -1,5 +1,5 @@
 import AppLayout from '@/Layouts/AppLayout';
-import { useForm, Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
 const CreateCompany = ({ industries }) => {
   const { data, setData, post, processing, errors } = useForm({
@@ -16,8 +16,14 @@ const CreateCompany = ({ industries }) => {
   };
 
   return (
-    <AppLayout title="企業登録">
-      <Head title="企業登録" />
+    <AppLayout>
+      <Head>
+        <title>企業登録</title>
+        <meta
+          name="description"
+          content="estion.の企業登録ページです。エントリーする企業を登録することができます。"
+        />
+      </Head>
       <div className="mx-auto max-w-4xl px-6 py-12">
         <h2 className="mb-6 text-2xl font-bold text-gray-800">企業登録</h2>
 

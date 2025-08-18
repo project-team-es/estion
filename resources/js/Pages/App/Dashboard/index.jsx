@@ -9,7 +9,10 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
     <AppLayout>
       <Head>
         <title>ダッシュボード</title>
-        <meta name="description" content="estion.のダッシュボードです。登録した企業やエントリーシートの進捗状況、就活に役立つ最新コンテンツをまとめて確認できます。" />
+        <meta
+          name="description"
+          content="estion.のダッシュボードです。登録した企業やエントリーシートの進捗状況、就活に役立つ最新コンテンツをまとめて確認できます。"
+        />
       </Head>
       <div className="flex h-screen md:mt-10">
         <IndustryList
@@ -17,7 +20,7 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
           industries={industries}
           industriesWithCompanies={industriesWithCompanies}
         />
-        <main className="ml-[1%] mr-[1%] flex-grow h-full px-4 overflow-y-auto">
+        <main className="ml-[1%] mr-[1%] h-full flex-grow overflow-y-auto px-4">
           <ContentList contents={contents} />
         </main>
         {entrysheets && (

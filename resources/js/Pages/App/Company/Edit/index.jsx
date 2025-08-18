@@ -1,6 +1,6 @@
 import React from 'react';
 import AppLayout from '@/Layouts/AppLayout';
-import { useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
 export default function Edit({ company, industries }) {
   const { data, setData, put, processing, errors } = useForm({
@@ -23,7 +23,14 @@ export default function Edit({ company, industries }) {
   };
 
   return (
-    <AppLayout title="企業情報編集">
+    <AppLayout>
+      <Head>
+        <title>企業情報編集</title>
+        <meta
+          name="description"
+          content="estion.の企業情報編集ページです。登録した企業の情報を編集することができます。"
+        />
+      </Head>
       <div className="mx-auto max-w-4xl px-6 py-12">
         <h2 className="mb-6 text-2xl font-bold text-gray-800">企業情報編集</h2>
 
