@@ -16,7 +16,7 @@ createInertiaApp({
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: 'estion.',
+      name: 'estion.(イーション)',
       url: 'https://estion.jp/',
       description:
         '新卒就活生向けのエントリーシート（ES）管理アプリ「estion.」です。多種多様な業界・企業を効率的に管理できます。',
