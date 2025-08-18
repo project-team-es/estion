@@ -6,13 +6,14 @@ import UpdateProfileInformationForm from './Partials/UpdateProfileInformationFor
 
 export default function Edit({ mustVerifyEmail, status }) {
   return (
-    <AppLayout
-      title="プロフィール編集"
-      header={
-        <h2 className="text-xl font-semibold leading-tight text-gray-800">プロフィール編集</h2>
-      }
-    >
-      <Head title="プロフィール編集" />
+    <AppLayout>
+      <Head>
+        <title>プロフィール確認</title>
+        <meta
+          name="description"
+          content="プロフィールを確認・修正することができます。"
+        />
+      </Head>
 
       <div className="py-10">
         <div className="mx-auto max-w-7xl space-y-8 sm:px-6 lg:px-8">
