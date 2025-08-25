@@ -17,8 +17,8 @@ class LoginController extends Controller
     {
         return Socialite::driver('google')
             ->scopes([
-                'https://www.googleapis.com/auth/calendar',
-                'https://www.googleapis.com/auth/calendar.events',
+                // 'https://www.googleapis.com/auth/calendar',
+                // 'https://www.googleapis.com/auth/calendar.events',
             ])
             ->with(['access_type' => 'offline', 'prompt' => 'consent'])
             ->redirect();
