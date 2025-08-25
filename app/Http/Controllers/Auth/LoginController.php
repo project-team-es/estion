@@ -76,7 +76,7 @@ class LoginController extends Controller
         $client->setClientId(env('GOOGLE_CLIENT_ID'));
         $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
         $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-        $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
+        // $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
         $client->setAccessToken($googleUser->token);
 
         // アクセストークンをセッションに保存
