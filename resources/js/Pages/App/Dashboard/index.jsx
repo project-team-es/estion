@@ -13,6 +13,7 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
           name="description"
           content="estion.のダッシュボードです。登録した企業やエントリーシートの進捗状況、就活に役立つ最新コンテンツをまとめて確認できます。"
         />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
       </Head>
       <div className="flex h-screen md:mt-10">
         <IndustryList

@@ -10,6 +10,7 @@ export default function Agreement() {
           name="description"
           content="estion.の利用規約です。サービスのご利用にあたってのルールや、免責事項、禁止事項などについて記載しています。"
         />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
       </Head>
 
       <div className="min-h-screen bg-gray-50">

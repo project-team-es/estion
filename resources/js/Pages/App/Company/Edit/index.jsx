@@ -30,6 +30,7 @@ export default function Edit({ company, industries }) {
           name="description"
           content="estion.の企業情報編集ページです。登録した企業の情報を編集することができます。"
         />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
       </Head>
       <div className="mx-auto max-w-4xl px-6 py-12">
         <h2 className="mb-6 text-2xl font-bold text-gray-800">企業情報編集</h2>

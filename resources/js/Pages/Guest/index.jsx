@@ -17,6 +17,7 @@ export default function Guest() {
           name="description"
           content="新卒就活生向けのエントリーシート（ES）管理アプリestion.(イーション)です。estion.を活用して多種多様な業界・企業のESを効率的に管理しましょう!"
         />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
       </Head>
 
       <div
