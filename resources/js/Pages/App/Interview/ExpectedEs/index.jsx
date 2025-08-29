@@ -22,6 +22,7 @@ export default function ExpectedEs({ entrysheet, content }) {
           name="description"
           content="estion.の面接内容確認ページです。設問に対してリクエストを追加し、面接に進むことができます。"
         />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
       </Head>
       <div className="py-12">
         <div className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md">

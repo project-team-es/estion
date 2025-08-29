@@ -32,6 +32,7 @@ export default function Company() {
           name="description"
           content="estion.の企業一覧ページです。登録した企業をまとめて確認できます。"
         />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
       </Head>
       <div className="mx-auto max-w-7xl py-12 sm:px-6 lg:px-8">
         <div className="overflow-hidden rounded-[12px] bg-white p-6 text-gray-900 shadow-md">

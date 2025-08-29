@@ -9,10 +9,8 @@ export default function Edit({ mustVerifyEmail, status }) {
     <AppLayout>
       <Head>
         <title>プロフィール確認</title>
-        <meta
-          name="description"
-          content="プロフィールを確認・修正することができます。"
-        />
+        <meta name="description" content="プロフィールを確認・修正することができます。" />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
       </Head>
 
       <div className="py-10">

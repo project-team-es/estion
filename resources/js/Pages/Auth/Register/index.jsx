@@ -21,6 +21,7 @@ export default function Register() {
       <Head>
         <title>新規登録</title>
         <meta name="description" content="新卒就活生向けES管理アプリ「estion.」に新規登録して、就活の進捗管理を始めましょう。無料で簡単にアカウントを作成できます。" />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
       </Head>
 
       <div className="flex min-h-screen flex-col items-center overflow-auto bg-gray-100 px-4 py-12 sm:py-16 md:py-14">

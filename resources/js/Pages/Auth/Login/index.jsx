@@ -21,6 +21,7 @@ export default function Login() {
       <Head>
         <title>ログイン</title>
         <meta name="description" content="新卒就活生向けES管理アプリ「estion.」のログイン画面です。ログインして、ESの進捗管理、企業情報、面接練習など、就活を効率化する機能をご利用ください。" />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
       </Head>
 
       <div className="flex min-h-screen flex-col items-center overflow-auto bg-gray-100 px-4 py-8 sm:justify-center">

@@ -62,6 +62,7 @@ export default function InterviewResult({ entrysheet, content, results }) {
           name="description"
           content="estion.の面接結果確認ページです。設問に対して生成された面接質問を確認することができます。"
         />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
       </Head>
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
