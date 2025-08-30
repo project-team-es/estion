@@ -183,7 +183,12 @@ export default function Show() {
           name="description"
           content="estion.のES詳細ページです。登録したエントリーシートの詳細(質問・回答)を確認できます。"
         />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">

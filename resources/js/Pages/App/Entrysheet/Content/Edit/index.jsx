@@ -35,7 +35,12 @@ export default function Edit({ content }) {
           name="description"
           content="estion.のES詳細編集ページです。登録したESの設問・文字数を編集することができます。"
         />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">

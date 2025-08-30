@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+        crossorigin="anonymous"></script>
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
-
         <!-- Scripts -->
         @routes
         @viteReactRefresh

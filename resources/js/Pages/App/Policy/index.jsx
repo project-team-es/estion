@@ -10,7 +10,12 @@ export default function Policy() {
           name="description"
           content="estion.のプライバシーポリシーです。本サービスにおける個人情報の取得、利用、管理についてご説明しています。"
         />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
 
       <div className="min-h-screen bg-gray-50">

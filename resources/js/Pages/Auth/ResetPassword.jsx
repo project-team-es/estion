@@ -23,8 +23,17 @@ export default function ResetPassword({ token, email }) {
     <>
       <Head>
         <title>新しいパスワードを設定</title>
-        <meta name="description" content="estion.のパスワードリセット画面です。新しいパスワードを入力して、パスワードの再設定を完了させてください。" />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+
+        <meta
+          name="description"
+          content="estion.のパスワードリセット画面です。新しいパスワードを入力して、パスワードの再設定を完了させてください。"
+        />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
 
       <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
@@ -33,7 +42,9 @@ export default function ResetPassword({ token, email }) {
         </a>
 
         <div className="mt-6 w-full max-w-lg rounded-[12px] border bg-white px-8 py-8">
-          <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">パスワードをリセット</h2>
+          <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
+            パスワードをリセット
+          </h2>
 
           <form onSubmit={submit}>
             <div className="mb-4">

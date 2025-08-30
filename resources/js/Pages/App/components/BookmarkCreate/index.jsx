@@ -31,7 +31,12 @@ export default function BookmarkCreate({ bookmarks }) {
           name="description"
           content="estion.のブックマーク登録ページです。頻繁に利用するサイトURLを登録・削除することができます。"
         />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
       {/* 追加フォームを囲む div で幅を調整 */}
       <div className="pt-10">

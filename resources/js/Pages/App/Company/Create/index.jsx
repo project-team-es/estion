@@ -23,7 +23,12 @@ const CreateCompany = ({ industries }) => {
           name="description"
           content="estion.の企業登録ページです。エントリーする企業を登録することができます。"
         />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
       <div className="mx-auto max-w-4xl px-6 py-12">
         <h2 className="mb-6 text-2xl font-bold text-gray-800">企業登録</h2>
