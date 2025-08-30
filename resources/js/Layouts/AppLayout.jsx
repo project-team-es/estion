@@ -19,7 +19,11 @@ export default function AppLayout({ children, title }) {
       </div>
 
       <div className="min-h-screen bg-gray-50 pb-10 text-gray-900 md:pt-20">
-        <Head title={title ?? 'estion'} />
+        <Head>
+          <title>{title ?? 'estion'}</title>
+          <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        </Head>
+        
         <div className="hidden md:block">
           <NavBar />
         </div>
