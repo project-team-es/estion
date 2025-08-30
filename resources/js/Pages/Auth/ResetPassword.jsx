@@ -24,6 +24,7 @@ export default function ResetPassword({ token, email }) {
       <Head>
         <title>新しいパスワードを設定</title>
         <meta name="description" content="estion.のパスワードリセット画面です。新しいパスワードを入力して、パスワードの再設定を完了させてください。" />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
       </Head>
 
       <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">

@@ -20,7 +20,10 @@ export default function ConfirmPassword() {
 
   return (
     <GuestLayout>
-      <Head title="Confirm Password" />
+      <Head>
+        <title>"Confirm Password"</title>
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+      </Head>
 
       <div className="mb-4 text-sm text-gray-600">
         This is a secure area of the application. Please confirm your password before continuing.
