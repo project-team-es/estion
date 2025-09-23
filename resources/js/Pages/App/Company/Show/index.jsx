@@ -16,6 +16,11 @@ export default function Show({ company }) {
           content="estion.の企業詳細ページです。企業の詳細を確認できます。"
         />
         <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
       <div className="mx-auto max-w-7xl py-12">
         <div className="rounded-[12px] border bg-white p-6 shadow-md">

@@ -11,6 +11,11 @@ export default function Edit({ mustVerifyEmail, status }) {
         <title>プロフィール確認</title>
         <meta name="description" content="プロフィールを確認・修正することができます。" />
         <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
 
       <div className="py-10">

@@ -21,9 +21,14 @@ export default function AppLayout({ children, title }) {
       <div className="min-h-screen bg-gray-50 pb-10 text-gray-900 md:pt-20">
         <Head>
           <title>{title ?? 'estion'}</title>
-          <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+          <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+            crossorigin="anonymous"
+          ></script>
         </Head>
-        
+
         <div className="hidden md:block">
           <NavBar />
         </div>

@@ -16,7 +16,12 @@ export default function Create({ industries, companies: selectedCompanies, prese
           name="description"
           content="estion.のES作成ページです。応募企業のESを登録することができます。"
         />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
       {!hasCompanies ? (
         <div className="py-12">

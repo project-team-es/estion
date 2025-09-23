@@ -20,8 +20,16 @@ export default function Login() {
     <>
       <Head>
         <title>ログイン</title>
-        <meta name="description" content="新卒就活生向けES管理アプリ「estion.」のログイン画面です。ログインして、ESの進捗管理、企業情報、面接練習など、就活を効率化する機能をご利用ください。" />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        <meta
+          name="description"
+          content="新卒就活生向けES管理アプリ「estion.」のログイン画面です。ログインして、ESの進捗管理、企業情報、面接練習など、就活を効率化する機能をご利用ください。"
+        />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
 
       <div className="flex min-h-screen flex-col items-center overflow-auto bg-gray-100 px-4 py-8 sm:justify-center">
@@ -30,11 +38,11 @@ export default function Login() {
         </a>
         <div className="mt-[30%] w-full max-w-[90%] rounded-[12px] border bg-white px-5 py-8 sm:mt-20 sm:px-8 md:mt-6 md:max-w-lg md:px-8 md:py-8">
           <h2 className="mb-4 text-center text-2xl font-bold text-gray-800">ログイン</h2>
-            <div className="flex justify-center mb-6">
-                <a href={route("auth.google")} className="hover:scale-110 transition">
-                    <img src="/image/auth/google_icon.png" alt="Google ログイン" width="40" height="40" />
-                </a>
-            </div>
+          <div className="mb-6 flex justify-center">
+            <a href={route('auth.google')} className="transition hover:scale-110">
+              <img src="/image/auth/google_icon.png" alt="Google ログイン" width="40" height="40" />
+            </a>
+          </div>
           <form onSubmit={handleSubmit}>
             <AuthInput
               id="email"

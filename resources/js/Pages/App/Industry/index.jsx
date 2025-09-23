@@ -11,7 +11,12 @@ export default function index({ industries, industriesWithCompanies }) {
           name="description"
           content="estion.の業界一覧ページです。業界ごとに企業を確認することができます。"
         />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+          crossorigin="anonymous"
+        ></script>
       </Head>
       <div className="pt-10">
         <IndustryList industries={industries} industriesWithCompanies={industriesWithCompanies} />

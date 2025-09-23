@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>エントリーシート PDF</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
+     crossorigin="anonymous"></script>
     <style>
         body {
             font-family: "ipaexg";
