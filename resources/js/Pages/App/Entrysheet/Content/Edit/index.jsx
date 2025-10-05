@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
-import { useForm, Link, router, usePage } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
+import { Head } from '@inertiajs/react';
+
 export default function Edit({ content }) {
   const { errors } = usePage().props;
   const { data, setData, put, processing } = useForm({
     question: content.question,
     character_limit: content.character_limit || '',
   });
-
-  const [charCount, setCharCount] = useState(content.answer ? content.answer.length : 0);
 
   const handleChange = (event) => {
     setData(event.target.name, event.target.value);
@@ -47,12 +46,7 @@ export default function Edit({ content }) {
           <div className="overflow-hidden rounded-[12px] border bg-white">
             <div className="relative p-8 text-gray-900">
               <h1 className="mb-6 text-2xl font-bold">質問内容と文字数を編集</h1>
-
-              {/* 全体のエラーリスト表示を削除 */}
-
-              {/* 編集フォーム */}
               <form onSubmit={handleSubmit}>
-                {/* 質問 */}
                 <div className="mb-4">
                   <label htmlFor="question" className="mb-2 block font-bold text-gray-700">
                     質問
@@ -70,8 +64,6 @@ export default function Edit({ content }) {
                     <p className="mt-2 text-sm text-red-600">{errors.question}</p>
                   )}
                 </div>
-
-                {/* 文字数制限 */}
                 <div className="mb-4">
                   <label htmlFor="character_limit" className="mb-2 block font-bold text-gray-700">
                     文字数制限 (任意)

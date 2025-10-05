@@ -10,12 +10,6 @@ export default function EntrysheetActionButtons({ setShowFilter }) {
         className="rounded-[12px] bg-blue-500 px-4 py-2 font-bold text-white hover:scale-105"
         dangerouslySetInnerHTML={{ __html: icons.add_es }}
       />
-
-      {/* <button
-        onClick={() => setShowFilter(true)}
-        className="rounded-full px-4 py-2 font-bold text-gray-500 transition hover:bg-gray-300 hover:text-white"
-        dangerouslySetInnerHTML={{ __html: icons.search }}
-      /> */}
     </div>
   );
 }

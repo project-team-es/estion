@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import { usePage } from '@inertiajs/react';
 import EntrysheetList from './EntrysheetList';
-import EntrysheetFilterModal from './EntryseetFilterModal';
 import EntrysheetActionButtons from './EntrysheetActionbuttons';
 import { Head, router } from '@inertiajs/react';
 
@@ -37,13 +36,6 @@ export default function Entrysheet() {
           <div className="relative overflow-hidden rounded-[12px] bg-white shadow-md">
             <div className="p-6 text-gray-900">
               <EntrysheetActionButtons setShowFilter={setShowFilter} />
-              {/* 
-              <EntrysheetFilterModal
-                showFilter={showFilter}
-                setShowFilter={setShowFilter}
-                filters={filters}
-              /> */}
-
               <h2 className="mt-6 text-xl font-bold">登録したエントリーシート</h2>
 
               {entrysheets.length === 0 ? (

@@ -21,7 +21,6 @@ export default function Show() {
     processing,
     errors: formErrors,
     recentlySuccessful,
-    reset,
   } = useForm({
     answers: {},
     new_questions: [],
