@@ -100,5 +100,4 @@
     sail artisan migrate
     ```
 
-以上でセットアップは完了
-[ローカル環境](localhost)
+ブラウザで`localhost`にアクセスできる
