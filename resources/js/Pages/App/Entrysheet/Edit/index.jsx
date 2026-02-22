@@ -39,7 +39,7 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
   return (
     <AppLayout>
       <Head>
-        <title>ESを編集</title>
+        <title>ESを編集｜estion.</title>
         <meta
           name="description"
           content="estion.のES編集ページです。登録したエントリーシートの締切を修正することができます。"

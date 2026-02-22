@@ -18,7 +18,7 @@ const CreateCompany = ({ industries }) => {
   return (
     <AppLayout>
       <Head>
-        <title>企業登録</title>
+        <title>企業登録｜estion.</title>
         <meta
           name="description"
           content="estion.の企業登録ページです。エントリーする企業を登録することができます。"

@@ -57,7 +57,7 @@ export default function InterviewResult({ entrysheet, content, results }) {
   return (
     <>
       <Head>
-        <title>面接結果の確認</title>
+        <title>面接結果の確認｜estion.</title>
         <meta
           name="description"
           content="estion.の面接結果確認ページです。設問に対して生成された面接質問を確認することができます。"

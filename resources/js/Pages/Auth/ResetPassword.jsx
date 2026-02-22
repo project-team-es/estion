@@ -22,7 +22,7 @@ export default function ResetPassword({ token, email }) {
   return (
     <>
       <Head>
-        <title>新しいパスワードを設定</title>
+        <title>新しいパスワードを設定｜estion.</title>
 
         <meta
           name="description"

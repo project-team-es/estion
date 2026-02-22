@@ -11,7 +11,7 @@ export default function Create({ industries, companies: selectedCompanies, prese
   return (
     <AppLayout>
       <Head>
-        <title>ES作成</title>
+        <title>ES作成｜estion.</title>
         <meta
           name="description"
           content="estion.のES作成ページです。応募企業のESを登録することができます。"

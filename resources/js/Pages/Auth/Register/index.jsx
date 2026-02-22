@@ -19,7 +19,7 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>新規登録</title>
+        <title>新規登録｜estion.</title>
         <meta
           name="description"
           content="新卒就活生向けES管理アプリ「estion.」に新規登録して、就活の進捗管理を始めましょう。無料で簡単にアカウントを作成できます。"

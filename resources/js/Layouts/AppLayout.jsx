@@ -20,7 +20,7 @@ export default function AppLayout({ children, title }) {
 
       <div className="min-h-screen bg-gray-50 pb-10 text-gray-900 md:pt-20">
         <Head>
-          <title>{title ?? 'estion'}</title>
+          <title>{title ? `${title}｜estion.` : 'estion.'}</title>
           <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
           <script
             async

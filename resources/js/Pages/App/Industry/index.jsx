@@ -6,7 +6,7 @@ export default function index({ industries, industriesWithCompanies }) {
   return (
     <AppLayout>
       <Head>
-        <title>業界一覧</title>
+        <title>業界一覧｜estion.</title>
         <meta
           name="description"
           content="estion.の業界一覧ページです。業界ごとに企業を確認することができます。"

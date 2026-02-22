@@ -25,7 +25,7 @@ export default function Edit({ company, industries }) {
   return (
     <AppLayout>
       <Head>
-        <title>企業情報編集</title>
+        <title>企業情報編集｜estion.</title>
         <meta
           name="description"
           content="estion.の企業情報編集ページです。登録した企業の情報を編集することができます。"

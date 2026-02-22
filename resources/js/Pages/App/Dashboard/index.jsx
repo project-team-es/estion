@@ -8,7 +8,7 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
   return (
     <AppLayout>
       <Head>
-        <title>ダッシュボード</title>
+        <title>ダッシュボード｜estion.</title>
         <meta
           name="description"
           content="estion.のダッシュボードです。登録した企業やエントリーシートの進捗状況、就活に役立つ最新コンテンツをまとめて確認できます。"
