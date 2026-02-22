@@ -9,6 +9,7 @@
         "format": "prettier --write 'resources/js/**/*.{js,jsx}'"
     },
     "devDependencies": {
+        "@eslint/js": "^9.39.3",
         "@headlessui/react": "^2.0.0",
         "@inertiajs/react": "^2.0.0",
         "@tailwindcss/forms": "^0.5.3",
@@ -17,10 +18,10 @@
         "autoprefixer": "^10.4.12",
         "axios": "^1.7.4",
         "concurrently": "^9.0.1",
-        "@eslint/js": "^9.39.3",
         "eslint": "^9.39.3",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-react": "^7.37.5",
+        "globals": "^17.3.0",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.31",
         "prettier": "^3.6.2",
