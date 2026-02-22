@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useForm } from '@inertiajs/react';
-import AppLayout from '@/Layouts/AppLayout';
 import { icons } from '@/Utils/icons';
 import { Head } from '@inertiajs/react';
 
@@ -43,7 +42,7 @@ export default function CreateForm({ industries, company: selectedCompany, prese
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       </Head>
       <h2 className="mb-6 text-2xl font-bold text-gray-800">エントリーシートを作成</h2>

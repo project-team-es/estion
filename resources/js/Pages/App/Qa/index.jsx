@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 
 export default function Agreement() {
   return (
@@ -13,7 +13,7 @@ export default function Agreement() {
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       </Head>
 

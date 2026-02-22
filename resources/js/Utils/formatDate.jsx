@@ -1,5 +1,3 @@
-import React from 'react';
-
 const formatDate = (dateTimeString) => {
   const date = new Date(dateTimeString);
   const year = date.getFullYear();
@@ -12,8 +10,5 @@ const formatDate = (dateTimeString) => {
   return `${year}年${formattedMonth}月${formattedDay}日`;
 };
 
-const MyComponent = ({ createdAt }) => {
-  return <div>作成日: {formatDate(createdAt)}</div>;
-};
 
 export default formatDate;

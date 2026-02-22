@@ -1,6 +1,5 @@
 import React from 'react';
-import { Head, useForm, Link } from '@inertiajs/react';
-import { icons } from '@/Utils/icons';
+import { Head, useForm } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import BookmarkIndex from './BookmarkIndex';
 
@@ -35,7 +34,7 @@ export default function BookmarkCreate({ bookmarks }) {
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       </Head>
       {/* 追加フォームを囲む div で幅を調整 */}

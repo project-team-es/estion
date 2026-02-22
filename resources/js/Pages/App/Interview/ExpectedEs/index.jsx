@@ -1,9 +1,9 @@
 import TextareaAutosize from 'react-textarea-autosize';
 import AppLayout from '@/Layouts/AppLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
 export default function ExpectedEs({ entrysheet, content }) {
-  const { data, setData, post, processing, errors, reset } = useForm({
+  const { data, setData, post, processing, errors } = useForm({
     entry_sheet_id: entrysheet?.id ?? '',
     content_id: content?.id ?? '',
     interview_request: '',
@@ -26,7 +26,7 @@ export default function ExpectedEs({ entrysheet, content }) {
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       </Head>
       <div className="py-12">

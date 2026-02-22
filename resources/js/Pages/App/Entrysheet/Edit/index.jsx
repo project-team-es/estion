@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import { Head, useForm, Link, router } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
@@ -48,7 +48,7 @@ export default function Edit({ entrysheet, presetTitles, companies, errors }) {
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       </Head>
       <div className="py-12">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Saveicon({ className = 'w-4 h-4 text-current opacity-50' }) {
+export default function Saveicon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,10 +9,10 @@ export default function Saveicon({ className = 'w-4 h-4 text-current opacity-50'
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="lucide lucide-arrow-down-to-line-icon lucide-arrow-down-to-line"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="lucide lucide-arrow-down-to-line-icon lucide-arrow-down-to-line"
     >
       <path d="M12 17V3" />
       <path d="m6 11 6 6 6-6" />

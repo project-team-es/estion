@@ -6,7 +6,7 @@ import { icons } from '@/Utils/icons';
 import formatDate from '@/Utils/formatDate';
 
 export default function Show() {
-  const { entrysheet, errors: pageGlobalErrors } = usePage().props;
+  const { entrysheet } = usePage().props;
   const [newContents, setNewContents] = useState([]);
   const [copiedContentId, setCopiedContentId] = useState(null);
   const [copiedNewItemId, setCopiedNewItemId] = useState(null);
@@ -186,7 +186,7 @@ export default function Show() {
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       </Head>
       <div className="py-12">
