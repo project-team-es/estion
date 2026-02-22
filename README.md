@@ -6,3 +6,22 @@
 
 [**アプリはこちら**](https://estion.jp/)
 &nbsp;
+
+## 規約・フォーマット (Code Style & Lint)
+
+コードの品質を保つため、コミット前に以下のコマンドを実行してフォーマットと静的解析を行ってください。
+
+**PHP (Laravel Pint)**
+
+```bash
+./vendor/bin/sail pint
+```
+**JavaScript / React (ESLint & Prettier)**
+
+ESLintによる静的解析と自動修正とPrettierによるコード整形
+```bash
+npm run lint:fix
+```
+```bash
+npm run format
+```
