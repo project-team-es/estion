@@ -25,3 +25,8 @@ npm run lint:fix
 ```bash
 npm run format
 ```
+
+## デプロイ
+```bash
+git push heroku main
+```
