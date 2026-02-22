@@ -38,7 +38,7 @@ export default function CreateForm({ industries, company: selectedCompany, prese
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-12">
-      <Head title="ES作成">
+      <Head title="ES作成｜estion.">
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
