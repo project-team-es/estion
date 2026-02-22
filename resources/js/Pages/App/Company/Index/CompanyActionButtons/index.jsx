@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import AddCompanyicon from '@/Components/Icons/AddCompanyicon';
-import { icons } from '@/Utils/icons';
 export default function CompanyActionButtons() {
   return (
     <div className="mb-4 flex items-center justify-between">

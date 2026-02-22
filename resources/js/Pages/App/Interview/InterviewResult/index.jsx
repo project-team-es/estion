@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import { Head, Link } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
@@ -6,7 +6,7 @@ import { icons } from '@/Utils/icons';
 export default function InterviewResult({ entrysheet, content, results }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showEndMessage, setShowEndMessage] = useState(false);
-  const [showAllQuestions, setShowAllQuestions] = useState(false);
+  const [, setShowAllQuestions] = useState(false);
 
   const questions = results || [];
 
@@ -66,7 +66,7 @@ export default function InterviewResult({ entrysheet, content, results }) {
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       </Head>
       <div className="py-12">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 
 export default function BookmarkIndex({ bookmarks }) {
   const { delete: destroy } = useForm({});
@@ -27,7 +27,7 @@ export default function BookmarkIndex({ bookmarks }) {
                 <a
                   href={bookmark.url}
                   className="block py-1 font-bold text-blue-500 hover:text-blue-800"
-                  target="_blank"
+                  target="_blank" rel="noreferrer"
                 >
                   {bookmark.name}
                 </a>

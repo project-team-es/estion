@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { router } from '@inertiajs/react';
+import React from 'react';
 import { icons } from '@/Utils/icons';
 
 export default function CompanyListItem({
@@ -7,7 +6,6 @@ export default function CompanyListItem({
   onCompanyClick,
   onCompanyRightClick,
   onDelete,
-  selectedCompanyId,
 }) {
   return (
     <div

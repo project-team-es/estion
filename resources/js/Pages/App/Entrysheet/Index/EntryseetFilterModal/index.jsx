@@ -1,5 +1,4 @@
 import React from 'react';
-import { icons } from '@/Utils/icons';
 
 export default function EntrysheetFilterModal({ showFilter, setShowFilter, filters }) {
   return (

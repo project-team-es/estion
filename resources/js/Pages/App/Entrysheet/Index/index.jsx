@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import { usePage } from '@inertiajs/react';
 import EntrysheetList from './EntrysheetList';
@@ -6,8 +6,7 @@ import EntrysheetActionButtons from './EntrysheetActionbuttons';
 import { Head, router } from '@inertiajs/react';
 
 export default function Entrysheet() {
-  const { entrysheets, filters } = usePage().props;
-  const [showFilter, setShowFilter] = useState(false);
+  const { entrysheets } = usePage().props;
 
   const handleDelete = (id) => {
     if (!confirm('このエントリーシートを削除しますか？')) return;
@@ -28,14 +27,14 @@ export default function Entrysheet() {
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       </Head>
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[12px] bg-white shadow-md">
             <div className="p-6 text-gray-900">
-              <EntrysheetActionButtons setShowFilter={setShowFilter} />
+              <EntrysheetActionButtons />
               <h2 className="mt-6 text-xl font-bold">登録したエントリーシート</h2>
 
               {entrysheets.length === 0 ? (

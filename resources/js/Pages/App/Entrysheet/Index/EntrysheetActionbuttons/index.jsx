@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
 
-export default function EntrysheetActionButtons({ setShowFilter }) {
+export default function EntrysheetActionButtons() {
   return (
     <div className="mb-4 flex items-center justify-between">
       <Link
