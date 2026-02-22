@@ -60,7 +60,8 @@ export default function UserDropDown() {
           <a
             href="https://docs.google.com/forms/d/1sZsxsi5FqdiS35YW2CVzQ4CANyljnbjt2K9urmRomHE/edit?pli=1"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             お問い合わせ
           </a>

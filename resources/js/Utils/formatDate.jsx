@@ -10,5 +10,4 @@ const formatDate = (dateTimeString) => {
   return `${year}年${formattedMonth}月${formattedDay}日`;
 };
 
-
 export default formatDate;

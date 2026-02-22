@@ -16,9 +16,6 @@ export default function Edit({ mustVerifyEmail, status }) {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
           crossOrigin="anonymous"
         ></script>
-
-
-        
       </Head>
 
       <div className="py-10">
