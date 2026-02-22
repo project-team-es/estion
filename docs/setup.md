@@ -100,4 +100,37 @@
     sail artisan migrate
     ```
 
+- シーディングを実行
+    ```
+    sail artisan db:seed --class=IndustrySeeder
+    ```
+
 ブラウザで`localhost`にアクセスできる
+
+### prettierとeslintの設定
+1. Node.jsがインストールされているか確認
+    ```
+    node -v
+    ```
+
+2. Node.jsのインストール
+    ```
+    brew install node
+    ```
+
+3. インストール後の確認
+    ```
+    node -v
+    npm -v
+    ```
+
+4. prettierとeslintをインストール
+    ```
+    npm install --save-dev eslint eslint-plugin-react eslint-config-prettier
+    ```
+
+
+### ログの確認
+```
+sail logs -f
+```
