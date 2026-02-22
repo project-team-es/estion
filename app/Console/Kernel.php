@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //毎日午前9時にエントリーシートのリマインドメールを送信
+        // 毎日午前9時にエントリーシートのリマインドメールを送信
         $schedule->command('reminder:entrysheet')->dailyAt('09:00');
     }
 }

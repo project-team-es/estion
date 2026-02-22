@@ -1,13 +1,13 @@
 <?php
+
+use App\Http\Controllers\AgreementController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QaController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\PolicyController;
-use App\Http\Controllers\AgreementController;
-use App\Http\Controllers\QaController;
 
 Route::get('/', function () {
     return Inertia::render('Guest/index', [

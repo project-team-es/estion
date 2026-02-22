@@ -15,7 +15,8 @@ class Tag extends Model
     /**
      * エントリーシート（EntrySheet）との多対多リレーション
      */
-    public function entrysheets(): BelongsToMany {
+    public function entrysheets(): BelongsToMany
+    {
         return $this->belongsToMany(EntrySheet::class)->withTimestamp();
     }
 }

@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
-use Illuminate\Support\Str;
-
 use Google_Client;
 use Google_Service_Calendar;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -36,12 +34,12 @@ class LoginController extends Controller
         $googleAccessToken = $googleUser->token;
         $googleRefreshToken = $googleUser->refreshToken ?? null;
 
-        \Log::info('Google OAuth: 取得したアクセストークン - ' . $googleAccessToken);
-        \Log::info('Google OAuth: 取得したリフレッシュトークン - ' . ($googleRefreshToken ?? 'なし'));
+        \Log::info('Google OAuth: 取得したアクセストークン - '.$googleAccessToken);
+        \Log::info('Google OAuth: 取得したリフレッシュトークン - '.($googleRefreshToken ?? 'なし'));
         // 既存のユーザーを取得
         $existingUser = User::where('email', $googleUser->email)->first();
 
-        if($existingUser){
+        if ($existingUser) {
             // 既存ユーザーの情報を更新
             $updateResult = $existingUser->update([
                 'google_id' => $googleId,
@@ -49,8 +47,8 @@ class LoginController extends Controller
                 'google_refresh_token' => $googleRefreshToken ?? $existingUser->google_refresh_token, // リフレッシュトークンを保存
             ]);
 
-            \Log::info('Google OAuth: ユーザー更新結果 - ' . ($updateResult ? '成功' : '失敗'));
-            \Log::info('Google OAuth: 保存後のデータ - ' . json_encode($existingUser->toArray())); // 確認用
+            \Log::info('Google OAuth: ユーザー更新結果 - '.($updateResult ? '成功' : '失敗'));
+            \Log::info('Google OAuth: 保存後のデータ - '.json_encode($existingUser->toArray())); // 確認用
 
             Auth::login($existingUser, true);
         } else {
@@ -61,18 +59,18 @@ class LoginController extends Controller
                 'google_id' => $googleId,
                 'google_access_token' => $googleAccessToken,
                 'google_refresh_token' => $googleRefreshToken, // 新規登録時も保存
-                'password' => bcrypt(uniqid()), 
+                'password' => bcrypt(uniqid()),
             ]);
 
-            \Log::info('Google OAuth: 新規ユーザー作成 - ' . json_encode($user->toArray()));
+            \Log::info('Google OAuth: 新規ユーザー作成 - '.json_encode($user->toArray()));
 
             // ユーザーをログインさせる
             Auth::login($user, true);
         }
 
         // Google カレンダー API の認証情報を取得
-        
-        $client = new Google_Client();
+
+        $client = new Google_Client;
         $client->setClientId(env('GOOGLE_CLIENT_ID'));
         $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
         $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));

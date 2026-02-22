@@ -26,8 +26,8 @@ class ContactMail extends Mailable
     public function build()
     {
         return $this->from(config('mail.from.address')) // 送信元アドレスを設定
-                    ->subject('お問い合わせが届きました') // メールの件名
-                    ->view('emails.contact') // 送信するビューを指定
-                    ->with('data', $this->data); // ビューにデータを渡す
+            ->subject('お問い合わせが届きました') // メールの件名
+            ->view('emails.contact') // 送信するビューを指定
+            ->with('data', $this->data); // ビューにデータを渡す
     }
 }

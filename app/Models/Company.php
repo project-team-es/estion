@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
@@ -27,18 +27,21 @@ class Company extends Model
     /**
      * 業界（Industry）とのリレーション
      */
-    public function industry(): BelongsTo {
+    public function industry(): BelongsTo
+    {
         return $this->belongsTo(Industry::class);
     }
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
     /**
      * エントリーシート（EntrySheet）とのリレーション
      */
-    public function entrysheets(): HasMany {
+    public function entrysheets(): HasMany
+    {
         return $this->hasMany(EntrySheet::class);
     }
 
@@ -49,5 +52,4 @@ class Company extends Model
     {
         return $this->hasMany(CompanyFile::class);
     }
-
 }

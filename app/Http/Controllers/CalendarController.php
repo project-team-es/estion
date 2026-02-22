@@ -1,7 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Google_Client;
 use Google_Service_Calendar;
 
@@ -15,12 +15,12 @@ class CalendarController extends Controller
         // セッションから Google カレンダーのアクセストークンを取得
         $accessToken = session('google_access_token');
 
-        if (!$accessToken) {
+        if (! $accessToken) {
             return response()->json(['error' => 'Google カレンダーにアクセスするにはログインが必要です'], 401);
         }
 
         // Google クライアントを設定
-        $client = new Google_Client();
+        $client = new Google_Client;
         $client->setClientId(env('GOOGLE_CLIENT_ID'));
         $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
         $client->setAccessToken($accessToken);

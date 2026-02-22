@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ContactMail;
 
 class ContactController extends Controller
 {
@@ -14,10 +13,10 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('contact.create'); 
+        return view('contact.create');
     }
 
-     /**
+    /**
      * お問い合わせ内容を処理
      */
     public function send(Request $request)
@@ -29,6 +28,7 @@ class ContactController extends Controller
         ]);
 
         Mail::to(config('mail.admin_email'))->send(new ContactMail($validated));
+
         return redirect()->route('contact.create')->with('success', 'お問い合わせを送信しました！');
     }
 }

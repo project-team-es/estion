@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('filename');
             $table->string('path');
             $table->timestamps();
-        
+
             // 外部キー制約
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-        });        
+        });
     }
 
     /**

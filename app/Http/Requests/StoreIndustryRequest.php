@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreIndustryRequest extends FormRequest
 {
@@ -30,7 +30,7 @@ class StoreIndustryRequest extends FormRequest
                 'max:255',
                 Rule::unique('industries')->where(function ($query) {
                     return $query->where('user_id', Auth::id());
-                })
+                }),
             ],
         ];
     }

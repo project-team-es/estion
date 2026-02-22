@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-// モデルをインポート
 use App\Models\Industry;
+use Illuminate\Database\Migrations\Migration;
+// モデルをインポート
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {

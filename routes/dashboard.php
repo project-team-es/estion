@@ -1,19 +1,18 @@
 <?php
 
-use App\Http\Controllers\GeminiController;
 use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\BookmarkController;
-use App\Http\Controllers\IndustryController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\EntrysheetController;
-use App\Http\Controllers\ContentController;
-use App\Http\Controllers\CompanyFileController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContentController;
+use App\Http\Controllers\EntrysheetController;
+use App\Http\Controllers\GeminiController;
+use App\Http\Controllers\IndustryController;
 use Illuminate\Support\Facades\Route;
 
 // ログイン必須のルートをグループ化
 Route::middleware(['auth', 'verified'])->group(function () {
-    
+
     // Dashboard
     // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -75,8 +74,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/interview', [GeminiController::class, 'execute'])->name('interview.execute');
     Route::get('/interview/{entrysheet}/{content}/expected', [GeminiController::class, 'showExpectedES'])->name('interview.expected');
 
-    //List　スマホの時の業界リストと企業モーダルページ
+    // List　スマホの時の業界リストと企業モーダルページ
     Route::get('/industry', [IndustryController::class, 'index'])->name('industry');
 
-    
 });

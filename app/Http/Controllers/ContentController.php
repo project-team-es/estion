@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\BulkUpdateContentRequest;
+use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentQuestionRequest;
-use Illuminate\Routing\Controllers\HasMiddleware;
-
 use App\Models\Content;
 use App\Models\EntrySheet;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
 
 class ContentController extends Controller implements HasMiddleware
 {
@@ -42,32 +38,33 @@ class ContentController extends Controller implements HasMiddleware
         ]);
     }
 
-
     /**
      * Update the specified resource in storage.
      */
-public function update(UpdateContentQuestionRequest $request, EntrySheet $entrysheet, Content $content)
-{
-    $content->update([
-        'question' => $request->question,
-        'character_limit' => $request->character_limit,
-    ]);
-    return redirect()->route('entrysheet.show', $entrysheet)->with('success', '質問と文字数制限が更新されました！');
-}
+    public function update(UpdateContentQuestionRequest $request, EntrySheet $entrysheet, Content $content)
+    {
+        $content->update([
+            'question' => $request->question,
+            'character_limit' => $request->character_limit,
+        ]);
+
+        return redirect()->route('entrysheet.show', $entrysheet)->with('success', '質問と文字数制限が更新されました！');
+    }
+
     /**
      * 保存ボタン押下時に各コンテンツを保存
      */
-public function bulkUpdate(BulkUpdateContentRequest $request, EntrySheet $entrysheet)
-{
-    if ($request->has('answers')) {
-        $existingAnswers = $request->input('answers', []);
-        foreach ($existingAnswers as $contentId => $answer) {
-            $content = $entrysheet->contents()->find($contentId);
-            if ($content && is_string($answer)) {
-                $content->update(['answer' => $answer]);
+    public function bulkUpdate(BulkUpdateContentRequest $request, EntrySheet $entrysheet)
+    {
+        if ($request->has('answers')) {
+            $existingAnswers = $request->input('answers', []);
+            foreach ($existingAnswers as $contentId => $answer) {
+                $content = $entrysheet->contents()->find($contentId);
+                if ($content && is_string($answer)) {
+                    $content->update(['answer' => $answer]);
+                }
             }
         }
-    }
 
         // カンマ区切りの文字列を配列に変換
         $deletedIds = $request->input('deleted_ids');
@@ -80,7 +77,7 @@ public function bulkUpdate(BulkUpdateContentRequest $request, EntrySheet $entrys
         // 新規追加された設問と回答を処理する
         if ($request->has('new_questions') && $request->has('new_answers')) {
             $newQuestions = $request->input('new_questions', []);
-            $newAnswers   = $request->input('new_answers', []);
+            $newAnswers = $request->input('new_answers', []);
 
             // 各新規設問をループで処理
             foreach ($newQuestions as $index => $question) {
@@ -94,16 +91,15 @@ public function bulkUpdate(BulkUpdateContentRequest $request, EntrySheet $entrys
                 // $entrysheet に紐づく新規コンテンツとして作成
                 $entrysheet->contents()->create([
                     'question' => $question,
-                    'answer'   => $answer,
+                    'answer' => $answer,
                 ]);
             }
         }
 
         // 更新完了後、元のページへリダイレクト（flash メッセージなども利用可能）
         return redirect()->route('entrysheet.show', $entrysheet->id)
-                            ->with('success', '内容が更新されました。');
+            ->with('success', '内容が更新されました。');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -111,6 +107,7 @@ public function bulkUpdate(BulkUpdateContentRequest $request, EntrySheet $entrys
     public function destroy(EntrySheet $entrysheet, Content $content)
     {
         $content->delete();
+
         return redirect()->route('entrysheet.show', ['entrysheet' => $entrysheet->id])->with('success', '質問と回答が削除されました！');
     }
 
@@ -118,7 +115,7 @@ public function bulkUpdate(BulkUpdateContentRequest $request, EntrySheet $entrys
     {
         return [
             'auth',
-            'verified'
+            'verified',
         ];
     }
 }

@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\View\View;
-use Illuminate\Routing\Controllers\HasMiddleware;
-
+use App\Http\Requests\StoreCompanyRequest;
 use App\Models\Company;
 use App\Models\Industry;
-use Inertia\Inertia;
-use Inertia\Response;
-
-
-use App\Http\Requests\StoreCompanyRequest;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
+use Inertia\Inertia;
 
 class CompanyController extends Controller implements HasMiddleware
 {
@@ -33,7 +29,7 @@ class CompanyController extends Controller implements HasMiddleware
     {
         return [
             'auth',
-            'verified'
+            'verified',
         ];
     }
 
@@ -43,10 +39,12 @@ class CompanyController extends Controller implements HasMiddleware
     public function create()
     {
         $industries = Industry::all();
+
         return Inertia::render('App/Company/Create/index', [
-            'industries' => $industries
+            'industries' => $industries,
         ]);
     }
+
     // return view('company.create', compact('industries'));
     /**
      * Store a newly created resource in storage.
@@ -74,6 +72,7 @@ class CompanyController extends Controller implements HasMiddleware
     public function show(Company $company)
     {
         $company->load(['entrysheets', 'files', 'industry']);
+
         return Inertia::render('App/Company/Show/index', [
             'company' => $company,
         ]);
@@ -84,10 +83,10 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function edit(Company $company)
     {
-        $industries = Industry::all(); 
+        $industries = Industry::all();
 
         return Inertia::render('App/Company/Edit/index', [
-            'company' => $company, 
+            'company' => $company,
             'industries' => $industries,
         ]);
     }
@@ -97,19 +96,19 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Company $company)
     {
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'industry_id' => 'required|exists:industries,id',
-        'homepage' => 'nullable|url',
-        'loginid' => 'nullable|string|max:50',
-        'mypage' => 'nullable|url',
-        'status' => 'nullable|string|max:255',
-        'process' => 'nullable|string|max:255',
-    ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'industry_id' => 'required|exists:industries,id',
+            'homepage' => 'nullable|url',
+            'loginid' => 'nullable|string|max:50',
+            'mypage' => 'nullable|url',
+            'status' => 'nullable|string|max:255',
+            'process' => 'nullable|string|max:255',
+        ]);
 
-    $company->update($request->all());
+        $company->update($request->all());
 
-    return redirect()->route('company.show', $company)->with('success', '企業情報を更新しました');
+        return redirect()->route('company.show', $company)->with('success', '企業情報を更新しました');
     }
 
     /**
@@ -125,14 +124,15 @@ class CompanyController extends Controller implements HasMiddleware
         try {
             $company->forceDelete();
             DB::commit();
+
             return redirect()->route('company')->with('message', '企業情報が削除されました。');
 
         } catch (\Exception $e) {
             DB::rollBack();
+
             return redirect()->back()->with('error', '企業の削除に失敗しました。');
         }
     }
-
 
     public function search(Request $request): View
     {
@@ -140,17 +140,17 @@ class CompanyController extends Controller implements HasMiddleware
 
         // 企業名で検索
         if ($request->has('search') && $request->search) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where('name', 'like', '%'.$request->search.'%');
         }
-        //業界でフィルタリング
+        // 業界でフィルタリング
         if ($request->has('industry_ids') && $request->industry_ids) {
             $query->whereIn('industry_id', $request->industry_ids);
-        }    
+        }
 
         // 結果を取得
         $companies = $query->get();
         $industries = Industry::all();
-        return view('company.home', compact('companies','industries'));
-    }
 
+        return view('company.home', compact('companies', 'industries'));
+    }
 }

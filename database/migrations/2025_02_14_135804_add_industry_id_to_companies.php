@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::table('companies', function (Blueprint $table) {
             $table->foreignId('industry_id')
-                  ->constrained('industries') // `industries` テーブルの `id` に紐付け
-                  ->onDelete('cascade'); // 業界が削除されたら企業も削除
+                ->constrained('industries') // `industries` テーブルの `id` に紐付け
+                ->onDelete('cascade'); // 業界が削除されたら企業も削除
         });
     }
 
