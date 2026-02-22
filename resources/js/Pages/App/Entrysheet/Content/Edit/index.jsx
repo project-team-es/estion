@@ -69,6 +69,7 @@ export default function Edit({ content }) {
                     type="number"
                     name="character_limit"
                     id="character_limit"
+                    min="0"
                     value={data.character_limit}
                     onChange={handleChange}
                     className={`w-full rounded-[12px] border-gray-300 px-6 py-3 focus:border-blue-500 focus:ring-blue-500 ${errors.character_limit ? 'border-red-500' : ''}`}
