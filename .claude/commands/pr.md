@@ -23,3 +23,7 @@ Descriptionには以下の内容を含めてください：
 
 複数の種類の変更が混在する場合は、複数ラベルを付与すること。
 選択したラベルを `gh pr create --label "label1" --label "label2"` の形式で付与すること。
+
+## PR作成後の処理
+
+`gh pr create` が成功したら、`git checkout main` を実行してmainブランチに戻ること。
