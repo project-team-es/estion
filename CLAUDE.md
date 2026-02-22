@@ -11,9 +11,10 @@ Laravel + React (Inertia.js) による就活生向けエントリーシート管
 ## Commands
 Claude Codeがスクリプトやテストを実行する際は以下を使用すること。
 - **Backend (Docker)**: 必ず `./vendor/bin/sail` 経由で実行すること (例: `./vendor/bin/sail artisan migrate`, `./vendor/bin/sail artisan test`)
+- **ログ確認**: `./vendor/bin/sail logs -f`
 - **Frontend**: `npm run dev` (Vite), `npm run build`
 - **Code Style/Lint**: 
-  - PHP: `./vendor/bin/pint`
+  - PHP: `./vendor/bin/sail pint`
   - JS/JSX: `npm run lint:fix`, `npm run format`
 
 ## Custom Rules
