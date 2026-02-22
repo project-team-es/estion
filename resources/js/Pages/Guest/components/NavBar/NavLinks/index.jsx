@@ -6,7 +6,8 @@ export default function NavLinks() {
       <a
         href="https://docs.google.com/forms/d/1sZsxsi5FqdiS35YW2CVzQ4CANyljnbjt2K9urmRomHE/edit?pli=1"
         className="text-black transition hover:text-gray-300"
-        target="_blank" rel="noreferrer"
+        target="_blank"
+        rel="noreferrer"
       >
         お問い合わせ
       </a>

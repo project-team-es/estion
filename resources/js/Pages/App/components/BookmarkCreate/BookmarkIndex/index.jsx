@@ -27,7 +27,8 @@ export default function BookmarkIndex({ bookmarks }) {
                 <a
                   href={bookmark.url}
                   className="block py-1 font-bold text-blue-500 hover:text-blue-800"
-                  target="_blank" rel="noreferrer"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   {bookmark.name}
                 </a>
