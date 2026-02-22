@@ -1,0 +1,60 @@
+name: Code Style & Lint
+
+on:
+  pull_request:
+    # 全てのPRで実行する場合はこのままでOKです
+    # 特定のブランチへのPRのみに限定したい場合は以下を指定してください
+    # branches: [ "main", "develop" ]
+
+# 権限の設定（自動コミットに必要）
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. コードのチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }} # PR元のブランチをチェックアウト
+
+      # 2. PHP環境のセットアップ
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' # ※ご自身のプロジェクトのPHPバージョンに合わせて変更してください
+          tools: composer
+
+      - name: Install PHP Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      # 3. Laravel Pintの実行
+      # ※注意: `sail` はローカルのDocker環境を立ち上げるコマンドのため、CI上では直接 `pint` を実行するのが基本です
+      - name: Run Laravel Pint
+        run: ./vendor/bin/pint
+
+      # 4. Node.js環境のセットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # ※ご自身のプロジェクトのNodeバージョンに合わせて変更してください
+
+      - name: Install Node Dependencies
+        run: npm ci # (npm install のCI推奨版)
+
+      # 5. JS/JSX の Lint & Format 実行
+      - name: Run JS/JSX Lint and Format
+        run: |
+          npm run lint:fix
+          npm run format
+
+      # 6. 変更があった場合に自動コミット＆Pushする
+      - name: Commit formatted files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "style: apply auto formatting (Pint / ESLint / Prettier)"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
