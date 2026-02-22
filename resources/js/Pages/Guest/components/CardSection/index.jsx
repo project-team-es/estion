@@ -1,8 +1,9 @@
 import React from 'react';
 
 // 共通のカードスタイル
-const cardStyle = "card-item mb-12 rounded-xl border border-gray-200 bg-white p-8 shadow-lg md:p-12";
-const headingStyle = "mb-5 text-3xl font-bold";
+const cardStyle =
+  'card-item mb-12 rounded-xl border border-gray-200 bg-white p-8 shadow-lg md:p-12';
+const headingStyle = 'mb-5 text-3xl font-bold';
 
 // 各カードを独立したコンポーネントとして定義
 const AboutCard = () => (

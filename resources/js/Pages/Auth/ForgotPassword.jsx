@@ -17,8 +17,11 @@ export default function ForgotPassword({ status }) {
     <>
       <Head>
         <title>パスワード再設定</title>
-        <meta name="description" content="estion.のパスワード再設定画面です。ご登録のメールアドレスを入力して、パスワード再設定の手続きにお進みください。" />
-        <meta name="google-adsense-account" content="ca-pub-9604843985307640"/>
+        <meta
+          name="description"
+          content="estion.のパスワード再設定画面です。ご登録のメールアドレスを入力して、パスワード再設定の手続きにお進みください。"
+        />
+        <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
       </Head>
 
       <div className="flex min-h-screen flex-col items-center overflow-auto bg-gray-100 px-4 py-8 sm:justify-center">

@@ -31,7 +31,7 @@ export default function CompanyInfo({ company }) {
           ID
         </span>
 
-        <span className="hidden sm:inline-block rounded-full border px-3 py-1 font-semibold text-gray-900 transition-transform hover:scale-105">
+        <span className="hidden rounded-full border px-3 py-1 font-semibold text-gray-900 transition-transform hover:scale-105 sm:inline-block">
           ID: {company.loginid ?? '----'}
         </span>
       </div>

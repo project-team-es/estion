@@ -5,7 +5,6 @@ import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 import FooterForGueset from '@/Components/FooterForGuset';
 
-
 export default function Guest() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
