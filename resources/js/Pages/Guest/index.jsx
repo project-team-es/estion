@@ -20,6 +20,7 @@ export default function Guest() {
           content="新卒就活生向けのエントリーシート（ES）管理アプリestion.(イーション)です。estion.を活用して多種多様な業界・企業のESを効率的に管理しましょう!"
         />
         <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
+        <link rel="preload" href="/image/front/paper.webp" as="image" type="image/webp" />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
@@ -29,7 +30,7 @@ export default function Guest() {
 
       <div
         className={`relative flex min-h-screen flex-col bg-cover bg-center bg-no-repeat after:absolute after:bottom-0 after:left-0 after:h-[10%] after:w-full after:bg-gradient-to-t after:from-white after:to-transparent after:backdrop-blur-sm after:content-[''] ${isMenuOpen ? 'overflow-hidden' : ''}`}
-        style={{ backgroundImage: "url('/image/front/paper.png')" }}
+        style={{ backgroundImage: "url('/image/front/paper.webp')" }}
       >
         <NavBar isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <div
