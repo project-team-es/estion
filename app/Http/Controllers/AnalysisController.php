@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\StoreAnalysisRequest;
-use App\Http\Requests\UpdateAnalysisRequest;
 use App\Models\Analysis;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AnalysisController extends Controller
@@ -27,7 +24,7 @@ class AnalysisController extends Controller
                 'ガクチカ-2：大学時代に注力している研究・学業をご記入ください。',
                 '将来像：あなたが目指す将来像。',
             ];
-    
+
             foreach ($defaultQuestions as $question) {
                 Analysis::create([
                     'user_id' => auth()->id(),
@@ -35,10 +32,10 @@ class AnalysisController extends Controller
                     'answer' => '',
                 ]);
             }
-    
+
             $analyses = Analysis::where('user_id', auth()->id())->get();
         }
-        
+
         return view('analysis.index', compact('analyses'));
     }
 
@@ -56,7 +53,7 @@ class AnalysisController extends Controller
                 $analysis->save();
             }
         }
-        
+
         // 削除された項目のIDを hidden input から取得
         $deletedIds = $request->input('deleted_ids');
         if ($deletedIds) {
@@ -68,21 +65,21 @@ class AnalysisController extends Controller
                 }
             }
         }
-        
+
         // 新規追加された質問と回答の処理
         $newQuestions = $request->input('new_questions', []);
-        $newAnswers   = $request->input('new_answers', []);
+        $newAnswers = $request->input('new_answers', []);
         $user = Auth::user();
         foreach ($newQuestions as $index => $question) {
             if ($question) {
                 Analysis::create([
                     'question' => $question,
-                    'answer'   => $newAnswers[$index] ?? '',
-                    'user_id'  => $user->id,
+                    'answer' => $newAnswers[$index] ?? '',
+                    'user_id' => $user->id,
                 ]);
             }
         }
-        
+
         return redirect()->route('analysis.index')->with('success', '自己分析を更新しました。');
     }
 
@@ -95,6 +92,7 @@ class AnalysisController extends Controller
         if ($analysis->user_id != Auth::id()) {
             abort(403);
         }
+
         return view('analysis.edit', compact('analysis'));
     }
 
@@ -106,17 +104,17 @@ class AnalysisController extends Controller
         if ($analysis->user_id != Auth::id()) {
             abort(403);
         }
-        
+
         $request->validate([
             'question' => 'required|string|max:255',
-            'answer'   => 'nullable|string',
+            'answer' => 'nullable|string',
         ]);
-        
+
         $analysis->update([
             'question' => $request->input('question'),
-            'answer'   => $request->input('answer'),
+            'answer' => $request->input('answer'),
         ]);
-        
+
         return redirect()->route('analysis.index')->with('success', '自己分析を更新しました。');
     }
 }

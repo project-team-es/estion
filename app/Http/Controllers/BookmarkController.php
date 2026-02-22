@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookmarkRequest;
 use App\Http\Requests\UpdateBookmarkRequest;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Inertia\Inertia;
 use App\Models\Bookmark;
-
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
+use Inertia\Inertia;
 
 class BookmarkController extends Controller implements HasMiddleware
 {
@@ -25,11 +23,11 @@ class BookmarkController extends Controller implements HasMiddleware
      * Show the form for creating a new resource.
      */
     public function create()
-{
-    return Inertia::render('App/components/BookmarkCreate/index', [
-        'bookmarks' => Auth::check() ? Auth::user()->bookmark()->latest()->get() : [],
-    ]);
-}
+    {
+        return Inertia::render('App/components/BookmarkCreate/index', [
+            'bookmarks' => Auth::check() ? Auth::user()->bookmark()->latest()->get() : [],
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -87,7 +85,7 @@ class BookmarkController extends Controller implements HasMiddleware
     {
         return [
             'auth',
-            'verified'
+            'verified',
         ];
     }
 }

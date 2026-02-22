@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Inertia\Inertia;
-use App\Models\Company;
-use App\Models\Industry;
 use App\Models\Content;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
@@ -22,20 +19,19 @@ class DashboardController extends Controller
         // 締切間近ES取得
         // 締切間近ES取得（過去の日付を除外）
         $entrysheets = $user->entrysheet()
-        ->with('company')
-        ->where('deadline', '>=', now())
-        ->orderByRaw('ISNULL(deadline), deadline ASC')
-        ->get();
-        
+            ->with('company')
+            ->where('deadline', '>=', now())
+            ->orderByRaw('ISNULL(deadline), deadline ASC')
+            ->get();
+
         $contents = Content::with('entrysheet.company')
-        ->whereHas('entrysheet', function ($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })
-        ->orderBy('updated_at', 'desc')
-        ->get();
+            ->whereHas('entrysheet', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->orderBy('updated_at', 'desc')
+            ->get();
 
-
-        //ユーザーに紐づく企業のみを取得する
+        // ユーザーに紐づく企業のみを取得する
         $industriesWithCompanies = $industries->mapWithKeys(function ($industry) use ($user) {
             return [
                 $industry->id => $industry->companies()
@@ -43,15 +39,15 @@ class DashboardController extends Controller
                     ->get()
                     ->map(function ($company) {
                         return [
-                             'id' => $company->id,
+                            'id' => $company->id,
                             'name' => $company->name,
                             'homepage' => $company->homepage,
                             'mypage' => $company->mypage,
                             'loginid' => $company->loginid,
                             'status' => $company->status,
-                            'show' => route('company.show', $company->id)
+                            'show' => route('company.show', $company->id),
                         ];
-                    })->values()->toArray()
+                    })->values()->toArray(),
             ];
         })->toArray();
 

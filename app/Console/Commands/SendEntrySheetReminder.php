@@ -2,15 +2,16 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\EntrySheetReminderMail;
+use App\Models\EntrySheet;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
-use Carbon\Carbon;
-use App\Models\EntrySheet;
-use App\Mail\EntrySheetReminderMail;
 
 class SendEntrySheetReminder extends Command
 {
     protected $signature = 'reminder:entrysheet';
+
     protected $description = 'エントリーシートの締切3日前にリマインドメールを送信する';
 
     public function handle()

@@ -4,25 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIndustryRequest;
 use App\Http\Requests\UpdateIndustryRequest;
-use Inertia\Inertia;
-use App\Models\Industry;
 use App\Models\Company;
-
+use App\Models\Industry;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Inertia\Inertia;
 
 class IndustryController extends Controller implements HasMiddleware
 {
-    public function home(Request $request): View{
+    public function home(Request $request): View
+    {
         $user = Auth::user();
         $industries = $user->industries()->get();
-        
+
         return view('industry.home', compact('industries'));
     }
 
-    public function create(Request $request): View{
+    public function create(Request $request): View
+    {
         return view('industry.create');
     }
 
@@ -30,9 +31,10 @@ class IndustryController extends Controller implements HasMiddleware
     {
         return [
             'auth',
-            'verified'
+            'verified',
         ];
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -48,15 +50,15 @@ class IndustryController extends Controller implements HasMiddleware
                     ->get()
                     ->map(function ($company) {
                         return [
-                             'id' => $company->id,
+                            'id' => $company->id,
                             'name' => $company->name,
                             'homepage' => $company->homepage,
                             'mypage' => $company->mypage,
                             'loginid' => $company->loginid,
                             'status' => $company->status,
-                            'show' => route('company.show', $company->id)
+                            'show' => route('company.show', $company->id),
                         ];
-                    })->values()->toArray()
+                    })->values()->toArray(),
             ];
         })->toArray();
 
@@ -69,7 +71,6 @@ class IndustryController extends Controller implements HasMiddleware
     /**
      * Show the form for creating a new resource.
      */
-
 
     /**
      * Store a newly created resource in storage.
@@ -91,8 +92,8 @@ class IndustryController extends Controller implements HasMiddleware
     public function show(Industry $industry)
     {
         $companies = Company::where('industry_id', $industry->id)
-                        ->where('user_id', Auth::id())
-                        ->get();
+            ->where('user_id', Auth::id())
+            ->get();
 
         return view('industry.show', compact('industry', 'companies'));
     }

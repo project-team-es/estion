@@ -29,6 +29,6 @@ class UpdateCompanyRequest extends FormRequest
             'mypage' => 'nullable|url',
             'status' => 'nullable|string|max:255',
             'process' => 'nullable|string|max:255',
-            ];
+        ];
     }
 }

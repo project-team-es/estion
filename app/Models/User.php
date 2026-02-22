@@ -3,14 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\EntrySheet;
-use App\Models\Company;
-use App\Models\Industry;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\Bookmark;
 
 class User extends Authenticatable
 {
@@ -54,7 +50,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function bookmark(): HasMany{
+    public function bookmark(): HasMany
+    {
         return $this->hasMany(Bookmark::class);
     }
 
@@ -70,11 +67,13 @@ class User extends Authenticatable
         )->distinct();       // ユーザーが登録した業界を重複なしで取得
     }
 
-    public function company(): HasMany{
+    public function company(): HasMany
+    {
         return $this->hasMany(Company::class);
     }
 
-    public function entrysheet(): HasMany{
+    public function entrysheet(): HasMany
+    {
         return $this->hasMany(EntrySheet::class);
     }
 }

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EntrySheet extends Model
 {
@@ -24,21 +24,24 @@ class EntrySheet extends Model
     /**
      * 企業（Company）とのリレーション
      */
-    public function company(): BelongsTo {
+    public function company(): BelongsTo
+    {
         return $this->belongsTo(Company::class);
     }
 
     /**
      * ユーザー（User）とのリレーション
      */
-    public function user(): BelongsTo{
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
     /**
      * コンテンツ（Content）とのリレーション
      */
-    public function contents(): HasMany {
+    public function contents(): HasMany
+    {
         return $this->hasMany(Content::class, 'entry_sheet_id');
     }
 }

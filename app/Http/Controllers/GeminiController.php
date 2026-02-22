@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Http\Request;
-use Gemini\Laravel\Facades\Gemini;
-
+use App\Models\Analysis;
 use App\Models\Content;
 use App\Models\EntrySheet;
-use App\Models\Analysis;
+use Gemini\Laravel\Facades\Gemini;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Inertia\Inertia;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 
 class GeminiController extends Controller implements HasMiddleware
 {
@@ -35,7 +32,7 @@ class GeminiController extends Controller implements HasMiddleware
 
             $questions = $this->execute($questionText, $answerText, $interviewRequest);
 
-            if (!is_array($questions) || empty($questions)) {
+            if (! is_array($questions) || empty($questions)) {
                 return redirect()->route('entrysheet.show', ['entrysheet' => $entrysheet->id])
                     ->with('error', '面接質問を取得できませんでした。もう一度試してください。');
             }
@@ -55,7 +52,7 @@ class GeminiController extends Controller implements HasMiddleware
                 $content = Content::find($contentId);
             }
 
-            if (empty($questions) || !$entrysheet || !$content) {
+            if (empty($questions) || ! $entrysheet || ! $content) {
                 // セッションにデータがない、または無効な場合はダッシュボードにリダイレクト
                 return redirect()->route('dashboard')
                     ->with('error', '面接セッションが見つかりませんでした。再度面接を開始してください。');
@@ -85,7 +82,7 @@ class GeminiController extends Controller implements HasMiddleware
 
             $questions = $this->execute($questionText, $answerText, $interviewRequest);
 
-            if (!is_array($questions) || empty($questions)) {
+            if (! is_array($questions) || empty($questions)) {
                 return redirect()->route('analysis.index')
                     ->with('error', '面接質問を取得できませんでした。もう一度試してください。');
             }
@@ -101,7 +98,7 @@ class GeminiController extends Controller implements HasMiddleware
                 $analysis = Analysis::find($analysisId);
             }
 
-            if (empty($questions) || !$analysis) {
+            if (empty($questions) || ! $analysis) {
                 return redirect()->route('analysis.index')
                     ->with('error', '面接セッションが見つかりませんでした。再度面接を開始してください。');
             }
@@ -113,22 +110,22 @@ class GeminiController extends Controller implements HasMiddleware
     public function execute($question, $answer, $interviewRequest = '')
     {
         $instruction = "あなたは優秀な新卒採用の面接官です。\n"
-            . "入力は新卒学生が提出したエントリーシートの質問と回答です。\n"
-            . "回答に対して深堀りの質問を5つ、JSON配列形式の文字列で出力してください。\n"
-            . "指示詞（「この」「その」など）は使用しないでください。\n"
-            . "出力は **必ず** JSON配列文字列 **のみ** としてください。他の文字、記号、Markdownのコードブロックマーカー（例: ```json）、説明文は一切含めないでください。\n"
-            . "文字列は `[` で始まり、`]` で終わる必要があります。\n"
-            . "他の情報は一切含めないでください。\n"
-            . "以下の例に厳密に従ってください。\n\n"
-            . "### **出力例:**\n"
-            . "[\"あなたの強みは何ですか？\", \"学生時代に最も力を入れたことは何ですか？\", \"経験から何を学びましたか？\", \"なぜ弊社を志望するのですか？\", \"当社のどの事業に興味がありますか？\"]\n"
-            . "\n"
-            . "この形式以外の回答をしてはいけません。";
+            ."入力は新卒学生が提出したエントリーシートの質問と回答です。\n"
+            ."回答に対して深堀りの質問を5つ、JSON配列形式の文字列で出力してください。\n"
+            ."指示詞（「この」「その」など）は使用しないでください。\n"
+            ."出力は **必ず** JSON配列文字列 **のみ** としてください。他の文字、記号、Markdownのコードブロックマーカー（例: ```json）、説明文は一切含めないでください。\n"
+            ."文字列は `[` で始まり、`]` で終わる必要があります。\n"
+            ."他の情報は一切含めないでください。\n"
+            ."以下の例に厳密に従ってください。\n\n"
+            ."### **出力例:**\n"
+            ."[\"あなたの強みは何ですか？\", \"学生時代に最も力を入れたことは何ですか？\", \"経験から何を学びましたか？\", \"なぜ弊社を志望するのですか？\", \"当社のどの事業に興味がありますか？\"]\n"
+            ."\n"
+            .'この形式以外の回答をしてはいけません。';
 
-        if (!empty($interviewRequest)) {
+        if (! empty($interviewRequest)) {
             $instruction .= "\n\n【追加指示】\n"
-                . "以下のリクエストを考慮して質問を生成してください。\n"
-                . "リクエスト内容: \"$interviewRequest\"";
+                ."以下のリクエストを考慮して質問を生成してください。\n"
+                ."リクエスト内容: \"$interviewRequest\"";
         }
 
         $toGeminiCommand = "{$instruction}\n\n質問:\n{$question}\n\n回答:\n{$answer}";
@@ -146,16 +143,14 @@ class GeminiController extends Controller implements HasMiddleware
         if (substr($cleanedResult, 0, 3) === '"""' && substr($cleanedResult, -3) === '"""') {
             $cleanedResult = substr($cleanedResult, 3, -3);
             $cleanedResult = trim($cleanedResult);
-        }
-
-        else if (substr($cleanedResult, 0, 1) === '"' && substr($cleanedResult, -1) === '"') {
+        } elseif (substr($cleanedResult, 0, 1) === '"' && substr($cleanedResult, -1) === '"') {
             $tempDecoded = json_decode($cleanedResult, true);
             if (json_last_error() === JSON_ERROR_NONE && is_string($tempDecoded)) {
                 $nestedJson = json_decode($tempDecoded, true);
                 if (json_last_error() === JSON_ERROR_NONE && is_array($nestedJson)) {
                     $cleanedResult = $tempDecoded;
                 }
-            } else if (json_last_error() !== JSON_ERROR_NONE) {
+            } elseif (json_last_error() !== JSON_ERROR_NONE) {
                 $cleanedResult = trim($cleanedResult, '"');
             }
         }
@@ -181,7 +176,7 @@ class GeminiController extends Controller implements HasMiddleware
     {
         return [
             'auth',
-            'verified'
+            'verified',
         ];
     }
 
@@ -197,5 +192,4 @@ class GeminiController extends Controller implements HasMiddleware
     {
         return view('interview.expected_analysis', compact('analysis'));
     }
-
 }

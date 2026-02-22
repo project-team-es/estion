@@ -108,7 +108,7 @@ return [
     |
     */
 
-   'from' => [
+    'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'saka.ttt.1219@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'お問い合わせフォーム'),
     ],

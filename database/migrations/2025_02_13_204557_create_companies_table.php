@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('process')->nullable();
             $table->timestamps();
             $table->softDeletes();
-        
+
             $table->unsignedBigInteger('user_id'); // ユーザーID
             $table->unsignedBigInteger('industry_id'); // 業界ID
-        
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // 外部キー制約
             $table->foreign('industry_id')->references('id')->on('industries')->onDelete('cascade');
         });

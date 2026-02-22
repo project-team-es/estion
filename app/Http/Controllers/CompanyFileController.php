@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\CompanyFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CompanyFileController extends Controller
 {
@@ -39,13 +37,14 @@ class CompanyFileController extends Controller
         return back()->with('success', 'ファイルを削除しました');
     }
 
-    //ダウンロード機能
+    // ダウンロード機能
     public function download(CompanyFile $file)
     {
         // 修正版: public ディスクを指定
         if (Storage::disk('public')->exists($file->path)) {
             return Storage::disk('public')->download($file->path, $file->filename);
         }
+
         return redirect()->back()->with('error', 'ファイルが見つかりません');
     }
 }

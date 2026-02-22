@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Industry;
+use Illuminate\Database\Seeder;
 
 class IndustrySeeder extends Seeder
 {
@@ -13,19 +12,19 @@ class IndustrySeeder extends Seeder
         $industries = [
             'IT・通信',
             'コンサル・シンクタンク',
-            'メーカー', 
+            'メーカー',
             'インフラ・交通',
             'エネルギー',
             '商社',
-            '金融', 
-            '建設・不動産', 
+            '金融',
+            '建設・不動産',
             '広告・マスコミ',
             '医療・福祉',
             '人材・教育',
             '小売・流通',
             '旅行・観光',
             '官公庁・公社・団体',
-            'その他'
+            'その他',
         ];
 
         foreach ($industries as $industry) {

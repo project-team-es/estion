@@ -4,31 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEntrysheetRequest;
 use App\Http\Requests\UpdateEntrysheetRequest;
-
-use App\Models\EntrySheet;
 use App\Models\Company;
-use App\Models\Industry;
 use App\Models\Content;
-use Inertia\Inertia;
-use Inertia\Response;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\View as ViewClass;
-use Illuminate\Support\Facades\DB;
-
-use Mpdf\Mpdf;
-use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Models\EntrySheet;
+use App\Models\Industry;
 use Google_Client;
 use Google_Service_Calendar;
 use Google_Service_Calendar_Event;
 use Google_Service_Calendar_EventDateTime;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View as ViewClass;
+use Inertia\Inertia;
+use Inertia\Response;
+use Mpdf\Mpdf;
 
 class EntrysheetController extends Controller implements HasMiddleware
 {
-    public function index(Request $request): Response{
+    public function index(Request $request): Response
+    {
         $entrysheets = EntrySheet::where('user_id', Auth::id())->with('company')->get();
 
         return Inertia::render('App/Entrysheet/Index/index', [
@@ -40,7 +35,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     {
         return [
             'auth',
-            'verified'
+            'verified',
         ];
     }
 
@@ -63,9 +58,9 @@ class EntrysheetController extends Controller implements HasMiddleware
             '説明会',
             'アンケート',
             'OB・OG訪問',
-            'その他の就活イベント'
+            'その他の就活イベント',
         ];
-    
+
         return Inertia::render('App/Entrysheet/Create/index', [
             'industries' => $industries,
             'companies' => $companies,
@@ -73,16 +68,15 @@ class EntrysheetController extends Controller implements HasMiddleware
         ]);
     }
 
-    
     public function createWithCompany($company_id): Response
     {
         $presetTitles = [
             'インターン', '夏インターン', '秋・冬インターン', '長期インターン',
-            '本選考', '説明会', 'アンケート', 'OB・OG訪問', 'その他の就活イベント'
+            '本選考', '説明会', 'アンケート', 'OB・OG訪問', 'その他の就活イベント',
         ];
 
         $company = Company::find($company_id);
-        if (!$company) {
+        if (! $company) {
             abort(404, '企業が見つかりません');
         }
 
@@ -91,7 +85,7 @@ class EntrysheetController extends Controller implements HasMiddleware
             'presetTitles' => $presetTitles,
         ]);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -147,8 +141,9 @@ class EntrysheetController extends Controller implements HasMiddleware
             '説明会',
             'アンケート',
             'OB・OG訪問',
-            'その他の就活イベント'
+            'その他の就活イベント',
         ];
+
         return Inertia::render('App/Entrysheet/Edit/index', [
             'entrysheet' => $entrysheet,
             'companies' => $companies,
@@ -177,20 +172,21 @@ class EntrysheetController extends Controller implements HasMiddleware
      * Remove the specified resource from storage.
      */
     public function destroy(EntrySheet $entrysheet)
-{
-    // ユーザー権限の確認
-    if ($entrysheet->user_id !== Auth::id()) {
-        return response()->json(['error' => '削除権限がありません'], 403);
+    {
+        // ユーザー権限の確認
+        if ($entrysheet->user_id !== Auth::id()) {
+            return response()->json(['error' => '削除権限がありません'], 403);
+        }
+
+        try {
+            $entrysheet->delete(); // ソフトデリート（物理削除したい場合は `forceDelete()`）
+
+            return redirect()->route('entrysheet')->with('success', 'エントリーシートを削除しました。');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'エントリーシートの削除に失敗しました。']);
+        }
     }
 
-    try {
-        $entrysheet->delete(); // ソフトデリート（物理削除したい場合は `forceDelete()`）
-        return redirect()->route('entrysheet')->with('success', 'エントリーシートを削除しました。');
-    } catch (\Exception $e) {
-        return back()->withErrors(['error' => 'エントリーシートの削除に失敗しました。']);
-    }
-}
-    
     public function generatePDF($id)
     {
         $entrysheet = EntrySheet::with('contents')->findOrFail($id);
@@ -203,6 +199,7 @@ class EntrysheetController extends Controller implements HasMiddleware
         ]);
 
         $mpdf->WriteHTML($pdfView);
+
         return response($mpdf->Output("EntrySheet_{$entrysheet->id}.pdf", 'I'))->header('Content-Type', 'application/pdf');
     }
 
@@ -216,7 +213,7 @@ class EntrysheetController extends Controller implements HasMiddleware
         // 企業名で検索
         if ($request->filled('search')) {
             $query->whereHas('company', function ($query) use ($request) {
-                $query->where('name', 'like', '%' . $request->search . '%');
+                $query->where('name', 'like', '%'.$request->search.'%');
             });
         }
 
@@ -259,7 +256,7 @@ class EntrysheetController extends Controller implements HasMiddleware
     //         \Log::error('Google カレンダー登録エラー: ユーザーが未認証');
     //         return;
     //     }
-    
+
     //     $client = new Google_Client();
     //     $client->setClientId(env('GOOGLE_CLIENT_ID'));
     //     $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
@@ -274,17 +271,17 @@ class EntrysheetController extends Controller implements HasMiddleware
     //         }
     //         $client->setAccessToken($newToken);
     //     }
-    
+
     //     $service = new Google_Service_Calendar($client);
     //     $event = new Google_Service_Calendar_Event([
     //         'summary' => $entrysheet->company->name . ':ES締切',
     //         'start' => ['date' => $entrysheet->deadline],
     //         'end' => ['date' => $entrysheet->deadline],
     //     ]);
-    
+
     //     $calendarId = 'primary';
     //     $event = $service->events->insert($calendarId, $event);
-    
+
     //     // Google カレンダーのイベント ID を保存
     //     $entrysheet->update(['google_event_id' => $event->getId()]);
     //     \Log::info('Google カレンダー登録成功: ' . $event->getId());
@@ -300,10 +297,10 @@ class EntrysheetController extends Controller implements HasMiddleware
     //         \Log::error('Googleカレンダー更新エラー: イベントIDまたは認証情報が不足');
     //         return;
     //     }
-    
+
     //     $client = new Google_Client();
     //     $client->setAccessToken($user->google_access_token);
-    
+
     //     // **アクセストークンが期限切れならリフレッシュ**
     //     if ($client->isAccessTokenExpired()) {
     //         $newToken = $this->refreshGoogleAccessToken($user);
@@ -313,22 +310,22 @@ class EntrysheetController extends Controller implements HasMiddleware
     //         }
     //         $client->setAccessToken($newToken);
     //     }
-    
+
     //     $service = new Google_Service_Calendar($client);
     //     $calendarId = 'primary';
-    
+
     //     try {
     //         // **既存のイベントを取得**
     //         $event = $service->events->get($calendarId, $entrysheet->google_event_id);
-    
+
     //         // **イベント内容を更新**
     //         $event->setSummary($entrysheet->company->name . ':ES締切');
     //         $event->setStart(new Google_Service_Calendar_EventDateTime(['date' => $entrysheet->deadline]));
     //         $event->setEnd(new Google_Service_Calendar_EventDateTime(['date' => $entrysheet->deadline]));
-    
+
     //         // **Googleカレンダーを更新**
     //         $updatedEvent = $service->events->update($calendarId, $event->getId(), $event);
-    
+
     //         \Log::info('Googleカレンダー更新成功: ' . $updatedEvent->getId());
     //     } catch (\Exception $e) {
     //         \Log::error('Googleカレンダー更新エラー: ' . $e->getMessage());
@@ -345,10 +342,10 @@ class EntrysheetController extends Controller implements HasMiddleware
     //         \Log::error('Googleカレンダー削除エラー: イベントIDまたは認証情報が不足');
     //         return;
     //     }
-    
+
     //     $client = new Google_Client();
     //     $client->setAccessToken($user->google_access_token);
-    
+
     //     if ($client->isAccessTokenExpired()) {
     //         $newToken = $this->refreshGoogleAccessToken($user);
     //         if (!$newToken) {
@@ -357,10 +354,10 @@ class EntrysheetController extends Controller implements HasMiddleware
     //         }
     //         $client->setAccessToken($newToken);
     //     }
-    
+
     //     $service = new Google_Service_Calendar($client);
     //     $calendarId = 'primary';
-    
+
     //     try {
     //         $service->events->delete($calendarId, $entrysheet->google_event_id);
     //         \Log::info('Googleカレンダーのイベント削除成功: ' . $entrysheet->google_event_id);
@@ -397,6 +394,5 @@ class EntrysheetController extends Controller implements HasMiddleware
     //         return null;
     //     }
     // }
-
 
 }

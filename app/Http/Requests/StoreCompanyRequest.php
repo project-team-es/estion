@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreCompanyRequest extends FormRequest
 {
@@ -40,6 +40,7 @@ class StoreCompanyRequest extends FormRequest
             'industry_id' => 'required|exists:industries,id',
         ];
     }
+
     public function messages(): array
     {
         return [

@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Content;
-use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateContentQuestionRequest extends FormRequest
 {
@@ -24,7 +23,7 @@ class UpdateContentQuestionRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $contentId = $this->route('content')->id; 
+            $contentId = $this->route('content')->id;
             $newCharacterLimit = $this->input('character_limit');
 
             if ($contentId && $newCharacterLimit !== null) {

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\View\Components;
 
 use Closure;
@@ -22,7 +23,7 @@ class FrontLayout extends Component
     /**
      * このコンポーネントを表すビュー/コンテンツを取得します。
      * renderメソッドは、このコンポーネントがどのビュー（Bladeテンプレート）を使用するかを指定します。
-     * 
+     *
      * @return View|Closure|string このコンポーネントのビューを返します。
      */
     public function render(): View|Closure|string
