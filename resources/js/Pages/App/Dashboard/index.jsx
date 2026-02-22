@@ -17,7 +17,7 @@ export default function Dashboard({ industries, contents, entrysheets, industrie
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
       </Head>
       <div className="flex h-screen md:mt-10">
