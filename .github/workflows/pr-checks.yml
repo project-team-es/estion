@@ -25,14 +25,14 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2' # ※ご自身のプロジェクトのPHPバージョンに合わせて変更してください
+          php-version: '8.4' # ローカルプロジェクトのPHPバージョンに合わせて変更してください
           tools: composer
 
       - name: Install PHP Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       # 3. Laravel Pintの実行
-      # ※注意: `sail` はローカルのDocker環境を立ち上げるコマンドのため、CI上では直接 `pint` を実行するのが基本です
+      # ※注意: `sail` はローカルのDocker環境を立ち上げるコマンドのため、CI上では直接 `pint` を実行
       - name: Run Laravel Pint
         run: ./vendor/bin/pint
 
@@ -40,7 +40,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # ※ご自身のプロジェクトのNodeバージョンに合わせて変更してください
+          node-version: '25' # ローカルのプロジェクトのNodeバージョンに合わせて変更
 
       - name: Install Node Dependencies
         run: npm ci # (npm install のCI推奨版)
