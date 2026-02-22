@@ -26,7 +26,7 @@ export default function Edit({ content }) {
   return (
     <AppLayout>
       <Head>
-        <title>設問と文字数の編集</title>
+        <title>設問と文字数の編集｜estion.</title>
         <meta
           name="description"
           content="estion.のES詳細編集ページです。登録したESの設問・文字数を編集することができます。"

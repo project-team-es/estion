@@ -14,7 +14,7 @@ export default function Guest() {
   return (
     <>
       <Head>
-        <title>新卒就活生向けES管理アプリ</title>
+        <title>新卒就活生向けES管理アプリ｜estion.</title>
         <meta
           name="description"
           content="新卒就活生向けのエントリーシート（ES）管理アプリestion.(イーション)です。estion.を活用して多種多様な業界・企業のESを効率的に管理しましょう!"

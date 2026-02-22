@@ -10,7 +10,7 @@ export default function Show({ company }) {
   return (
     <>
       <Head>
-        <title>企業詳細</title>
+        <title>企業詳細｜estion.</title>
         <meta
           name="description"
           content="estion.の企業詳細ページです。企業の詳細を確認できます。"

@@ -4,7 +4,7 @@ export default function Agreement() {
   return (
     <>
       <Head>
-        <title>Q&A</title>
+        <title>Q&A｜estion.</title>
         <meta
           name="description"
           content="estion.のQ&Aページです。estion.の使い方やよくある質問を確認することができます。"

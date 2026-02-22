@@ -8,7 +8,7 @@ export default function Edit({ mustVerifyEmail, status }) {
   return (
     <AppLayout>
       <Head>
-        <title>プロフィール確認</title>
+        <title>プロフィール確認｜estion.</title>
         <meta name="description" content="プロフィールを確認・修正することができます。" />
         <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
         <script

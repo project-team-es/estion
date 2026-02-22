@@ -177,7 +177,7 @@ export default function Show() {
   return (
     <>
       <Head>
-        <title>ES詳細</title>
+        <title>ES詳細｜estion.</title>
         <meta
           name="description"
           content="estion.のES詳細ページです。登録したエントリーシートの詳細(質問・回答)を確認できます。"

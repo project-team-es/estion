@@ -5,7 +5,7 @@ export default function Agreement() {
   return (
     <>
       <Head>
-        <title>利用規約</title>
+        <title>利用規約｜estion.</title>
         <meta
           name="description"
           content="estion.の利用規約です。サービスのご利用にあたってのルールや、免責事項、禁止事項などについて記載しています。"

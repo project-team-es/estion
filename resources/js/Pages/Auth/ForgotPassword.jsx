@@ -16,7 +16,7 @@ export default function ForgotPassword({ status }) {
   return (
     <>
       <Head>
-        <title>パスワード再設定</title>
+        <title>パスワード再設定｜estion.</title>
         <meta
           name="description"
           content="estion.のパスワード再設定画面です。ご登録のメールアドレスを入力して、パスワード再設定の手続きにお進みください。"

@@ -14,7 +14,7 @@ export default function VerifyEmail({ status }) {
   return (
     <GuestLayout>
       <Head>
-        <title>Email Verification</title>
+        <title>Email Verification｜estion.</title>
         <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
       </Head>
 

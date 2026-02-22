@@ -18,7 +18,7 @@ export default function Entrysheet() {
   return (
     <AppLayout>
       <Head>
-        <title>ES一覧</title>
+        <title>ES一覧｜estion.</title>
         <meta
           name="description"
           content="estion.のES一覧ページです。登録したエントリーシートの一覧を確認できます。"

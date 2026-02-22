@@ -25,7 +25,7 @@ export default function BookmarkCreate({ bookmarks }) {
   return (
     <AppLayout>
       <Head>
-        <title>ブックマーク登録</title>
+        <title>ブックマーク登録｜estion.</title>
         <meta
           name="description"
           content="estion.のブックマーク登録ページです。頻繁に利用するサイトURLを登録・削除することができます。"

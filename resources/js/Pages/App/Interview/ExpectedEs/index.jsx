@@ -17,7 +17,7 @@ export default function ExpectedEs({ entrysheet, content }) {
   return (
     <AppLayout>
       <Head>
-        <title>面接内容の確認</title>
+        <title>面接内容の確認｜estion.</title>
         <meta
           name="description"
           content="estion.の面接内容確認ページです。設問に対してリクエストを追加し、面接に進むことができます。"

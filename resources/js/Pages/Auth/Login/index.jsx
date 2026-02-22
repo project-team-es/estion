@@ -19,7 +19,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>ログイン</title>
+        <title>ログイン｜estion.</title>
         <meta
           name="description"
           content="新卒就活生向けES管理アプリ「estion.」のログイン画面です。ログインして、ESの進捗管理、企業情報、面接練習など、就活を効率化する機能をご利用ください。"

@@ -27,7 +27,7 @@ export default function Company() {
   return (
     <AppLayout>
       <Head>
-        <title>企業一覧</title>
+        <title>企業一覧｜estion.</title>
         <meta
           name="description"
           content="estion.の企業一覧ページです。登録した企業をまとめて確認できます。"
