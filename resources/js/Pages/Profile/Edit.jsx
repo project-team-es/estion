@@ -14,8 +14,11 @@ export default function Edit({ mustVerifyEmail, status }) {
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9604843985307640"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
+
+
+        
       </Head>
 
       <div className="py-10">
