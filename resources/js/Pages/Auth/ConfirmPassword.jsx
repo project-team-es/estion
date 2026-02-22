@@ -21,7 +21,7 @@ export default function ConfirmPassword() {
   return (
     <GuestLayout>
       <Head>
-        <title>"Confirm Password"</title>
+        <title>Confirm Password</title>
         <meta name="google-adsense-account" content="ca-pub-9604843985307640" />
       </Head>
 
