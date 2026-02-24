@@ -1,4 +1,4 @@
-export default function FooterForGueset() {
+export function FooterForGueset() {
   return (
     <footer className="flex flex-col items-center bg-gray-200 py-4 text-xs text-black md:flex md:flex-row md:justify-center md:space-x-8 md:py-8">
       <div className="flex flex-row items-center justify-end space-x-8 pt-3 md:space-x-8">

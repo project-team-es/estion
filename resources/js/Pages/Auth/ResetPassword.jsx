@@ -1,5 +1,5 @@
-import InputError from '@/Components/InputError';
-import TextInput from '@/Components/TextInput';
+import { InputError } from '@/Components/InputError';
+import { TextInput } from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
 import React from 'react';
 

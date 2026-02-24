@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Head, usePage, router } from '@inertiajs/react';
-import AppLayout from '@/Layouts/AppLayout';
+import { AppLayout } from '@/Layouts/AppLayout';
 import CompanyList from './CompanyList';
 import CompanyActionButtons from './CompanyActionButtons';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
-import AppLayout from '@/Layouts/AppLayout';
+import { AppLayout } from '@/Layouts/AppLayout';
 import BookmarkIndex from './BookmarkIndex';
 
 export default function BookmarkCreate({ bookmarks }) {

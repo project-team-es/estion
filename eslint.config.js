@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import reactPlugin from "eslint-plugin-react";
 import prettierConfig from "eslint-config-prettier";
 import globals from "globals";
+import importPlugin from "eslint-plugin-import";
 
 export default [
   {
@@ -31,12 +32,25 @@ export default [
     },
     settings: {
       react: {
-        version: "detect", // Reactのバージョンを自動検出
+        version: "detect",
       },
     },
+    plugins: {
+      import: importPlugin,
+    },
     rules: {
-      "react/react-in-jsx-scope": "off", // import React from 'react' を不要にする
-      "react/prop-types": "off"
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      "import/no-default-export": "error",
+    },
+  },
+  {
+    files: [
+      "resources/js/app.jsx",
+      "resources/js/Pages/**/*.{js,jsx}",
+    ],
+    rules: {
+      "import/no-default-export": "off",
     },
   },
 ];

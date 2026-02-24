@@ -1,4 +1,4 @@
-const formatDate = (dateTimeString) => {
+export const formatDate = (dateTimeString) => {
   const date = new Date(dateTimeString);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -9,5 +9,3 @@ const formatDate = (dateTimeString) => {
 
   return `${year}年${formattedMonth}月${formattedDay}日`;
 };
-
-export default formatDate;

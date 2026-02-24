@@ -1,5 +1,5 @@
 import TextareaAutosize from 'react-textarea-autosize';
-import AppLayout from '@/Layouts/AppLayout';
+import { AppLayout } from '@/Layouts/AppLayout';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ExpectedEs({ entrysheet, content }) {

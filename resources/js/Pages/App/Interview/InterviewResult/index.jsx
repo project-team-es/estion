@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import AppLayout from '@/Layouts/AppLayout';
+import { AppLayout } from '@/Layouts/AppLayout';
 import { Head, Link } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
 
