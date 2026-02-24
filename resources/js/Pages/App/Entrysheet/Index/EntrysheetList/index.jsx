@@ -1,4 +1,3 @@
-import React from 'react';
 import EntrysheetListItem from './EntrysheetListItem';
 
 export default function EntrysheetList({ entrysheets, onDelete }) {

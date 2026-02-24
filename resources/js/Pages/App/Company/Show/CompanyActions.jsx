@@ -1,4 +1,3 @@
-import React from 'react';
 import { router } from '@inertiajs/react';
 import { TrashIcon } from '@/Components/Icons/TrashIcon';
 import { EditMiniIcon } from '@/Components/Icons/EditMiniIcon';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppLayout } from '@/Layouts/AppLayout';
 import { AddEsMiniButton } from '@/Components/AddEsMiniButton';
 import { Head, router } from '@inertiajs/react';

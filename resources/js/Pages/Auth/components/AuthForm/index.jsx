@@ -1,4 +1,3 @@
-import React from 'react';
 import AuthInput from '../AuthInput';
 import AuthButton from '../AuthButton';
 

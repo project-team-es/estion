@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppLayout } from '@/Layouts/AppLayout';
 import CreateForm from './CreateForm';
 import { Head, Link } from '@inertiajs/react';

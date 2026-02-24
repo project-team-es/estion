@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function EditMiniIcon({ className = 'w-4 h-4 text-current opacity-50' }) {
   return (
     <svg

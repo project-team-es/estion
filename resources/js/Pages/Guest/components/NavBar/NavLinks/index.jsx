@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function NavLinks() {
   return (
     <div className="hidden font-bold sm:flex sm:space-x-7 sm:pr-5 sm:text-[16px] md:space-x-12 md:text-[20px]">
