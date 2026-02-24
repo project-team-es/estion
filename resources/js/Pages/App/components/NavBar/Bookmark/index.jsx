@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Bookmark({ bookmarks }) {
+export function Bookmark({ bookmarks }) {
   return (
     <div className="flex space-x-6 text-sm font-medium text-gray-600">
       {bookmarks && bookmarks.length > 0 && <span className="font-medium text-gray-600">|</span>}

@@ -1,9 +1,9 @@
-import Logo from '@/Pages/Guest/components/NavBar/Logo';
-import NavLinks from '@/Pages/Guest/components/NavBar/NavLinks';
-import MobileMenu from '@/Pages/Guest/components/NavBar/MobileMenu';
-import MenuToggle from '@/Pages/Guest/components/NavBar/MenuToggle';
+import { Logo } from '@/Pages/Guest/components/NavBar/Logo';
+import { NavLinks } from '@/Pages/Guest/components/NavBar/NavLinks';
+import { MobileMenu } from '@/Pages/Guest/components/NavBar/MobileMenu';
+import { MenuToggle } from '@/Pages/Guest/components/NavBar/MenuToggle';
 
-export default function NavBar({ isMenuOpen, toggleMenu }) {
+export function NavBar({ isMenuOpen, toggleMenu }) {
   return (
     <nav className="fixed z-50 w-full py-2 md:py-4">
       <div className="flex w-full items-center justify-between px-2 py-3 md:px-12">

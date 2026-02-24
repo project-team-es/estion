@@ -45,12 +45,15 @@ export default [
     },
   },
   {
-    files: [
-      "resources/js/app.jsx",
-      "resources/js/Pages/**/*.{js,jsx}",
-    ],
+    files: ["resources/js/Pages/**/*.{js,jsx}"],
     rules: {
       "import/no-default-export": "off",
+    },
+  },
+  {
+    files: ["resources/js/Pages/**/components/**/*.{js,jsx}"],
+    rules: {
+      "import/no-default-export": "error",
     },
   },
 ];

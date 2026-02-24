@@ -1,8 +1,8 @@
 import { Head, useForm } from '@inertiajs/react';
 import { AppLayout } from '@/Layouts/AppLayout';
-import BookmarkIndex from './BookmarkIndex';
+import { BookmarkIndex } from './BookmarkIndex';
 
-export default function BookmarkCreate({ bookmarks }) {
+export function BookmarkCreate({ bookmarks }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
     url: '',

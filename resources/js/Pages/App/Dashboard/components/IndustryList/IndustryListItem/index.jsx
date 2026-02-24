@@ -1,4 +1,4 @@
-export default function IndustryListItem({ industry, onMouseEnter, onMouseLeave }) {
+export function IndustryListItem({ industry, onMouseEnter, onMouseLeave }) {
   return (
     <div
       key={industry.id}

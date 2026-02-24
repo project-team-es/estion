@@ -1,4 +1,4 @@
-import NavBar from '@/Pages/App/components/NavBar';
+import { NavBar } from '@/Pages/App/components/NavBar';
 
 export function DashboardLayout({ children }) {
   return (

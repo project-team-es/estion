@@ -1,4 +1,4 @@
-export default function MenuToggle({ toggleMenu }) {
+export function MenuToggle({ toggleMenu }) {
   return (
     <div className="mr-3 flex items-center sm:hidden">
       <button

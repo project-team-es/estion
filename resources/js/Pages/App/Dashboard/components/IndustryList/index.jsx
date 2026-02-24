@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
-import IndustryModal from './IndustryModal';
+import { IndustryModal } from './IndustryModal';
 
-export default function IndustryList({ industries, industriesWithCompanies }) {
+export function IndustryList({ industries, industriesWithCompanies }) {
   console.log(industriesWithCompanies);
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const leaveTimeout = useRef(null);

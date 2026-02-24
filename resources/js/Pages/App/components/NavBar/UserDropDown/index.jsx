@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 
-export default function UserDropDown() {
+export function UserDropDown() {
   const { auth } = usePage().props;
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);

@@ -1,7 +1,7 @@
-import AuthInput from '../AuthInput';
-import AuthButton from '../AuthButton';
+import { AuthInput } from '../AuthInput';
+import { AuthButton } from '../AuthButton';
 
-export default function AuthForm({ title, formData, setData, onSubmit, buttonText, errors }) {
+export function AuthForm({ title, formData, setData, onSubmit, buttonText, errors }) {
   return (
     <form onSubmit={onSubmit}>
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">

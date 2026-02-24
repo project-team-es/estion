@@ -1,6 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 
-export default function NavLinks() {
+export function NavLinks() {
   const { url } = usePage();
   return (
     <div className="flex space-x-6 text-sm font-medium text-gray-600">

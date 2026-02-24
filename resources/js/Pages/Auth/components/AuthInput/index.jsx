@@ -1,4 +1,4 @@
-export default function AuthInput({ id, label, type, value, onChange, error }) {
+export function AuthInput({ id, label, type, value, onChange, error }) {
   return (
     <div className="mt-4">
       <label htmlFor={id} className="block text-sm font-bold text-gray-700">

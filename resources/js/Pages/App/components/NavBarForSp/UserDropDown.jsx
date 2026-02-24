@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-export default function UserDropDown({ bookmarks }) {
+export function UserDropDown({ bookmarks }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
