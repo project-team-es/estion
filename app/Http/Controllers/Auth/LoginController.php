@@ -34,21 +34,16 @@ class LoginController extends Controller
         $googleAccessToken = $googleUser->token;
         $googleRefreshToken = $googleUser->refreshToken ?? null;
 
-        \Log::info('Google OAuth: 取得したアクセストークン - '.$googleAccessToken);
-        \Log::info('Google OAuth: 取得したリフレッシュトークン - '.($googleRefreshToken ?? 'なし'));
         // 既存のユーザーを取得
         $existingUser = User::where('email', $googleUser->email)->first();
 
         if ($existingUser) {
             // 既存ユーザーの情報を更新
-            $updateResult = $existingUser->update([
+            $existingUser->update([
                 'google_id' => $googleId,
                 'google_access_token' => $googleAccessToken,
-                'google_refresh_token' => $googleRefreshToken ?? $existingUser->google_refresh_token, // リフレッシュトークンを保存
+                'google_refresh_token' => $googleRefreshToken ?? $existingUser->google_refresh_token,
             ]);
-
-            \Log::info('Google OAuth: ユーザー更新結果 - '.($updateResult ? '成功' : '失敗'));
-            \Log::info('Google OAuth: 保存後のデータ - '.json_encode($existingUser->toArray())); // 確認用
 
             Auth::login($existingUser, true);
         } else {
@@ -61,8 +56,6 @@ class LoginController extends Controller
                 'google_refresh_token' => $googleRefreshToken, // 新規登録時も保存
                 'password' => bcrypt(uniqid()),
             ]);
-
-            \Log::info('Google OAuth: 新規ユーザー作成 - '.json_encode($user->toArray()));
 
             // ユーザーをログインさせる
             Auth::login($user, true);
