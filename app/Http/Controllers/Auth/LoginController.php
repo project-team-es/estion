@@ -64,9 +64,9 @@ class LoginController extends Controller
         // Google カレンダー API の認証情報を取得
 
         $client = new Google_Client;
-        $client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+        $client->setClientId(config('services.google.client_id'));
+        $client->setClientSecret(config('services.google.client_secret'));
+        $client->setRedirectUri(config('services.google.redirect'));
         // $client->addScope(Google_Service_Calendar::CALENDAR_READONLY);
         $client->setAccessToken($googleUser->token);
 
