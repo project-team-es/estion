@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { AddCompanyicon } from '@/Components/Icons/AddCompanyicon';
+import { AddCompanyIcon } from '@/Components/Icons/AddCompanyIcon';
 
 export default function CompanyActionButtons() {
   return (
@@ -8,7 +8,7 @@ export default function CompanyActionButtons() {
         href="/company/create"
         className="rounded-[12px] bg-blue-500 px-4 py-2 font-semibold text-white hover:scale-105"
       >
-        <AddCompanyicon />
+        <AddCompanyIcon />
       </Link>
       {/* <button
         className="rounded-full px-4 py-2 font-bold text-gray-500 transition hover:bg-gray-300 hover:text-white"
