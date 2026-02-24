@@ -3,7 +3,7 @@ import NavBar from '@/Pages/Guest/components/NavBar';
 import { CardSection } from '@/Pages/Guest/components/CardSection';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
-import FooterForGueset from '@/Components/FooterForGuset';
+import { FooterForGueset } from '@/Components/FooterForGuset';
 
 export default function Guest() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

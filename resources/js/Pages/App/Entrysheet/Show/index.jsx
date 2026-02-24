@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import AppLayout from '@/Layouts/AppLayout';
+import { AppLayout } from '@/Layouts/AppLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { icons } from '@/Utils/icons';
-import formatDate from '@/Utils/formatDate';
+import { formatDate } from '@/Utils/formatDate';
 
 export default function Show() {
   const { entrysheet } = usePage().props;

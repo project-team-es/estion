@@ -1,7 +1,7 @@
 import IndustryList from '@/Pages/App/Dashboard/components/IndustryList';
 import ContentList from '@/Pages/App/Dashboard/components/ContentList';
 import EntrySheetList from '@/Pages/App/Dashboard/components/EntrySheetList';
-import AppLayout from '@/Layouts/AppLayout';
+import { AppLayout } from '@/Layouts/AppLayout';
 import { Head } from '@inertiajs/react';
 
 export default function Dashboard({ industries, contents, entrysheets, industriesWithCompanies }) {

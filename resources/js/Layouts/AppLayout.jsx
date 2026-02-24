@@ -4,9 +4,9 @@ import NavbarForSp from '@/Pages/App/components/NavBarForSp';
 import TabBarForSp from '@/Pages/App/components/TabBarForSp';
 import { useState } from 'react';
 import MobileMenu from '@/Pages/App/components/NavBarForSp/MobileMenu';
-import Footer from '@/Components/Footer';
+import { Footer } from '@/Components/Footer';
 
-export default function AppLayout({ children, title }) {
+export function AppLayout({ children, title }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);

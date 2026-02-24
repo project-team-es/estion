@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddCompanyicon = (props) => (
+export const AddCompanyicon = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -26,5 +26,3 @@ const AddCompanyicon = (props) => (
     <path d="M8 14h.01" />
   </svg>
 );
-
-export default AddCompanyicon;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function EditMiniIcon({ className = 'w-4 h-4 text-current opacity-50' }) {
+export function EditMiniIcon({ className = 'w-4 h-4 text-current opacity-50' }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

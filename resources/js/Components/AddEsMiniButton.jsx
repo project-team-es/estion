@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
-import AddEsMiniIcon from './Icons/AddEsMiniIcon';
+import { AddEsMiniIcon } from './Icons/AddEsMiniIcon';
 
-export default function AddEsMiniButton({ href }) {
+export function AddEsMiniButton({ href }) {
   return (
     <Link
       href={href}

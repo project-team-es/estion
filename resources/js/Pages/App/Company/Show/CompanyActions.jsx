@@ -1,7 +1,7 @@
 import React from 'react';
 import { router } from '@inertiajs/react';
-import TrashIcon from '@/Components/Icons/TrashIcon';
-import EditMiniIcon from '@/Components/Icons/EditMiniIcon';
+import { TrashIcon } from '@/Components/Icons/TrashIcon';
+import { EditMiniIcon } from '@/Components/Icons/EditMiniIcon';
 
 export default function CompanyActions({ companyId }) {
   return (

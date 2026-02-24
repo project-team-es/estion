@@ -1,10 +1,10 @@
 import React from 'react';
-import AppLayout from '@/Layouts/AppLayout';
-import AddEsMiniButton from '@/Components/AddEsMiniButton';
+import { AppLayout } from '@/Layouts/AppLayout';
+import { AddEsMiniButton } from '@/Components/AddEsMiniButton';
 import { Head, router } from '@inertiajs/react';
 import CompanyInfo from './CompanyInfo';
 import CompanyActions from './CompanyActions';
-import formatDate from '@/Utils/formatDate';
+import { formatDate } from '@/Utils/formatDate';
 
 export default function Show({ company }) {
   return (

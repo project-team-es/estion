@@ -1,6 +1,6 @@
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 
-export default function Modal({
+export function Modal({
   children,
   show = false,
   maxWidth = '2xl',

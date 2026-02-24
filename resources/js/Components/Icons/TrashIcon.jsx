@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TrashIcon({ className = 'w-4 h-4 text-current' }) {
+export function TrashIcon({ className = 'w-4 h-4 text-current' }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

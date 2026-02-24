@@ -1,4 +1,4 @@
-import AppLayout from '@/Layouts/AppLayout';
+import { AppLayout } from '@/Layouts/AppLayout';
 import { useForm, usePage } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
 import { Head } from '@inertiajs/react';

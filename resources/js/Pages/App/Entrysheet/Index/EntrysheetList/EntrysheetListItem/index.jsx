@@ -1,7 +1,7 @@
 import React from 'react';
 import { router } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
-import formatDate from '@/Utils/formatDate';
+import { formatDate } from '@/Utils/formatDate';
 
 export default function EntrysheetListItem({ entrysheet, onDelete }) {
   return (
