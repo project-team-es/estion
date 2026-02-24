@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '@/Pages/Guest/components/NavBar';
-import CardSection from '@/Pages/Guest/components/CardSection';
+import { CardSection } from '@/Pages/Guest/components/CardSection';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 import FooterForGueset from '@/Components/FooterForGuset';
