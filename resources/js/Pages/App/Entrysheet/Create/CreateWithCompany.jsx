@@ -1,7 +1,6 @@
 import { AppLayout } from '@/Layouts/AppLayout';
-import CreateForm from './CreateForm';
-//通常のES作成と引数が違うからとりあえずファイルを分けて修正
-//もっといいやり方があると思います。
+import { CreateForm } from './CreateForm';
+
 export default function CreateWithCompany({ industries, company, presetTitles }) {
   return (
     <AppLayout>

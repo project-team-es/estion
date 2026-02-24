@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useForm } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
 import { Head } from '@inertiajs/react';
 
-export default function CreateForm({ industries, company: selectedCompany, presetTitles }) {
+export function CreateForm({ industries, company: selectedCompany, presetTitles }) {
   const { data, setData, post, processing, errors } = useForm({
     company_id: selectedCompany?.id ?? '',
     title: '',

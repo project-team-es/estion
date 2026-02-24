@@ -42,6 +42,10 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "import/no-default-export": "error",
+      "padding-line-between-statements": [
+        "error",
+        { blankLine: "always", prev: "import", next: "export" },
+      ],
     },
   },
   {
