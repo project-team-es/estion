@@ -1,4 +1,3 @@
-import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AuthInput from '@/Pages/Auth/components/AuthInput';
 import AuthButton from '@/Pages/Auth/components/AuthButton';
