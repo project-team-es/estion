@@ -1,5 +1,5 @@
 import { router } from '@inertiajs/react';
-export default function EntrySheetList({ entrysheets }) {
+export function EntrySheetList({ entrysheets }) {
   return (
     <div className="z-10 mr-[4%] hidden h-screen w-1/5 flex-col md:flex">
       <p className="mb-4 text-center font-bold">締切間近</p>

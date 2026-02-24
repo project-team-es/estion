@@ -1,4 +1,4 @@
-export default function AuthButton({ text, disabled }) {
+export function AuthButton({ text, disabled }) {
   return (
     <button
       type="submit"

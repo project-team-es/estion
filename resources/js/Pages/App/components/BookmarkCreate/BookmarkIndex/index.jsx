@@ -1,6 +1,6 @@
 import { useForm } from '@inertiajs/react';
 
-export default function BookmarkIndex({ bookmarks }) {
+export function BookmarkIndex({ bookmarks }) {
   const { delete: destroy } = useForm({});
 
   const handleDelete = (id) => {

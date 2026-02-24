@@ -1,6 +1,6 @@
 import { router } from '@inertiajs/react';
 
-export default function ContentList({ contents }) {
+export function ContentList({ contents }) {
   return (
     <div className="flex flex-col items-center">
       <p className="mb-4 mt-10 text-center font-bold md:mt-0">最近の更新</p>

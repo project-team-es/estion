@@ -1,6 +1,6 @@
 import { icons } from '@/Utils/icons';
 import { Link, usePage } from '@inertiajs/react';
-export default function TabBarForSp() {
+export function TabBarForSp() {
   const { url } = usePage();
   const isActive = (path) => url.startsWith(path);
 

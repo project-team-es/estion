@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 
-export default function MobileMenu({ isMenuOpen, toggleMenu }) {
+export function MobileMenu({ isMenuOpen, toggleMenu }) {
   return (
     <div
       className={`fixed inset-y-0 right-0 z-50 w-3/5 max-w-sm transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} flex flex-col md:hidden`}

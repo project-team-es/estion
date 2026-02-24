@@ -1,8 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
-import MenuToggle from '@/Pages/Guest/components/NavBar/MenuToggle';
-import UserDropDown from './UserDropDown';
+import { MenuToggle } from '@/Pages/Guest/components/NavBar/MenuToggle';
+import { UserDropDown } from './UserDropDown';
 
-export default function NavbarForSp({ isMenuOpen, toggleMenu }) {
+export function NavbarForSp({ isMenuOpen, toggleMenu }) {
   const { bookmarks } = usePage().props;
   return (
     <nav className="fixed left-0 top-0 z-40 flex h-12 w-full items-center justify-between bg-white shadow-md">

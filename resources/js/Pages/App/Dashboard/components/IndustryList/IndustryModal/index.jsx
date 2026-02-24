@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import { copyToClipboard } from '@/Utils/copyToClipboard';
 
-export default function IndustryModal({
+export function IndustryModal({
   industry,
   companies,
   onMouseEnter,

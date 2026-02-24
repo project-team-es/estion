@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 
-export default function Logo() {
+export function Logo() {
   return (
     <Link
       href="/"
