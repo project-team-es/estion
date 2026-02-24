@@ -1,4 +1,3 @@
-
 export default function AuthInput({ id, label, type, value, onChange, error }) {
   return (
     <div className="mt-4">

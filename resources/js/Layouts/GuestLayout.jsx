@@ -1,4 +1,3 @@
-
 export function GuestLayout({ children }) {
   return (
     <div style={{ padding: '2rem', background: '#f5f5f5', minHeight: '100vh' }}>

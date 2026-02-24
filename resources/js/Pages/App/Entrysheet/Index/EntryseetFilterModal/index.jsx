@@ -1,4 +1,3 @@
-
 export default function EntrysheetFilterModal({ showFilter, setShowFilter, filters }) {
   return (
     showFilter && (

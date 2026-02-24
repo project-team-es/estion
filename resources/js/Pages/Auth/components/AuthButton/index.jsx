@@ -1,4 +1,3 @@
-
 export default function AuthButton({ text, disabled }) {
   return (
     <button

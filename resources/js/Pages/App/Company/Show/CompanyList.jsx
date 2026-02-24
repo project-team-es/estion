@@ -1,4 +1,3 @@
-
 export default function CompanyList({ companies }) {
   if (!companies || companies.length === 0) {
     return <p className="mt-4 text-gray-600">登録された企業がありません。</p>;
