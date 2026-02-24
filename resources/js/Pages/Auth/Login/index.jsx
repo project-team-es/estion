@@ -32,7 +32,7 @@ export default function Login() {
       <main className="flex min-h-screen flex-col items-center overflow-auto bg-gray-100 px-4 py-8 sm:justify-center">
         <Link
           href="/"
-          className="absolute left-8 top-6 z-10 text-4xl font-bold text-black transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-gray-400"
+          className="absolute left-8 top-6 z-10 text-4xl font-bold text-black transition-opacity hover:opacity-80"
           aria-label="トップページへ戻る"
         >
           estion.
