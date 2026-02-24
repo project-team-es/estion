@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function AuthInput({ id, label, type, value, onChange, error }) {
   return (

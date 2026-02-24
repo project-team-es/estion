@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from '@inertiajs/react';
 import { AddEsMiniIcon } from './Icons/AddEsMiniIcon';
 

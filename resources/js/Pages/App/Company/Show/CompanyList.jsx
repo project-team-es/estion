@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function CompanyList({ companies }) {
   if (!companies || companies.length === 0) {

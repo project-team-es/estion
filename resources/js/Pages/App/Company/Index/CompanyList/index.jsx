@@ -1,4 +1,3 @@
-import React from 'react';
 import CompanyListItem from './CompanyListItem';
 
 export default function CompanyList({

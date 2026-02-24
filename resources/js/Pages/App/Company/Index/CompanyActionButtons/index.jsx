@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from '@inertiajs/react';
 import { AddCompanyicon } from '@/Components/Icons/AddCompanyicon';
 export default function CompanyActionButtons() {

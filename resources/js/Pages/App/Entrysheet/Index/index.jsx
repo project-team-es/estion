@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppLayout } from '@/Layouts/AppLayout';
 import { usePage } from '@inertiajs/react';
 import EntrysheetList from './EntrysheetList';

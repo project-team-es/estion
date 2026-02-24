@@ -1,4 +1,3 @@
-import React from 'react';
 import NavBar from '@/Pages/Guest/components/NavBar';
 import { CardSection } from '@/Pages/Guest/components/CardSection';
 import { Head } from '@inertiajs/react';
