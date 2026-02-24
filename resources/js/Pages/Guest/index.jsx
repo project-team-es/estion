@@ -2,7 +2,7 @@ import { NavBar } from '@/Pages/Guest/components/NavBar';
 import { CardSection } from '@/Pages/Guest/components/CardSection';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
-import { FooterForGueset } from '@/Components/FooterForGuset';
+import { FooterForGuest } from '@/Components/FooterForGuest';
 
 export default function Guest() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,7 +49,7 @@ export default function Guest() {
 
       <CardSection />
 
-      <FooterForGueset />
+      <FooterForGuest />
     </>
   );
 }
