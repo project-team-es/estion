@@ -68,7 +68,7 @@ export function BookmarkIndex({ bookmarks: initialBookmarks }) {
 
   const sensors = useSensors(
     useSensor(PointerSensor),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
   const handleDelete = (id) => {
@@ -96,11 +96,7 @@ export function BookmarkIndex({ bookmarks: initialBookmarks }) {
     <div className="mt-8 overflow-hidden rounded-[12px] border bg-white p-8">
       <h2 className="mb-6 text-2xl font-bold">登録されたURL一覧</h2>
       {bookmarks && bookmarks.length > 0 ? (
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-        >
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext
             items={bookmarks.map((b) => b.id)}
             strategy={verticalListSortingStrategy}
