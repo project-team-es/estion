@@ -24,7 +24,7 @@ class BookmarkController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        return Inertia::render('App/components/BookmarkCreate/index', [
+        return Inertia::render('Bookmark/Create', [
             'bookmarks' => Auth::check() ? Auth::user()->bookmark()->latest()->get() : [],
         ]);
     }
@@ -56,7 +56,13 @@ class BookmarkController extends Controller implements HasMiddleware
      */
     public function edit(Bookmark $bookmark)
     {
-        //
+        if ($bookmark->user_id !== Auth::id()) {
+            abort(403, 'このURLを編集する権限がありません。');
+        }
+
+        return Inertia::render('Bookmark/Edit/index', [
+            'bookmark' => $bookmark,
+        ]);
     }
 
     /**
@@ -64,7 +70,16 @@ class BookmarkController extends Controller implements HasMiddleware
      */
     public function update(UpdateBookmarkRequest $request, Bookmark $bookmark)
     {
-        //
+        if ($bookmark->user_id !== Auth::id()) {
+            abort(403, 'このURLを編集する権限がありません。');
+        }
+
+        $bookmark->update([
+            'name' => $request->name,
+            'url'  => $request->url,
+        ]);
+
+        return redirect()->route('bookmark.create')->with('success', 'お気に入りURLを更新しました');
     }
 
     /**
