@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         // ログインユーザーに紐づくエントリーシートとブックマークを取得
-        $bookmarks = $user->bookmark()->get();
+        $bookmarks = $user->bookmark()->orderBy('order')->get();
         // ログインユーザーに紐づく業界のみ取得
         $industries = $user->industries()->get();
         // 締切間近ES取得

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookmarkRequest;
 use App\Http\Requests\UpdateBookmarkRequest;
 use App\Models\Bookmark;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -25,7 +26,7 @@ class BookmarkController extends Controller implements HasMiddleware
     public function create()
     {
         return Inertia::render('Bookmark/Create', [
-            'bookmarks' => Auth::check() ? Auth::user()->bookmark()->latest()->get() : [],
+            'bookmarks' => Auth::check() ? Auth::user()->bookmark()->orderBy('order')->get() : [],
         ]);
     }
 
@@ -94,6 +95,18 @@ class BookmarkController extends Controller implements HasMiddleware
         $bookmark->delete();
 
         return redirect()->route('bookmark.create')->with('success', 'お気に入りURLを削除しました！');
+    }
+
+    public function reorder(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        foreach ($ids as $index => $id) {
+            Bookmark::where('id', $id)
+                ->where('user_id', Auth::id())
+                ->update(['order' => $index]);
+        }
+
+        return response()->noContent();
     }
 
     public static function middleware(): array
