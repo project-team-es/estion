@@ -61,7 +61,7 @@ export default function Create({ bookmarks }) {
                 name="name"
                 value={data.name}
                 onChange={handleChange}
-                className="w-full rounded-[12px] border border-gray-300 p-3 focus:border-blue-500 focus:ring-blue-500"
+                className="w-full rounded-[12px] border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                 required
               />
             </div>
@@ -76,7 +76,7 @@ export default function Create({ bookmarks }) {
                 name="url"
                 value={data.url}
                 onChange={handleChange}
-                className="w-full rounded-[12px] border border-gray-300 p-3 focus:border-blue-500 focus:ring-blue-500"
+                className="w-full rounded-[12px] border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                 required
               />
             </div>
