@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { router, useForm } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
@@ -66,6 +66,10 @@ export function BookmarkIndex({ bookmarks: initialBookmarks }) {
   const [bookmarks, setBookmarks] = useState(initialBookmarks);
   const { delete: destroy } = useForm({});
 
+  useEffect(() => {
+    setBookmarks(initialBookmarks);
+  }, [initialBookmarks]);
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -89,7 +93,9 @@ export function BookmarkIndex({ bookmarks: initialBookmarks }) {
     const newIndex = bookmarks.findIndex((b) => b.id === over.id);
     const newOrder = arrayMove(bookmarks, oldIndex, newIndex);
     setBookmarks(newOrder);
-    axios.patch(route('bookmark.reorder'), { ids: newOrder.map((b) => b.id) });
+    axios.patch(route('bookmark.reorder'), { ids: newOrder.map((b) => b.id) }).then(() => {
+      router.reload({ only: ['bookmarks'], preserveScroll: true, preserveState: true });
+    });
   };
 
   return (
