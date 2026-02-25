@@ -93,11 +93,9 @@ export function BookmarkIndex({ bookmarks: initialBookmarks }) {
     const newIndex = bookmarks.findIndex((b) => b.id === over.id);
     const newOrder = arrayMove(bookmarks, oldIndex, newIndex);
     setBookmarks(newOrder);
-    axios
-      .patch(route('bookmark.reorder'), { ids: newOrder.map((b) => b.id) })
-      .then(() => {
-        router.reload({ only: ['bookmarks'], preserveScroll: true, preserveState: true });
-      });
+    axios.patch(route('bookmark.reorder'), { ids: newOrder.map((b) => b.id) }).then(() => {
+      router.reload({ only: ['bookmarks'], preserveScroll: true, preserveState: true });
+    });
   };
 
   return (
