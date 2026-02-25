@@ -1,23 +1,27 @@
 import React from 'react';
 
 export function Bookmark({ bookmarks }) {
+  if (!bookmarks || bookmarks.length === 0) return null;
+
   return (
-    <div className="flex space-x-6 text-sm font-medium text-gray-600">
-      {bookmarks && bookmarks.length > 0 && <span className="font-medium text-gray-600">|</span>}
-      {bookmarks &&
-        bookmarks.length > 0 &&
-        bookmarks.slice(0, 3).map((bookmark) => (
-          <React.Fragment key={bookmark.id}>
-            <a
-              href={bookmark.url}
-              className="hover:text-gray-900"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {bookmark.name}
-            </a>
-          </React.Fragment>
+    <div className="flex items-center gap-6 text-sm font-medium text-gray-600">
+      <span>|</span>
+      <div
+        className="flex max-w-[360px] gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden"
+        style={{ scrollbarWidth: 'none' }}
+      >
+        {bookmarks.map((bookmark) => (
+          <a
+            key={bookmark.id}
+            href={bookmark.url}
+            className="shrink-0 hover:text-gray-900"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {bookmark.name}
+          </a>
         ))}
+      </div>
     </div>
   );
 }
