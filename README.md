@@ -26,6 +26,11 @@ npm run lint:fix
 npm run format
 ```
 
+## マイグレーション
+```bash
+./vendor/bin/sail artisan migrate
+```
+
 ## デプロイ
 ```bash
 git push heroku main
