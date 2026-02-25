@@ -35,10 +35,13 @@ class BookmarkController extends Controller implements HasMiddleware
      */
     public function store(StoreBookmarkRequest $request)
     {
+        $maxOrder = Bookmark::where('user_id', Auth::id())->max('order') ?? -1;
+
         Bookmark::create([
             'name' => $request->name,
             'url' => $request->url,
             'user_id' => Auth::id(),
+            'order' => $maxOrder + 1,
         ]);
 
         return redirect()->route('bookmark.create')->with('success', 'お気に入りURLを追加しました');
