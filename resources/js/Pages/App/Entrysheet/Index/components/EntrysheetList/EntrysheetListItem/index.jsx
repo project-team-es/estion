@@ -2,7 +2,7 @@ import { router } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
 import { formatDate } from '@/Utils/formatDate';
 
-export default function EntrysheetListItem({ entrysheet, onDelete }) {
+export function EntrysheetListItem({ entrysheet, onDelete }) {
   return (
     <div
       key={entrysheet.id}

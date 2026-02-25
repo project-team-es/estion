@@ -1,7 +1,7 @@
 import { AppLayout } from '@/Layouts/AppLayout';
 import { usePage } from '@inertiajs/react';
-import EntrysheetList from './EntrysheetList';
-import EntrysheetActionButtons from './EntrysheetActionbuttons';
+import { EntrysheetList } from './components/EntrysheetList';
+import { EntrysheetActionButtons } from './components/EntrysheetActionButtons';
 import { Head, router } from '@inertiajs/react';
 
 export default function Entrysheet() {

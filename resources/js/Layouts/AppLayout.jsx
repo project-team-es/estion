@@ -1,9 +1,9 @@
-import { NavBar } from '@/Pages/App/components/NavBar';
+import { NavBar } from './NavBar';
 import { Head } from '@inertiajs/react';
-import { NavbarForSp } from '@/Pages/App/components/NavBarForSp';
-import { TabBarForSp } from '@/Pages/App/components/TabBarForSp';
+import { NavbarForSp } from './NavBarForSp';
+import { TabBarForSp } from './TabBarForSp';
 import { useState } from 'react';
-import { MobileMenu } from '@/Pages/App/components/NavBarForSp/MobileMenu';
+import { MobileMenu } from './NavBarForSp/MobileMenu';
 import { Footer } from '@/Components/Footer';
 
 export function AppLayout({ children, title }) {

@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { icons } from '@/Utils/icons';
 
-export default function EntrysheetActionButtons() {
+export function EntrysheetActionButtons() {
   return (
     <div className="mb-4 flex items-center justify-between">
       <Link
