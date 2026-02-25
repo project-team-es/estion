@@ -33,7 +33,7 @@ export function BookmarkIndex({ bookmarks }) {
                   {bookmark.name}
                 </a>
               </div>
-              <div className="flex shrink-0 items-center gap-3 ml-4">
+              <div className="ml-4 flex shrink-0 items-center gap-3">
                 <button
                   type="button"
                   onClick={() => router.visit(route('bookmark.edit', bookmark.id))}

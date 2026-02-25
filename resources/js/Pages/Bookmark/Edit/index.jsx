@@ -77,10 +77,7 @@ export default function Edit({ bookmark }) {
             </div>
 
             <div className="flex items-center justify-end gap-4">
-              <Link
-                href={route('bookmark.create')}
-                className="text-gray-500 hover:text-gray-700"
-              >
+              <Link href={route('bookmark.create')} className="text-gray-500 hover:text-gray-700">
                 戻る
               </Link>
               <button

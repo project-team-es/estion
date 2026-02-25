@@ -76,7 +76,7 @@ class BookmarkController extends Controller implements HasMiddleware
 
         $bookmark->update([
             'name' => $request->name,
-            'url'  => $request->url,
+            'url' => $request->url,
         ]);
 
         return redirect()->route('bookmark.create')->with('success', 'お気に入りURLを更新しました');
