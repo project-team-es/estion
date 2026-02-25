@@ -12,7 +12,7 @@ class Bookmark extends Model
     /** @use HasFactory<\Database\Factories\BookmarkFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'url', 'user_id'];
+    protected $fillable = ['name', 'url', 'user_id', 'order'];
 
     public function user(): BelongsTo
     {
