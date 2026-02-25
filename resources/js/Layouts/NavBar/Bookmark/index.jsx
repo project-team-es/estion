@@ -7,7 +7,7 @@ export function Bookmark({ bookmarks }) {
     <div className="flex items-center gap-6 text-sm font-medium text-gray-600">
       <span>|</span>
       <div
-        className="flex max-w-[360px] gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden"
+        className="flex max-w-[250px] items-center gap-6 overflow-x-auto py-2 [&::-webkit-scrollbar]:hidden"
         style={{ scrollbarWidth: 'none' }}
       >
         {bookmarks.map((bookmark) => (
