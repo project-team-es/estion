@@ -22,6 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Bookmark
     Route::get('/bookmark/create', [BookmarkController::class, 'create'])->name('bookmark.create');
     Route::post('/bookmark', [BookmarkController::class, 'store'])->name('bookmark.store');
+    Route::get('/bookmark/{bookmark}/edit', [BookmarkController::class, 'edit'])->name('bookmark.edit');
+    Route::put('/bookmark/{bookmark}', [BookmarkController::class, 'update'])->name('bookmark.update');
     Route::delete('/bookmark/{bookmark}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
 
     // Analysis

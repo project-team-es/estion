@@ -1,4 +1,5 @@
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
+import { icons } from '@/Utils/icons';
 
 export function BookmarkIndex({ bookmarks }) {
   const { delete: destroy } = useForm({});
@@ -32,13 +33,20 @@ export function BookmarkIndex({ bookmarks }) {
                   {bookmark.name}
                 </a>
               </div>
-              <button
-                type="button"
-                onClick={() => handleDelete(bookmark.id)}
-                className="ml-4 rounded-md text-red-600 hover:text-red-800 focus:outline-none"
-              >
-                削除
-              </button>
+              <div className="ml-4 flex shrink-0 items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => router.visit(route('bookmark.edit', bookmark.id))}
+                  className="text-blue-600 hover:text-blue-800 focus:outline-none"
+                  dangerouslySetInnerHTML={{ __html: icons.edit_mini }}
+                />
+                <button
+                  type="button"
+                  onClick={() => handleDelete(bookmark.id)}
+                  className="text-red-600 hover:text-red-800 focus:outline-none"
+                  dangerouslySetInnerHTML={{ __html: icons.trash_mini }}
+                />
+              </div>
             </li>
           ))}
         </ul>
