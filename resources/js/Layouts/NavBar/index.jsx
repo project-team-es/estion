@@ -6,7 +6,7 @@ import { Bookmark } from './Bookmark';
 export function NavBar() {
   const { bookmarks } = usePage().props;
   return (
-    <nav className="fixed left-1/2 top-4 z-50 mx-auto w-full max-w-[95%] -translate-x-1/2 transform rounded-[12px] bg-white px-6 py-3 shadow">
+    <nav className="fixed left-1/2 top-4 z-50 mx-auto w-full max-w-[95%] -translate-x-1/2 transform rounded-[12px] bg-white px-6 py-1 shadow">
       <div className="flex items-center justify-between">
         <Link href="/dashboard" className="text-xl font-bold text-black">
           estion.
