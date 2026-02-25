@@ -1,6 +1,6 @@
-import CompanyListItem from './CompanyListItem';
+import { CompanyListItem } from './CompanyListItem';
 
-export default function CompanyList({
+export function CompanyList({
   companies,
   onCompanyClick,
   onCompanyRightClick,

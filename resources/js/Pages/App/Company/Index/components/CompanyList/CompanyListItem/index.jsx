@@ -1,11 +1,6 @@
 import { icons } from '@/Utils/icons';
 
-export default function CompanyListItem({
-  company,
-  onCompanyClick,
-  onCompanyRightClick,
-  onDelete,
-}) {
+export function CompanyListItem({ company, onCompanyClick, onCompanyRightClick, onDelete }) {
   return (
     <div
       key={company.id}
@@ -20,7 +15,7 @@ export default function CompanyListItem({
             e.stopPropagation();
             onDelete(company.id);
           }}
-          className="flex h-7 w-7 items-center justify-center rounded-full p-0 text-gray-500 opacity-0 transition-opacity duration-300 hover:text-red-500 group-hover:opacity-100" // opacity 制御を追加
+          className="flex h-7 w-7 items-center justify-center rounded-full p-0 text-gray-500 opacity-0 transition-opacity duration-300 hover:text-red-500 group-hover:opacity-100"
           dangerouslySetInnerHTML={{ __html: icons.trash_mini }}
         />
       </div>
