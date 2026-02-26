@@ -1,4 +1,24 @@
 プルリクエストの作成
+
+## ブランチ作成（mainブランチにいる場合）
+
+現在 `main` ブランチにいる場合は、作業用ブランチを作成してからコミット・PRを行うこと。
+ブランチ名は以下の形式で作成すること：
+
+```
+{type}/{JIRA-KEY}-{kebab-case-description}
+```
+
+- `{type}`: 変更種別（`feat` / `fix` / `refactor` / `chore` など）
+- `{JIRA-KEY}`: JiraのタスクキーをAskUserQuestionツールで必ずユーザーに確認すること（例: `KAN-7`）
+- `{kebab-case-description}`: 変更内容を表す短い英語の説明（ケバブケース）
+
+例: `feat/KAN-7-industry-modal`, `fix/KAN-12-login-error`
+
+ユーザーへの確認方法：AskUserQuestionツールを使い「JiraのタスクキーはなんですかText入力で答えてください」と聞くこと。
+
+---
+
 現在のブランチの変更内容（`git log` や `git diff`）を確認し、適切なPull RequestのタイトルとDescription（説明文）を自動生成してください。
 その後、GitHub CLI (`gh pr create`) を使用して実際にPRを作成してください。
 
