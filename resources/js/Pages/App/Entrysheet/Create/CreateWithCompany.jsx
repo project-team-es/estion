@@ -1,5 +1,5 @@
 import { AppLayout } from '@/Layouts/AppLayout';
-import { CreateForm } from './CreateForm';
+import CreateForm from './CreateForm';
 
 export default function CreateWithCompany({ industries, company, presetTitles }) {
   return (
