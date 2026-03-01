@@ -1,3 +1,5 @@
+import { Link } from '@inertiajs/react';
+
 export function NavLinks() {
   return (
     <div className="hidden font-bold sm:flex sm:space-x-7 sm:pr-5 sm:text-[16px] md:space-x-12 md:text-[20px]">
@@ -9,12 +11,12 @@ export function NavLinks() {
       >
         お問い合わせ
       </a>
-      <a href="/login" className="text-black transition hover:text-gray-300">
+      <Link href="/login" className="text-black transition hover:text-gray-300">
         ログイン
-      </a>
-      <a href="/register" className="text-black transition hover:text-gray-300">
+      </Link>
+      <Link href="/register" className="text-black transition hover:text-gray-300">
         新規登録
-      </a>
+      </Link>
     </div>
   );
 }
