@@ -64,8 +64,80 @@ export function CardSection() {
           <div className="mb-5 text-3xl font-bold">
             <p>使い方</p>
           </div>
-          <div>
-            <p>ここに実際に軽く動くものを配置する予定</p>
+
+          <div className="space-y-12">
+            <div className="flex flex-col items-center gap-8 md:flex-row">
+              <div className="flex-1">
+                <h3 className="mb-3 text-xl font-bold text-blue-600">
+                  1. Dashboard：ESや締切を一元管理
+                </h3>
+                <p className="leading-relaxed text-gray-600">
+                  ログイン後、最初に表示されるダッシュボードでは、直近のESの内容や提出締切を一覧で確認できます。
+                </p>
+              </div>
+              <div className="w-full flex-1 overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+                <img
+                  src="/image/guset/demo1.png"
+                  alt="Dashboard：直近のES提出締切やステータスを一覧表示する画面"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-8 md:flex-row-reverse">
+              <div className="flex-1">
+                <h3 className="mb-3 text-xl font-bold text-blue-600">
+                  2. Company：志望企業をスマートに管理
+                </h3>
+                <p className="leading-relaxed text-gray-600">
+                  気になる企業をリストに追加。各社のマイページURLや、忘れがちなログインID・パスワードもセットで保存可能です。ブックマーク機能を使えば、志望度の高い企業へ瞬時にアクセスできます。
+                </p>
+              </div>
+              <div className="w-full flex-1 overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+                <img
+                  src="/image/guset/demo2.png"
+                  alt="Dashboard：直近のES提出締切やステータスを一覧表示する画面"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Entry Sheet */}
+            <div className="flex flex-col items-center gap-8 md:flex-row">
+              <div className="flex-1">
+                <h3 className="mb-3 text-xl font-bold text-blue-600">
+                  3. Entry Sheet：エピソードの資産化
+                </h3>
+                <p className="leading-relaxed text-gray-600">
+                  企業ごとに提出したESの内容を保存します。設問ごとに管理できるため、他社の選考で過去の回答を再利用する際も、検索機能で必要なエピソードをすぐに見つけ出せます。
+                </p>
+              </div>
+              <div className="w-full flex-1 overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+                <img
+                  src="/image/guset/demo3.png"
+                  alt="Dashboard：直近のES提出締切やステータスを一覧表示する画面"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Interview */}
+            <div className="flex flex-col items-center gap-8 md:flex-row-reverse">
+              <div className="flex-1">
+                <h3 className="mb-3 text-xl font-bold text-blue-600">
+                  4. Interview：AIによる実践的な面接対策
+                </h3>
+                <p className="leading-relaxed text-gray-600">
+                  登録したESのデータをAIが読み取り、あなた専用の模擬面接を実施します。「ガクチカを深掘りしてほしい」「圧迫面接風に」といったリクエストにも対応し、本番さながらの演習が可能です。
+                </p>
+              </div>
+              <div className="w-full flex-1 overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+                <img
+                  src="/image/guset/demo4.png"
+                  alt="Dashboard：直近のES提出締切やステータスを一覧表示する画面"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
