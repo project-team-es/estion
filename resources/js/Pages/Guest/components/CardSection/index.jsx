@@ -100,8 +100,6 @@ export function CardSection() {
                 />
               </div>
             </div>
-
-            {/* Entry Sheet */}
             <div className="flex flex-col items-center gap-8 md:flex-row">
               <div className="flex-1">
                 <h3 className="mb-3 text-xl font-bold text-blue-600">
@@ -119,8 +117,6 @@ export function CardSection() {
                 />
               </div>
             </div>
-
-            {/* Interview */}
             <div className="flex flex-col items-center gap-8 md:flex-row-reverse">
               <div className="flex-1">
                 <h3 className="mb-3 text-xl font-bold text-blue-600">
