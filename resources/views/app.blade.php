@@ -14,6 +14,8 @@
 
         <!--  タブバーのアイコンを設定 -->
         <link rel="icon" type="image/svg+xml" href="{{ asset('image/estion_logo.svg') }}">
+        <!-- iPhoneホーム画面追加時のアイコン -->
+        <link rel="apple-touch-icon" href="{{ asset('image/apple-touch-icon.png') }}">
     </head>
     <body class="font-sans antialiased">
         @inertia
