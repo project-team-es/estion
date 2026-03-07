@@ -9,7 +9,6 @@ export default function Guest() {
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
-
   return (
     <>
       <Head>
